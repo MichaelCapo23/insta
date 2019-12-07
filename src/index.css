@@ -1,0 +1,302 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+.nav > li > a {
+    position: relative !important;
+    display: block !important;
+    padding: 10px 15px !important;
+}
+
+.sideNavLinks a {
+    font-weight: lighter;
+    font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.sideNav {
+    position: absolute;
+    display: inline-block;
+    height: 100vh;
+    background-color: #2b323a;
+    color: rgba(255, 255, 255, 0.5) !important;
+    -webkit-transition: width 0.4s ease-in-out;
+    -moz-transition: width 0.4s ease-in-out;
+    -o-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    width: 64px;
+    min-height: 744px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+
+.sideNav > .sideNavLinks > ul > ul > li:nth-child(1) {
+    margin-top: 20px;
+}
+
+.sideNav > .sideNavLinks > ul > ul > li {
+    list-style-type: none;
+    margin-bottom: 10px;
+    height: 37px;
+    position: relative;
+    right: 15px;
+    top: 64px;
+}
+
+.sideNav > .sideNavLinks > ul > ul > li > a > i {
+    vertical-align: text-bottom;
+    padding-right: 10px;
+}
+
+.sideNav > .sideNavLinks > ul > ul > li > a {
+    font-size: 0;
+}
+
+.sideNav:hover > .sideNavLinks > ul > ul > li > a {
+    transition: font-size 0.5s ease-in-out;
+    font-size: 16px !important;
+    padding-right: 5px;
+}
+
+.sideNav:hover {
+    -webkit-transition: width 0.4s ease-in-out;
+    -moz-transition: width 0.4s ease-in-out;
+    -o-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    width:170px;
+}
+
+.content {
+    position: relative;
+    top: 64px;
+    -webkit-transition: padding 0.4s ease-in-out;
+    -moz-transition: padding 0.4s ease-in-out;
+    -o-transition: padding 0.4s ease-in-out;
+    transition: padding 0.4s ease-in-out;
+    padding: 30px 30px 30px 94px;
+    height: calc(100vh - 64px);
+}
+
+/*.content-signin {*/
+    /*position: relative;*/
+    /*top: 64px;*/
+    /*-webkit-transition: padding 0.4s ease-in-out;*/
+    /*-moz-transition: padding 0.4s ease-in-out;*/
+    /*-o-transition: padding 0.4s ease-in-out;*/
+    /*transition: padding 0.4s ease-in-out;*/
+    /*padding: 30px 30px 30px 94px;*/
+    /*height: calc(100vh - 64px);*/
+/*}*/
+
+.sideNav:hover ~ .content {
+    -webkit-transition: padding 0.4s ease-in-out;
+    -moz-transition: padding 0.4s ease-in-out;
+    -o-transition: padding 0.4s ease-in-out;
+    transition: padding 0.4s ease-in-out;
+    padding: 30px 30px 30px 192px;
+}
+
+.card-styles {
+    height: calc(100vh - 124px);
+    margin-bottom: 0 !important;
+}
+
+.card-rounded {
+    border-radius: 20px !important;
+}
+
+.content-container {
+    height: 100%;
+    padding: 40px 50px 50px 50px;
+}
+
+.card-styles-login {
+    height: calc(100vh - 270px);
+    width: 40%;
+    margin: auto;
+    margin-bottom: 0 !important;
+    min-height: 650px;
+    min-width: 515px;
+}
+
+.card-styles-signin {
+    height: calc(100vh - 270px);
+    width: 40%;
+    margin: auto;
+    margin-bottom: 0 !important;
+    min-height: 650px;
+    min-width: 515px;
+}
+
+.input-styles {
+    width: 100%;
+}
+
+.margin-auto {
+    margin: auto !important;
+}
+
+.form-group {
+    padding: 0 !important;
+    margin-top: 40px !important;
+}
+
+.form-control:focus {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+input ~ label {
+    top: -9px !important;
+}
+
+input:focus ~ label {
+    -webkit-transition: top 0.2s ease-in-out !important;
+    -moz-transition: top 0.2s ease-in-out !important;
+    -o-transition: top 0.2s ease-in-out !important;
+    transition: top 0.2s ease-in-out !important;
+    top: -15px !important;
+}
+
+label::after {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.form-control {
+    font-size: 18px;
+}
+
+.form-group .form-control:focus {
+    border-color: #ced4da !important;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.form-padding {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+.form-padding-signup {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+input:not(:placeholder-shown) ~ label {
+    top: -15px !important;
+}
+
+.forgot-pass {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.sign-up-now, .has-account {
+    color: #17a2b8;
+    cursor: pointer;
+}
+
+.no-padding {padding: 0 !important;}
+
+.btn-container {
+    margin-bottom: 30px !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .content {
+        top: 0 !important;
+    }
+
+    .sideNav {
+        height: calc(100vh - 64px);
+    }
+
+    .sideNav > .sideNavLinks > ul > ul > li {
+        top: 0;
+    }
+}
+
+.help-block {
+    color: red !important;
+}
+
+.help-block-errMessage {
+    color: red !important;
+    text-align: center;
+}
+
+.dropdown-right {
+    position: absolute;
+    right: 75px;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 0 15px;
+    height: 100%;
+    /*border-right: solid black 1px;*/
+    /*border-left: solid black 1px;*/
+}
+
+.dropdown-right:hover {
+    text-decoration: none;
+    background-color: rgba(12, 12, 12, 0.07);
+}
+
+.divider {
+    height: 1px;
+    margin: 11px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+
+.li-dropwdown-padding {
+    padding: 10px 15px;
+}
+
+.power-font-size {
+    font-size: 19px !important;
+    color: red !important;
+}
+
+.small-logout {
+    position: relative;
+    top: -4px;
+    left: 3px;
+    font-size: 12px !important;
+}
+
+.dropdown-toggle::after {
+    position: relative;
+    top: 21px;
+}
+
+.dropdown-name {
+    position: relative;
+    top: 21px;
+}
+
+.dropdown-menu {
+    padding-bottom: 0 !important;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+
+.dropdown:empty {
+    display: none !important;
+}
+
+/*.headerbar.show .dropdown-menu {*/
+    /*-webkit-transition: top 0.2s ease-in-out !important;*/
+    /*-moz-transition: top 0.2s ease-in-out !important;*/
+    /*-o-transition: top 0.2s ease-in-out !important;*/
+    /*transition: top 0.2s ease-in-out !important;*/
+    /*top: 0;*/
+/*}*/
