@@ -81,46 +81,70 @@ class Signup extends Component {
         return (
             <Fragment>
                 <div className={"content"}>
-                    <div className="card card-styles-login card-rounded">
-                        <div className={"content-container"}>
-                            <div className={"help-block-errMessage"}>{this.state.errMessage}</div>
-                            <h1 className={"center"}>Sign Up</h1>
-                            <form className={"form-padding-signup"}>
-                                <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>
-                                    <input onChange={e => this.addInputToState(e)} placeholder={"Enter Full Name"} id="name" type="text" className={"form-control signup-val"}/>
-                                    <label htmlFor="name">Full Name</label>
-                                    <span className="help-block">{this.state.nameError}</span>
-                                </div>
+                    <div className="signup-content">
+                        <div className="content-gutter">
+                            <div className="card-container">
+                                <div className={'insta-pic'}/>
 
-                                <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>
-                                    <input onChange={e => this.addInputToState(e)} placeholder={"Enter Email"} id="email" type="text" className={"form-control signup-val"}/>
-                                    <label htmlFor="name">Email</label>
-                                    <span className="help-block">{this.state.emailError}</span>
-                                </div>
-
-                                <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>
-                                    <input onChange={e => this.addInputToState(e)} placeholder={"Enter Username"} id="username" type="text" className={"form-control signup-val"}/>
-                                    <label htmlFor="name">Username</label>
-                                    <span className="help-block">{this.state.usernameError}</span>
-                                </div>
-
-                                <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>
-                                    <input onChange={e => this.addInputToState(e)} placeholder={"Enter Password"} id="password" type="password" className={"form-control signup-val"}/>
-                                    <label htmlFor="name">Password</label>
-                                    <span className="help-block">{this.state.passwordError}</span>
-                                </div>
-
-                                <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>
-                                    <input onChange={e => this.addInputToState(e)} placeholder={"Confirm Password"} id="passwordConfirm" type="password" className={"form-control"}/>
-                                    <label htmlFor="name">Password Confirm</label>
-                                </div>
-                            </form>
-                            <div className="col-sm-12 col-md-12 col-lg-10 btn-container margin-auto center">
-                                <button type={"button"} onClick={this.addAccount} className={"btn btn-info signup-btn"}>Create Account</button>
                             </div>
-                            <div className="center">have an account? <span className={"has-account"}>Sign In</span></div>
                         </div>
                     </div>
+                    {/*<div className="card card-styles-login card-rounded">*/}
+                        {/*<div className={"content-container"}>*/}
+                            {/*<div className={"help-block-errMessage"}>{this.state.errMessage}</div>*/}
+                            {/*<h1 className={"center"}>Sign Up</h1>*/}
+                            {/*<form className={"form-padding-signup"}>*/}
+                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
+                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Email"} id="email" type="text" className={"form-control signup-val"}/>*/}
+                                    {/*<label htmlFor="name">Email</label>*/}
+                                    {/*<span className="help-block">{this.state.emailError}</span>*/}
+                                {/*</div>*/}
+                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
+                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Full Name"} id="name" type="text" className={"form-control signup-val"}/>*/}
+                                    {/*<label htmlFor="name">Full Name</label>*/}
+                                    {/*<span className="help-block">{this.state.nameError}</span>*/}
+                                {/*</div>*/}
+                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
+                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Username"} id="username" type="text" className={"form-control signup-val"}/>*/}
+                                    {/*<label htmlFor="name">Username</label>*/}
+                                    {/*<span className="help-block">{this.state.usernameError}</span>*/}
+                                {/*</div>*/}
+
+                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
+                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Password"} id="password" type="password" className={"form-control signup-val"}/>*/}
+                                    {/*<label htmlFor="name">Password</label>*/}
+                                    {/*<span className="help-block">{this.state.passwordError}</span>*/}
+                                {/*</div>*/}
+
+                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
+                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Confirm Password"} id="passwordConfirm" type="password" className={"form-control"}/>*/}
+                                    {/*<label htmlFor="name">Password Confirm</label>*/}
+                                {/*</div>*/}
+                            {/*</form>*/}
+                            {/*<div className="col-sm-12 col-md-12 col-lg-10 btn-container margin-auto center">*/}
+                                {/*<button type={"button"} onClick={this.addAccount} className={"btn btn-info signup-btn"}>Create Account</button>*/}
+                            {/*</div>*/}
+                            {/*<div className="center">have an account? <span className={"has-account"}>Sign In</span></div>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                    <footer className={"signup-footer-container"}>
+                        <div className="signup-link-container">
+                            <ul className={'signup-link-ul'}>
+                                <li className={"signup-link"}>ABOUT US</li>
+                                <li className={"signup-link"}>SUPPORT</li>
+                                <li className={"signup-link"}>PRESS</li>
+                                <li className={"signup-link"}>API</li>
+                                <li className={"signup-link"}>JOBS</li>
+                                <li className={"signup-link"}>PRIVACY</li>
+                                <li className={"signup-link"}>TERMS</li>
+                                <li className={"signup-link"}>DIRECTOR</li>
+                                <li className={"signup-link"}>PROFILES</li>
+                                <li className={"signup-link"}>HASHTAGS</li>
+                                <li className={"signup-link"}>LANGUAGE</li>
+                            </ul>
+                            <span className={'signup-copyright'}>© 2019 INSTAGRAM FROM MICHAEL</span>
+                        </div>
+                    </footer>
                 </div>
             </Fragment>
         )
@@ -129,7 +153,7 @@ class Signup extends Component {
 
 function mapStateToProps(state) {
     return {
-        token: state.SignUpReducer.token
+        // token: state.SignUpReducer.token
     }
 }
 
