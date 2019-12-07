@@ -1,12 +1,7 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Raleway', sans-serif;
-    background-color: #fafafa !important;
-}
-
-#root, .App {
-    height: 100vh !important;
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
 }
 
 .nav > li > a {
@@ -74,8 +69,14 @@ body {
 }
 
 .content {
-    background-color: #fafafa !important;
-    height: 100% !important;
+    position: relative;
+    top: 64px;
+    -webkit-transition: padding 0.4s ease-in-out;
+    -moz-transition: padding 0.4s ease-in-out;
+    -o-transition: padding 0.4s ease-in-out;
+    transition: padding 0.4s ease-in-out;
+    padding: 30px 30px 30px 94px;
+    height: calc(100vh - 64px);
 }
 
 /*.content-signin {*/
@@ -208,6 +209,20 @@ input:not(:placeholder-shown) ~ label {
     margin-bottom: 30px !important;
 }
 
+@media only screen and (max-width: 768px) {
+    .content {
+        top: 0 !important;
+    }
+
+    .sideNav {
+        height: calc(100vh - 64px);
+    }
+
+    .sideNav > .sideNavLinks > ul > ul > li {
+        top: 0;
+    }
+}
+
 .help-block {
     color: red !important;
 }
@@ -217,180 +232,71 @@ input:not(:placeholder-shown) ~ label {
     text-align: center;
 }
 
-.signup-footer-container {
+.dropdown-right {
     position: absolute;
-    top: calc(100vh - 110px);
-    left: 0;
-    background-color: transparent;
-    height: 110px;
-    width: 100%;
-}
-
-.signup-link-container {
+    right: 75px;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 0 15px;
     height: 100%;
-    max-width: 1012px;
-    margin: auto;
+    /*border-right: solid black 1px;*/
+    /*border-left: solid black 1px;*/
 }
 
-
-.signup-link-container {
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    padding: 38px 0;
+.dropdown-right:hover {
+    text-decoration: none;
+    background-color: rgba(12, 12, 12, 0.07);
 }
 
-.signup-link-ul {
-    padding: 0 !important;
-    width: 65%;
-    margin-right: 0;
-    display: inline-block;
+.divider {
+    height: 1px;
+    margin: 11px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
 }
 
-.signup-link {
-    list-style-type: none !important;
-    display: inline-block;
-    margin-right: 13px;
-    font-size: 11px;
+.li-dropwdown-padding {
+    padding: 10px 15px;
 }
 
-.signup-copyright {
-    display: inline-block;
-    font-size: 11px;
-    text-align: right;
-    width: 35%;
+.power-font-size {
+    font-size: 19px !important;
+    color: red !important;
 }
 
-@media only screen and (max-width: 1008px) {
-    .signup-link-ul {
-        max-width: 360px;
-        margin: auto;
-        width: 100%;
-        display: block;
-    }
-
-    .signup-copyright {
-        display: block;
-        margin: auto;
-        width: 100%;
-        text-align: center;
-    }
+.small-logout {
+    position: relative;
+    top: -4px;
+    left: 3px;
+    font-size: 12px !important;
 }
 
-.signup-content {
-    height: calc(100% - 110px);
+.dropdown-toggle::after {
+    position: relative;
+    top: 21px;
 }
 
-.content-gutter {
-    margin: 0 auto;
-    max-width: 935px;
-    width: 100%;
+.dropdown-name {
+    position: relative;
+    top: 21px;
 }
 
-.card-container {
-    max-width: 350px;
-    background-color: #fff;
-    border: 1px solid #e6e6e6;
-    border-radius: 1px;
-    margin: 20px auto auto auto;
-    height: 100px;
+.dropdown-menu {
+    padding-bottom: 0 !important;
 }
 
-.insta-pic {
-    margin: 22px auto 12px;
-    background-repeat: no-repeat;
-    height: 63px;
-    width: 175px;
-    background-image: url('assets/insta.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+.dropdown:hover .dropdown-menu{
+    display: block;
 }
 
-.header-container {
-    width: 100%;
-    height: 75px;
-    background-color: #fff;
-    border: 1px solid #e6e6e6;
+.dropdown:empty {
+    display: none !important;
 }
 
-.header-gutter {
-    max-width: 1000px;
-    height: 100%;
-    padding: 20px 0;
-    margin: auto;
-}
-
-.logo-container, .logo-divider, .logo-text-container, .asset-container {
-    height: 100%;
-    display: inline-block;
-}
-
-.asset-container {
-    max-width: 200px;
-}
-
-.logo-container {
-    width: 50px;
-    background-image: url("assets/logo.png");
-    background-repeat: no-repeat;
-    background-size: 70% 102%;
-}
-
-.logo-divider {
-    width: 2px;
-    border: 1px solid black;
-}
-
-.logo-text-container {
-    width: 148px;
-    background-image: url("assets/insta.png");
-    background-repeat: no-repeat;
-    background-size: 81% 115%;
-    background-position: 18px;
-}
-
-.searchbar-container {
-    display: inline-block;
-    height: 85%;
-    width: 200px;
-    cursor: text;
-    background: #fafafa;
-    border: solid 1px #dbdbdb;
-    color: #999;
-    vertical-align: top;
-}
-
-.searchbar-input {
-    background: #fafafa;
-    border: none !important;
-    background-image: url("assets/search3.png");
-    background-repeat: no-repeat;
-    background-size: 8% 36%;
-    background-position: 55px 8.5px;
-}
-
-.searchbar-input:focus {
-    outline: none !important;
-    display: inline-block;
-    /*background-image: none;*/
-}
-
-.searchbar-input::placeholder {
-
-    text-align: center;
-}
-
-/*.search-logo {*/
-    /*transform: translate(-50%);*/
-    /*background-image: url("assets/search.png");*/
-    /*display: inline-block;*/
-    /*position: absolute;*/
-    /*height: 10px;*/
-    /*background-size: 100% 100%;*/
-    /*width: 10px;*/
-/*}*/
-
-/*.search-text {*/
-    /*display: inline-block;*/
-    /*position: absolute;*/
+/*.headerbar.show .dropdown-menu {*/
+    /*-webkit-transition: top 0.2s ease-in-out !important;*/
+    /*-moz-transition: top 0.2s ease-in-out !important;*/
+    /*-o-transition: top 0.2s ease-in-out !important;*/
+    /*transition: top 0.2s ease-in-out !important;*/
+    /*top: 0;*/
 /*}*/

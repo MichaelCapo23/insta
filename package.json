@@ -24,7 +24,7 @@
   "proxy": "http://localhost:5000",
   "scripts": {
     "start-js": "react-scripts start",
-    "backend-start": "nodemon backend/server.js",
+    "backend-start": "nodemon ./slimcuts_backend/server.js",
     "start": "npm-run-all -p backend-start start-js\"",
     "build": "npm-run-all build-css && react-scripts build",
     "test": "react-scripts test",
