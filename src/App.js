@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Landing from './components/landing';
-import Menubar from './components/menubar';
 import Header from './components/header';
 import Signin from './components/logins/signin'
 import Signup from './components/logins/signup';
@@ -12,8 +11,7 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    <Route token={localStorage.getItem('token')} component={Header} />
-                    <Route path={"*"} component={Menubar} />
+                    <Route path={"*"} component={Header}></Route>
                     <Route exact path={"/"} component={Landing}/>
                     <Route path={"/signin"} component={Signin} />
                     <Route path={"/signup"} component={Signup} />
