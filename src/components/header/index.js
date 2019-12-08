@@ -29,9 +29,7 @@ class Header extends Component {
                         <div className="logo-text-container"></div>
                     </div>
                     <div className="searchbar-container">
-                        <input ref={this.input} onChange={this.searchInput} placeholder={'search'} type="text" className="searchbar-input"></input>
-                        {/*<span className='search-logo'></span>*/}
-                        {/*<span className='search-text'>search</span>*/}
+                        <input ref={this.input} onChange={this.searchInput} placeholder={'search'} type="text" className="searchbar-input"/>
                     </div>
                 </div>
             </div>
