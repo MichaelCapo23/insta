@@ -23,7 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 
-/assets
-/backend
+/src/assets
+/backend/mysql_creds.js
 
 /src/serviceWorker.js

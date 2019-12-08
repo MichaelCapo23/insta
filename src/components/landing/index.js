@@ -9,8 +9,15 @@ class Landing extends Component {
     render() {
         return (
             <Fragment>
-                <div className={"content"}>
+                <div className={"content-header"}>
+                    <div className="landing-gutter">
+                        <div className="media-container">
 
+                        </div>
+                        <div className="information-container">
+
+                        </div>
+                    </div>
                 </div>
             </Fragment>
         )
