@@ -504,6 +504,7 @@ input:not(:placeholder-shown) ~ label {
     height: 33px;
     width: 100%;
     margin-top: 10px;
+    padding-top: 10px;
 }
 
 .bio {
