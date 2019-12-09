@@ -443,7 +443,7 @@ input:not(:placeholder-shown) ~ label {
 .profile-info-content-container {
     width: 340px;
     margin-left: 150px;
-    height: 100%;
+    height: 80%;
 }
 
 .information-container-top {
@@ -485,11 +485,49 @@ input:not(:placeholder-shown) ~ label {
 
 .information-container-middle {
     height: 20%;
-    padding-top: 20px;
+    padding-top: 12px;
 }
 
 .following, .followers, .posts {
     height: 100%;
     width: 33%;
     display: inline-block;
+}
+
+.information-container-bottom {
+    height: 45%;
+    width: 100%;
+}
+
+.first-last-name {
+    display: block;
+    height: 33px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.bio {
+    display: block;
+    width: 100%;
+    height: 35px;
+}
+
+.profile-nav-tabs {
+    display: inherit;
+    border-top: var(--default-border) !important;
+    border-bottom: none !important;
+    padding: 0 24px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border-top: 1px solid #262626 !important;
+    border-bottom: none !important;
+}
+
+.nav-tabs-font {
+    font-size: 13px !important;
+}
+
+.nav-tabs.tabs-center > li {
+    margin-right: 35px !important;
 }
