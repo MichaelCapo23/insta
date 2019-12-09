@@ -32,4 +32,6 @@ app.get('/express_backend', (req, res) => {
 require('./addAccount')(app, db);
 require('./loginUser')(app, db);
 require('./getUsername')(app, db);
+require('./getUserStats')(app, db);
+require('./getUserMedia')(app, db);
 

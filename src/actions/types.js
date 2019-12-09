@@ -7,4 +7,8 @@ export default {
     SIGN_UP_ERROR: 'sign_up_error',
     GET_USERNAME: 'get_username',
     GET_USERNAME_ERROR: 'get_username_error',
+    STATS: 'get_user_stats',
+    STATS_ERROR: 'get_user_stats_error',
+    GET_USER_MEDIA: 'get_user_media',
+    GET_USER_MEDIA_ERROR: 'get_user_media_error',
 }

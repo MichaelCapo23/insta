@@ -2,16 +2,20 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {getUsernameAction} from "../../actions/getUsernameAction";
-import 'material-icons'
+import {getUserStatsAction} from '../../actions/userStatsAction';
+import {getUserMediaAction} from "../../actions/getUserMediaAction";
+import UserMediaList from './userMediaList';
+import 'material-icons';
 
 class Profile extends Component {
 
     state = {
         data: null,
         username: '',
-        numberPosts: 0,
-        numberFollower: 0,
-        numberFollowing: 0,
+        numberPosts: '0',
+        numberFollower: '0',
+        numberFollowing: '0',
+        madeMedia: '0',
         activeTab: 'posts'
     };
 
@@ -30,18 +34,59 @@ class Profile extends Component {
         }
         //get the username
         this.props.getUsernameAction();
+
+        //get users stats
+        this.props.getUserStatsAction();
+
+        //get user media
+        this.props.getUserMediaAction();
     }
 
     componentDidUpdate() {
-        //if new usernaem is given then set the state with new username
+        //if new username is given then set the state with new username
         if (this.state.username !== this.props.username) {
             this.setState({
                 username: this.props.username
             })
         }
+
+        //if new stats are given then set the state
+        if(this.props.stats) {
+            let {posts, followers, following} = this.props.stats;
+            let {numberPosts, numberFollower, numberFollowing} = this.state;
+            if(numberPosts !== posts || numberFollower !== followers || numberFollowing !== following) {
+                this.setState({
+                    numberPosts : posts,
+                    numberFollower: followers,
+                    numberFollowing: following,
+                })
+            }
+        }
+
+        //if user media changed or has a value, take the list and send it to userMediaList.js
+        if(this.props.media && this.state.madeMedia === '0') {
+            this.setState({
+                madeMedia: '1',
+                media: this.props.media
+            })
+        }
     }
 
+    makeMedia = (media) => {
+        let profileMediaList = this.props.media.map((media, index) => {
+            return (
+                <UserMediaList key={index} media={media}/>
+            )
+        });
+
+        return profileMediaList;
+    };
+
     render() {
+        let profileMediaList = '';
+        if(this.state.media) {
+            profileMediaList = this.makeMedia(this.state.media);
+        }
         return (
             <Fragment>
                 <div className={"content-header"}>
@@ -80,7 +125,7 @@ class Profile extends Component {
                             </ul>
                         </div>
                         <div className="tab-content">
-                            <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">this stab need a service to get all the media posted from this user, send it to a componet to be put into a container and the css when hovered to show likes and comment counts</div>
+                            <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">{profileMediaList}</div>
                             <div className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"} id="IGTV">IGTV</div>
                             <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">SAVED</div>
                             <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
@@ -94,8 +139,12 @@ class Profile extends Component {
 
 function mapStateToProps(state) {
     return {
-        username: state.usernameReducer.username
+        username: state.usernameReducer.username,
+        stats: state.getUserStatsReducer.stats,
+        media: state.getUserMediaReducer.media,
     }
 }
 
-export default connect(mapStateToProps, {getUsernameAction})(withRouter(Profile));
+export default connect(mapStateToProps, {
+    getUsernameAction, getUserStatsAction, getUserMediaAction,
+})(withRouter(Profile));
