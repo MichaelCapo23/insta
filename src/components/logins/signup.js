@@ -53,28 +53,26 @@ class Signup extends Component {
         let errors = {};
 
         if(this.state.name.length < 5) {
-            errors.nameError = 'Name Must Be 5 Characters Minimum';
+            errors.nameError = true;
         }
 
         // var patternRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}");
         // if(!patternRegex.test(this.state.password)) {
         if(this.state.password === '') {
-            errors.passwordError = "Must Have At Least Eight Characters, One Capital Letter, And A Number";
-        } else if(this.state.password !== this.state.passwordConfirm) {
-            errors.passwordError = "Both Password Inputs Must Match.";
+            errors.passwordError = true;
         }
 
         if(this.state.username.length < 5) {
-            errors.usernameError = 'Username Must Be 5 Characters Minimum';
+            errors.usernameError = true;
         }
 
         // var emailRegex = new RegExp("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])\n");
         // if(!emailRegex.test(this.state.email)) {
         if(this.state.email === '') {
-            errors.emailError = 'Invalid Email Address';
+            errors.emailError = true;
         }
         return errors;
-    }
+    };
 
 
     render() {
@@ -84,8 +82,31 @@ class Signup extends Component {
                     <div className="signup-content">
                         <div className="content-gutter">
                             <div className="card-container">
-                                <div className={'insta-pic'}/>
+                                <div className="card-gutter">
+                                    <div className={'insta-pic'}/>
+                                    <div className="desc-signup">Sign up to see photos and videos from your friends.</div>
+                                    <button type={"button"} className={"facebook-login-btn"}><div className={"facebook-logo"}></div>Log in with Facebook</button>
+                                    <div className="divider-container">
+                                        <div className="divider-one"/>
+                                        <div className="or-text">OR</div>
+                                        <div className="divider-two"/>
+                                    </div>
+                                    <form className={"form"}>
+                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
+                                            <input onChange={e => this.addInputToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
+                                        </div>
+                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
+                                            <input onChange={e => this.addInputToState(e)} placeholder={"Full Name"} id="name" type="text" className={"signup-val"}/>
+                                        </div>
+                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
+                                            <input onChange={e => this.addInputToState(e)} placeholder={"Username"} id="username" type="text" className={"signup-val"}/>
+                                        </div>
 
+                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
+                                            <input onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

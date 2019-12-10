@@ -7,7 +7,8 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background-color: #fafafa !important;
 }
 
@@ -188,11 +189,6 @@ label::after {
     margin-bottom: 30px;
 }
 
-.form-padding-signup {
-    padding-top: 25px;
-    padding-bottom: 25px;
-}
-
 input:not(:placeholder-shown) ~ label {
     top: -15px !important;
 }
@@ -257,7 +253,8 @@ input:not(:placeholder-shown) ~ label {
     list-style-type: none !important;
     display: inline-block;
     margin-right: 13px;
-    font-size: 11px;
+    font-size: 12px;
+    color: #003569;
 }
 
 .signup-copyright {
@@ -300,11 +297,11 @@ input:not(:placeholder-shown) ~ label {
     border: 1px solid #e6e6e6;
     border-radius: 1px;
     margin: 20px auto auto auto;
-    height: 100px;
+    height: auto;
 }
 
 .insta-pic {
-    margin: 22px auto 12px;
+    margin: auto;
     background-repeat: no-repeat;
     height: 63px;
     width: 175px;
@@ -375,7 +372,7 @@ input:not(:placeholder-shown) ~ label {
     background-image: url("assets/search3.png");
     background-repeat: no-repeat;
     background-size: 8% 36%;
-    background-position: 55px 8.5px;
+    background-position: 49px 10px;
 }
 
 .searchbar-input:focus {
@@ -470,6 +467,7 @@ input:not(:placeholder-shown) ~ label {
     display: inline-block;
     vertical-align: top;
     margin-left: 10px;
+    padding-top: 1px;
 }
 
 .cog-icon {
@@ -531,4 +529,140 @@ input:not(:placeholder-shown) ~ label {
 
 .nav-tabs.tabs-center > li {
     margin-right: 35px !important;
+}
+
+.overall-container {
+    height: 293px;
+    width: 293px;
+    display: inline-block;
+    margin: 0 28px 28px 0;
+}
+
+.media-post-profile {
+    height: 100%;
+    width: 100%;
+}
+
+.overall-container {
+    position: relative;
+    width: 50%;
+    max-width: 300px;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: .5s ease;
+    opacity:0;
+    color: black;
+    font-size: 20px;
+    padding: 147px !important;
+    text-align: center;
+}
+
+.overall-container:hover .overlay {
+    opacity: .7 !important;
+}
+
+.overall-container:hover .inline-comments {
+    position: absolute !important;
+    left: 42%;
+    color: white !important;
+}
+
+.overall-container:hover .inline-likes {
+    position: absolute !important;
+    left: 58%;
+    color: white !important;
+}
+
+
+.inline-comments, .inline-likes {
+    position: absolute;
+    top: 46%;
+    color: transparent;
+    font-size: 20px !important;
+}
+
+.font {
+    font-family: 'Raleway', sans-serif;
+    vertical-align: text-top;
+}
+
+.card-gutter {
+    padding: 30px;
+}
+
+.desc-signup {
+    color: #999;
+    font-size: 17px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.facebook-logo {
+    background-image: url("./assets/facebook2.png");
+    height: 17px;
+    width: 17px;
+    display: inline-block;
+    vertical-align: sub;
+    position: relative;
+    right: 5px;
+    background-size: 100% 100%;
+    background-color: transparent;
+}
+
+.facebook-login-btn {
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    width: 100%;
+    background-color: #3897f0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14.4px;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+.divider-container {
+    height: 25px;
+    width: 100%;
+}
+
+.divider-one, .divider-two {
+    height: 100%;
+    width: 40%;
+    display: inline-block;
+    border-top: solid 0.1px #dbdbdb;
+    position: relative;
+    top: 9px;
+}
+
+.or-text {
+    height: 100%;
+    width: 20%;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    font-size: 13.6px;
+    color: #999;
+    font-weight: 600;
+}
+
+.signup-val {
+    border: 1px solid #efefef;
+    background: #fafafa;
+    padding-left: 9px;
+    width: 100%;
+    font-size: 12px;
+    color: #999;
+    line-height: 36px;
+    margin-bottom: 6px;
+    height: 34px;
 }
