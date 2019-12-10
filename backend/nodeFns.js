@@ -6,10 +6,10 @@ module.exports.checkPassword = checkPassword = async (app, db, password) => {
     db.connect(() => {
         db.query(sql, password, (err, data) => {
             if (!err) {
-                let newPassword = false;
+                let newPassword = "0";
                 let rows = data[0].rows;
                 if (!rows) {
-                    newPassword = true;
+                    newPassword = "1";
                 }
                 console.log('newPassword:' + newPassword);
                 return newPassword
