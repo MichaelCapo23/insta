@@ -1,9 +1,8 @@
-import React, {Component, Fragment} from "react";
-import {withRouter} from 'react-router-dom';
+import React, {Component} from "react";
+import {withRouter, Link} from 'react-router-dom';
 import {signUpAction} from '../../actions/signUpAction'
 import {connect} from 'react-redux';
-import SignUpReducer from "../../reducers/signInReducer";
-
+import error from '../../assets/error.png'
 class Signup extends Component {
 
     state = {
@@ -25,7 +24,18 @@ class Signup extends Component {
         });
     };
 
+    clearState = () => {
+        this.setState({
+            nameError: '',
+            emailError: '',
+            usernameError: '',
+            passwordError: '',
+            passwordConfirm: '',
+        });
+    };
+
     addAccount = () => {
+        this.clearState();
         let errObj = this.validate();
         if(Object.entries(errObj).length !== 0) {
             for (let [key, value] of Object.entries(errObj)) {
@@ -35,13 +45,7 @@ class Signup extends Component {
             }
             return false;
         }
-        this.setState({
-            nameError: '',
-            emailError: '',
-            usernameError: '',
-            passwordError: '',
-            passwordConfirm: '',
-        })
+        this.clearState();
         this.addAccountAxios(); //send just the values needed
     };
 
@@ -77,97 +81,66 @@ class Signup extends Component {
 
     render() {
         return (
-            <Fragment>
-                <div className={"content"}>
-                    <div className="signup-content">
-                        <div className="content-gutter">
-                            <div className="card-container">
-                                <div className="card-gutter">
-                                    <div className={'insta-pic'}/>
-                                    <div className="desc-signup">Sign up to see photos and videos from your friends.</div>
-                                    <button type={"button"} className={"facebook-login-btn"}><div className={"facebook-logo"}></div>Log in with Facebook</button>
-                                    <div className="divider-container">
-                                        <div className="divider-one"/>
-                                        <div className="or-text">OR</div>
-                                        <div className="divider-two"/>
-                                    </div>
-                                    <form className={"form"}>
-                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
-                                            <input onChange={e => this.addInputToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
-                                        </div>
-                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
-                                            <input onChange={e => this.addInputToState(e)} placeholder={"Full Name"} id="name" type="text" className={"signup-val"}/>
-                                        </div>
-                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
-                                            <input onChange={e => this.addInputToState(e)} placeholder={"Username"} id="username" type="text" className={"signup-val"}/>
-                                        </div>
-
-                                        <div className={"col-sm-12 col-md-12 col-lg-10 margin-auto"}>
-                                            <input onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
-                                        </div>
-                                    </form>
+            <div className={"content"}>
+                <div className="signup-content">
+                    <div className="content-gutter">
+                        <div className="card-container">
+                            <div className="card-gutter">
+                                <div className={'insta-pic'}/>
+                                <div className="desc-signup">Sign up to see photos and videos from your friends.</div>
+                                <button type={"button"} className={"facebook-login-btn"}><div className={"facebook-logo"}/>Log in with Facebook</button>
+                                <div className="divider-container">
+                                    <div className="divider-one"/>
+                                    <div className="or-text">OR</div>
+                                    <div className="divider-two"/>
                                 </div>
+                                <form className={"form"}>
+                                    <div className={"signup-val-container"}>
+                                        <input onChange={e => this.addInputToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
+                                        {this.state.emailError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
+                                    </div>
+                                    <div className={"signup-val-container"}>
+                                        <input onChange={e => this.addInputToState(e)} placeholder={"Full Name"} id="name" type="text" className={"signup-val"}/>
+                                        {this.state.nameError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
+                                    </div>
+                                    <div className={"signup-val-container"}>
+                                        <input onChange={e => this.addInputToState(e)} placeholder={"Username"} id="username" type="text" className={"signup-val"}/>
+                                        {this.state.usernameError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
+                                    </div>
+
+                                    <div className={"signup-val-container-last"}>
+                                        <input onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
+                                        {this.state.passwordError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
+                                    </div>
+                                    <button  onClick={this.addAccount} type={"button"} className={"facebook-login-btn signup-btn"}>Sign up</button>
+                                    <div className={"privacy-text"}>By signing up, you agree to our Terms , Data Policy and Cookies Policy.</div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                    {/*<div className="card card-styles-login card-rounded">*/}
-                        {/*<div className={"content-container"}>*/}
-                            {/*<div className={"help-block-errMessage"}>{this.state.errMessage}</div>*/}
-                            {/*<h1 className={"center"}>Sign Up</h1>*/}
-                            {/*<form className={"form-padding-signup"}>*/}
-                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
-                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Email"} id="email" type="text" className={"form-control signup-val"}/>*/}
-                                    {/*<label htmlFor="name">Email</label>*/}
-                                    {/*<span className="help-block">{this.state.emailError}</span>*/}
-                                {/*</div>*/}
-                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
-                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Full Name"} id="name" type="text" className={"form-control signup-val"}/>*/}
-                                    {/*<label htmlFor="name">Full Name</label>*/}
-                                    {/*<span className="help-block">{this.state.nameError}</span>*/}
-                                {/*</div>*/}
-                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
-                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Username"} id="username" type="text" className={"form-control signup-val"}/>*/}
-                                    {/*<label htmlFor="name">Username</label>*/}
-                                    {/*<span className="help-block">{this.state.usernameError}</span>*/}
-                                {/*</div>*/}
-
-                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
-                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Enter Password"} id="password" type="password" className={"form-control signup-val"}/>*/}
-                                    {/*<label htmlFor="name">Password</label>*/}
-                                    {/*<span className="help-block">{this.state.passwordError}</span>*/}
-                                {/*</div>*/}
-
-                                {/*<div className={"col-sm-12 col-md-12 col-lg-10 margin-auto form-group"}>*/}
-                                    {/*<input onChange={e => this.addInputToState(e)} placeholder={"Confirm Password"} id="passwordConfirm" type="password" className={"form-control"}/>*/}
-                                    {/*<label htmlFor="name">Password Confirm</label>*/}
-                                {/*</div>*/}
-                            {/*</form>*/}
-                            {/*<div className="col-sm-12 col-md-12 col-lg-10 btn-container margin-auto center">*/}
-                                {/*<button type={"button"} onClick={this.addAccount} className={"btn btn-info signup-btn"}>Create Account</button>*/}
-                            {/*</div>*/}
-                            {/*<div className="center">have an account? <span className={"has-account"}>Sign In</span></div>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    <footer className={"signup-footer-container"}>
-                        <div className="signup-link-container">
-                            <ul className={'signup-link-ul'}>
-                                <li className={"signup-link"}>ABOUT US</li>
-                                <li className={"signup-link"}>SUPPORT</li>
-                                <li className={"signup-link"}>PRESS</li>
-                                <li className={"signup-link"}>API</li>
-                                <li className={"signup-link"}>JOBS</li>
-                                <li className={"signup-link"}>PRIVACY</li>
-                                <li className={"signup-link"}>TERMS</li>
-                                <li className={"signup-link"}>DIRECTOR</li>
-                                <li className={"signup-link"}>PROFILES</li>
-                                <li className={"signup-link"}>HASHTAGS</li>
-                                <li className={"signup-link"}>LANGUAGE</li>
-                            </ul>
-                            <span className={'signup-copyright'}>© 2019 INSTAGRAM FROM MICHAEL</span>
+                        <div className="have-an-account-container">
+                            <div className="link-signin">Have an account? <Link to={"signin"}>Log in</Link></div>
                         </div>
-                    </footer>
+                    </div>
                 </div>
-            </Fragment>
+                <footer className={"signup-footer-container"}>
+                    <div className="signup-link-container">
+                        <ul className={'signup-link-ul'}>
+                            <li className={"signup-link"}>ABOUT US</li>
+                            <li className={"signup-link"}>SUPPORT</li>
+                            <li className={"signup-link"}>PRESS</li>
+                            <li className={"signup-link"}>API</li>
+                            <li className={"signup-link"}>JOBS</li>
+                            <li className={"signup-link"}>PRIVACY</li>
+                            <li className={"signup-link"}>TERMS</li>
+                            <li className={"signup-link"}>DIRECTOR</li>
+                            <li className={"signup-link"}>PROFILES</li>
+                            <li className={"signup-link"}>HASHTAGS</li>
+                            <li className={"signup-link"}>LANGUAGE</li>
+                        </ul>
+                        <span className={'signup-copyright'}>© 2019 INSTAGRAM FROM MICHAEL</span>
+                    </div>
+                </footer>
+            </div>
         )
     }
 }
