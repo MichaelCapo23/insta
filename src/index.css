@@ -296,18 +296,19 @@ input:not(:placeholder-shown) ~ label {
     background-color: #fff;
     border: 1px solid #e6e6e6;
     border-radius: 1px;
-    margin: 20px auto auto auto;
+    margin: 40px auto 10px auto;
     height: auto;
 }
 
 .insta-pic {
     margin: auto;
     background-repeat: no-repeat;
-    height: 63px;
-    width: 175px;
+    height: 64px;
+    width: 185px;
     background-image: url('assets/insta.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    background-position: 0 -7px;
 }
 
 .header-container {
@@ -593,7 +594,7 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .card-gutter {
-    padding: 30px;
+    padding: 30px 40px 40px 40px;
 }
 
 .desc-signup {
@@ -601,11 +602,12 @@ input:not(:placeholder-shown) ~ label {
     font-size: 17px;
     text-align: center;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+    line-height: 20px;
 }
 
 .facebook-logo {
-    background-image: url("./assets/facebook2.png");
+    /*background-image: url("./assets/f11.png");*/
     height: 17px;
     width: 17px;
     display: inline-block;
@@ -623,15 +625,16 @@ input:not(:placeholder-shown) ~ label {
     width: 100%;
     background-color: #3897f0;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 14.4px;
-    height: 30px;
+    height: 32px;
     margin-bottom: 15px;
+    padding-bottom: 1.5px;
 }
 
 .divider-container {
-    height: 25px;
+    height: 40px;
     width: 100%;
 }
 
@@ -656,13 +659,66 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .signup-val {
-    border: 1px solid #efefef;
-    background: #fafafa;
+    border: none !important;
+    background: #fafafa !important;;
     padding-left: 9px;
-    width: 100%;
+    width: 92%;
     font-size: 12px;
     color: #999;
     line-height: 36px;
-    margin-bottom: 6px;
     height: 34px;
+}
+
+.signup-val-container, .signup-val-container-last {
+    border: 1px solid #efefef;
+    background: #fafafa !important;
+    width: 100%;
+    margin: auto auto 6px auto;
+}
+
+.signup-val-container-last {
+    margin: auto auto 15px auto ;
+}
+
+input:-webkit-autofill {
+    background: inherit !important;
+}
+
+.signup-btn {
+    margin-bottom: 15px;
+}
+
+.privacy-text {
+    color: #999;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+    max-width: 80%;
+    margin: auto;
+}
+
+.have-an-account-container {
+    width: 100%;
+    background-color: #fff;
+    height: auto;
+    max-width: 350px;
+    margin: auto;
+    border: 1px solid #e6e6e6;
+}
+
+.link-signin {
+    height: 70px;
+    text-align: center;
+    padding-top: 23px;
+    font-size: 14px;
+}
+
+.link-signin > a {
+    color: #3897f0;
+    cursor: pointer;
+}
+
+.error-signup {
+    height: 20px;
 }

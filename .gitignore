@@ -27,4 +27,5 @@ yarn-error.log*
 /backend/mysql_creds.js
 
 /src/serviceWorker.js
+
 package-lock.json

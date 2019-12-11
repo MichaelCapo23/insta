@@ -8,7 +8,6 @@ export default props => {
         return images;
     }
     const images = importAll(require.context('../../assets/media', false, /\.(png|jpe?g|PNG)$/));
-    debugger;
     return (
         <Link to={"/"}>
             <div className="overall-container">
