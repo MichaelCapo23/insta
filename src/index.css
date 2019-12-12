@@ -244,7 +244,7 @@ input:not(:placeholder-shown) ~ label {
 
 .signup-link-ul {
     padding: 0 !important;
-    width: 65%;
+    width: 70%;
     margin-right: 0;
     display: inline-block;
 }
@@ -252,8 +252,8 @@ input:not(:placeholder-shown) ~ label {
 .signup-link {
     list-style-type: none !important;
     display: inline-block;
-    margin-right: 13px;
-    font-size: 12px;
+    margin-right: 15px;
+    font-size: 13px;
     color: #003569;
 }
 
@@ -261,7 +261,7 @@ input:not(:placeholder-shown) ~ label {
     display: inline-block;
     font-size: 11px;
     text-align: right;
-    width: 35%;
+    width: 30%;
 }
 
 @media only screen and (max-width: 1008px) {
@@ -285,10 +285,15 @@ input:not(:placeholder-shown) ~ label {
 
 }
 
-.content-gutter {
+.content-gutter, .content-gutter-signin {
     margin: 0 auto;
     max-width: 935px;
     width: 100%;
+    padding-top: 40px;
+}
+
+.content-gutter-signin {
+    padding-top: 135px;
 }
 
 .card-container {
@@ -296,12 +301,23 @@ input:not(:placeholder-shown) ~ label {
     background-color: #fff;
     border: 1px solid #e6e6e6;
     border-radius: 1px;
-    margin: 40px auto 10px auto;
+    margin: auto auto 10px auto;
     height: auto;
 }
 
 .insta-pic {
     margin: auto;
+    background-repeat: no-repeat;
+    height: 64px;
+    width: 185px;
+    background-image: url('assets/insta.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 -7px;
+}
+
+.insta-pic-signin {
+    margin: auto auto 20px auto;
     background-repeat: no-repeat;
     height: 64px;
     width: 185px;
@@ -597,6 +613,10 @@ input:not(:placeholder-shown) ~ label {
     padding: 30px 40px 40px 40px;
 }
 
+.card-gutter-signin {
+    padding: 30px 40px 25px 40px;
+}
+
 .desc-signup {
     color: #999;
     font-size: 17px;
@@ -607,7 +627,7 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .facebook-logo {
-    /*background-image: url("./assets/f11.png");*/
+    background-image: url("./assets/facebook.png");
     height: 17px;
     width: 17px;
     display: inline-block;
@@ -618,7 +638,7 @@ input:not(:placeholder-shown) ~ label {
     background-color: transparent;
 }
 
-.facebook-login-btn {
+.facebook-signup-btn, .facebook-login-btn, .facebook-login-btn-login {
     text-align: center;
     color: white;
     font-weight: 500;
@@ -631,6 +651,11 @@ input:not(:placeholder-shown) ~ label {
     height: 32px;
     margin-bottom: 15px;
     padding-bottom: 1.5px;
+}
+
+.facebook-login-btn {
+    background-color: transparent !important;
+    color: #385185 !important;
 }
 
 .divider-container {
@@ -669,7 +694,11 @@ input:not(:placeholder-shown) ~ label {
     height: 34px;
 }
 
-.signup-val-container, .signup-val-container-last {
+.signup-val:focus {
+    outline: none !important;
+}
+
+.signup-val-container, .signup-val-container-last, .signin-val-container, .signin-val-container-last {
     border: 1px solid #efefef;
     background: #fafafa !important;
     width: 100%;
@@ -684,8 +713,12 @@ input:-webkit-autofill {
     background: inherit !important;
 }
 
-.signup-btn {
+.signup-btn,  .signin-btn {
     margin-bottom: 15px;
+}
+
+.signin-btn {
+    margin-top: 9px;
 }
 
 .privacy-text {
@@ -712,13 +745,66 @@ input:-webkit-autofill {
     text-align: center;
     padding-top: 23px;
     font-size: 14px;
+    font-weight: 200;
 }
 
-.link-signin > a {
+.link-signup {
+    height: 70px;
+    text-align: center;
+    padding-top: 23px;
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.link-signin > a, .link-signup > a {
     color: #3897f0;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .error-signup {
     height: 20px;
+}
+
+.forgot-password {
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #003569;
+}
+
+.get-app {
+    max-width: 350px;
+    margin: 15px auto 20px auto;
+    color: #262626;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.get-app-link-container {
+    max-width: 350px;
+    margin: auto;
+    height: 75px;
+}
+
+.app-store {
+    height: 50px;
+    width: 175px;
+    background-image: url("./assets/appDownload.png");
+    background-size: 78% 76%;
+    background-repeat: no-repeat;
+    background-position: 28px 0px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.google-play {
+    height: 50px;
+    width: 175px;
+    background-image: url("./assets/googleDownload.png");
+    background-size: 78% 76%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    cursor: pointer;
 }
