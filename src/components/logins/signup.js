@@ -88,7 +88,7 @@ class Signup extends Component {
                             <div className="card-gutter">
                                 <div className={'insta-pic'}/>
                                 <div className="desc-signup">Sign up to see photos and videos from your friends.</div>
-                                <button type={"button"} className={"facebook-login-btn"}><div className={"facebook-logo"}/>Log in with Facebook</button>
+                                <button type={"button"} className={"facebook-signup-btn"}><div className={"facebook-logo"}/>Log in with Facebook</button>
                                 <div className="divider-container">
                                     <div className="divider-one"/>
                                     <div className="or-text">OR</div>
@@ -96,29 +96,34 @@ class Signup extends Component {
                                 </div>
                                 <form className={"form"}>
                                     <div className={"signup-val-container"}>
-                                        <input onChange={e => this.addInputToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
+                                        <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
                                         {this.state.emailError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
                                     <div className={"signup-val-container"}>
-                                        <input onChange={e => this.addInputToState(e)} placeholder={"Full Name"} id="name" type="text" className={"signup-val"}/>
+                                        <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Full Name"} id="name" type="text" className={"signup-val"}/>
                                         {this.state.nameError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
                                     <div className={"signup-val-container"}>
-                                        <input onChange={e => this.addInputToState(e)} placeholder={"Username"} id="username" type="text" className={"signup-val"}/>
+                                        <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Username"} id="username" type="text" className={"signup-val"}/>
                                         {this.state.usernameError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
 
                                     <div className={"signup-val-container-last"}>
-                                        <input onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
+                                        <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
                                         {this.state.passwordError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
-                                    <button  onClick={this.addAccount} type={"button"} className={"facebook-login-btn signup-btn"}>Sign up</button>
+                                    <button  onClick={this.addAccount} type={"button"} className={"facebook-login-btn-login signup-btn"}>Sign up</button>
                                     <div className={"privacy-text"}>By signing up, you agree to our Terms , Data Policy and Cookies Policy.</div>
                                 </form>
                             </div>
                         </div>
                         <div className="have-an-account-container">
                             <div className="link-signin">Have an account? <Link to={"signin"}>Log in</Link></div>
+                        </div>
+                        <div className="get-app">Get the app.</div>
+                        <div className="get-app-link-container">
+                            <a href={"https://apps.apple.com/app/instagram/id389801252?vt=lo"} className="app-store"/>
+                            <a href={"https://play.google.com/store/apps/details?id=com.instagram.android&referrer=utm_source%3Dinstagramweb%26utm_campaign%3DsignupPage%26ig_mid%3D90B8B580-B1E9-401D-822F-E4A384735510%26utm_content%3Dlo%26utm_medium%3Dbadge"} className="google-play"/>
                         </div>
                     </div>
                 </div>
