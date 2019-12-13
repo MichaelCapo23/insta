@@ -9,16 +9,15 @@ class Signin extends Component {
 
     state = {
         email: '',
-        emailErr: '',
+        emailErr: 'true',
         password: '',
-        passwordErr: '',
-        errMessage: ''
+        passwordErr: 'true',
     };
 
     addToState = (e) => {
         this.setState({
             [e.target.id]: e.target.value
-        });
+        }, () => this.signinValidation())
     };
 
     componentDidMount() {
@@ -30,30 +29,30 @@ class Signin extends Component {
 
     signinValidation = () => {
         let errObj = this.validate();
+        debugger;
         if(Object.entries(errObj).length !== 0) {
             for (let [key, value] of Object.entries(errObj)) {
                 this.setState({
                     [key]: value
-                })
+                }, () => {debugger; this.signinBtn.current.setAttribute('disabled', 'disabled')})
             }
             return false;
         }
 
         this.setState({
-            emailErr: '',
-            passwordErr: ''
-        });
-        this.loginUser(); //send just the values needed
+            emailErr: 'false',
+            passwordErr: 'false'
+        }, () => {debugger; this.signinBtn.current.removeAttribute('disabled')})
     };
 
     validate = () => {
         let errors = {};
         if(this.state.email === '') {
-            errors.emailErr = 'Email is required';
+            errors.emailErr = 'true';
         }
 
-        if(this.state.email === '') {
-            errors.passwordErr = 'Password is required';
+        if(this.state.password === '') {
+            errors.passwordErr = 'true';
         }
 
         return errors;
@@ -64,14 +63,15 @@ class Signin extends Component {
     };
 
     componentDidUpdate() {
-        let token = localStorage.getItem('token');
-        if(token || this.props.token) {
-            this.props.history.push('/');
-        }
+        // let token = localStorage.getItem('token');
+        // if(token || this.props.token) {
+        //     this.props.history.push('/');
+        // }
     }
 
 
     render() {
+        this.signinBtn = React.createRef();
         return (
             <div className={"content"}>
                 <div className="signup-content">
@@ -81,14 +81,14 @@ class Signin extends Component {
                                 <div className={'insta-pic-signin'}/>
                                 <form className={"form"}>
                                     <div className={"signin-val-container"}>
-                                        <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
+                                        <input autoComplete="off" onChange={e => this.addToState(e)} placeholder={"Email"} id="email" type="text" className={"signup-val"}/>
                                         {this.state.emailError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
                                     <div className={"signin-val-container-last"}>
-                                        <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
+                                        <input autoComplete="off" onChange={e => this.addToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
                                         {this.state.passwordError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
-                                    <button  onClick={this.addAccount} type={"button"} className={"facebook-login-btn-login signin-btn"}>Log in</button>
+                                    <button onClick={this.loginUser} ref={this.signinBtn} disabled={'disabled'} type={"button"} className={"facebook-login-btn-login signin-btn"}>Log in</button>
                                 </form>
                                 <div className="divider-container">
                                     <div className="divider-one"/>

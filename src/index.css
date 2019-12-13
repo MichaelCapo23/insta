@@ -407,17 +407,19 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .landing-gutter {
-    max-width: 980px;
+    max-width: 920px;
     margin: auto;
     height: 100%;
+    padding-top: 60px;
 }
 
 .media-container {
-    width: 65%;
+    width: 68%;
 }
 
 .information-container {
-    width: 35%;
+    width: 32%;
+    vertical-align: top;
 }
 
 .profile-gutter {
@@ -807,4 +809,86 @@ input:-webkit-autofill {
     background-repeat: no-repeat;
     display: inline-block;
     cursor: pointer;
+}
+
+.facebook-login-btn-login.signin-btn:disabled {
+    opacity: .3;
+}
+
+.landing-profile {
+    height: 80px;
+    padding-bottom: 30px;
+}
+
+.profile-pic-landing {
+    height: 100%;
+    width: 50px;
+    border-radius: 34px;
+    border: var(--default-border);
+    display: inline-block;
+    /*background-image: url("./assets/media/media1.PNG");*/
+}
+
+.profile-info-landing {
+    display: inline-block;
+    width: calc(100% - 50px);
+    height: 100%;
+    vertical-align: top;
+    padding-top: 6px;
+}
+
+.username-landing, .name-landing {
+    color: #262626;
+    padding-left: 15px;
+}
+
+.username-landing {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.name-landing {
+    font-size: 11px;
+}
+
+.user-profile {
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.stories-container {
+    height: 215px;
+    background-color: #fff;
+}
+
+.stories-header {
+    height: 30px;
+    padding: 10px 16px 0 16px;
+}
+
+.stories-title, .stories-watch-all {
+    width: 50%;
+    display: inline-block;
+    height: 100%;
+}
+
+.stories-title {
+    color: #999;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500!important;
+}
+
+.stories-watch-all {
+    color: #262626;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.stories-container-inner {
+    height: 100%;
+    overflow-y: auto;
 }
