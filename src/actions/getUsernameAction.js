@@ -12,7 +12,7 @@ export const getUsernameAction = () => async dispatch => {
         }).then(response => {
             dispatch({
                 type: types.GET_USERNAME,
-                username: response.data.username
+                username: response.data
             })
         })
     } catch {
