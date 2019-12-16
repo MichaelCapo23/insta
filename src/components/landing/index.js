@@ -1,27 +1,46 @@
 import React, {Component, Fragment} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {getLandingAction} from '../../actions/getLandingMediaAction'
+import getLandingMediaReducer from "../../reducers/getLandingMediaReducer";
+import LandingPostList from './landingPostList';
+import UserMediaList from "../profile/userMediaList";
 
 class Landing extends Component {
 
     state = {
         data: null,
-        images: null
+        images: null,
+        landingMedia: null,
     };
 
     componentDidMount() {
-        function importAll(r) {
-            let images = {};
-            r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-            return images;
-        }
-        const images = importAll(require.context('../../assets/media', false, /\.(png|jpe?g|PNG)$/));
-        this.setState({
-            images: images
-        }, ()=> {console.log(this.state.images)})
+        // this.props.getLandingAction()
     }
 
+    componentDidUpdate() {
+        // let {landingMedia} = this.props;
+        // if(landingMedia !== this.state.landingMedia) {
+        //     this.setState({
+        //         landingMedia: landingMedia,
+        //     })
+        // }
+    }
+
+    makeLandingPostList = (emdia) => {
+        let PostList = this.state.landingMedia.map((item, index) => {
+            return (
+            <LandingPostList key={index} media={item} />
+            )
+        });
+        return PostList;
+    };
+
     render() {
+        let landingPostList = '';
+        if(this.state.landingMedia) {
+            landingPostList = this.makeLandingPostList(this.state.landingMedia);
+        }
         return (
             <Fragment>
                 <div className={"content-header"}>
@@ -62,8 +81,9 @@ function mapStateToProps(state) {
         username: state.usernameReducer.username,
         name: state.usernameReducer.name,
         fileName: state.getUserMediaReducer.media.fileName,
+        // landingMedia: state.getLandingMediaReducer.landingMedia
     }
 }
 export default connect(mapStateToProps, {
-
+    getLandingAction,
 })(withRouter(Landing));

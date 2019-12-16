@@ -11,4 +11,6 @@ export default {
     STATS_ERROR: 'get_user_stats_error',
     GET_USER_MEDIA: 'get_user_media',
     GET_USER_MEDIA_ERROR: 'get_user_media_error',
+    GET_LANDING_MEDIA: 'get_landing_media',
+    GET_LANDING_MEDIA_ERROR: 'get_landing_media_error',
 }
