@@ -15,16 +15,17 @@ class Landing extends Component {
     };
 
     componentDidMount() {
-        // this.props.getLandingAction()
+        this.props.getLandingAction()
     }
 
     componentDidUpdate() {
-        // let {landingMedia} = this.props;
-        // if(landingMedia !== this.state.landingMedia) {
-        //     this.setState({
-        //         landingMedia: landingMedia,
-        //     })
-        // }
+        debugger;
+        let {landingMedia} = this.props;
+        if(landingMedia !== this.state.landingMedia) {
+            this.setState({
+                landingMedia: landingMedia,
+            })
+        }
     }
 
     makeLandingPostList = (emdia) => {
@@ -81,7 +82,7 @@ function mapStateToProps(state) {
         username: state.usernameReducer.username,
         name: state.usernameReducer.name,
         fileName: state.getUserMediaReducer.media.fileName,
-        // landingMedia: state.getLandingMediaReducer.landingMedia
+        landingMedia: state.getLandingMediaReducer.landingMedia
     }
 }
 export default connect(mapStateToProps, {

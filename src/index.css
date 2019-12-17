@@ -444,7 +444,6 @@ input:not(:placeholder-shown) ~ label {
     width: 190px;
     margin: auto;
     height: 85%;
-    padding: 25px 0;
     border: var(--default-border);
     border-radius: 156px;
 }
@@ -891,4 +890,10 @@ input:-webkit-autofill {
 .stories-container-inner {
     height: 100%;
     overflow-y: auto;
+}
+
+.profilePic {
+    height: 100%;
+    width: 100%;
+    border-radius: 88px;
 }

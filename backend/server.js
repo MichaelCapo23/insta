@@ -34,4 +34,5 @@ require('./loginUser')(app, db);
 require('./getUsername')(app, db);
 require('./getUserStats')(app, db);
 require('./getUserMedia')(app, db);
+require('./getLandingMedia')(app, db);
 

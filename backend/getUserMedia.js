@@ -6,7 +6,7 @@ module.exports = (app, db) => {
             db.query(sql, token, (err, data) => {
                 if (!err) {
                     let id = data[0].ID;
-                    sql2 = "SELECT `fileName`,(SELECT count(*) FROM `likes` WHERE mediaID = '1') as likes, (SELECT count(*) FROM `comments` WHERE mediaID = '1') AS comments FROM `media` WHERE `accountID` = ? AND `mediaType` = 'post'";
+                    let sql2 = "SELECT `fileName`, `mediaType`,(SELECT count(*) FROM `likes` WHERE mediaID = '1') as likes, (SELECT count(*) FROM `comments` WHERE mediaID = '1') AS comments FROM `media` WHERE `accountID` = ?";
                     db.query(sql2, id, (err, data) => {
                         if(!err) {
                             let output = {

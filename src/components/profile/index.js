@@ -26,7 +26,20 @@ class Profile extends Component {
         })
     };
 
+    importAll = (r) => {
+        let images = {};
+        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+        return images;
+    }
+
     componentDidMount() {
+        if(!this.state.profileImages) {
+            const images = this.importAll(require.context('../../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));
+            this.setState({
+                profileImages: images
+            })
+        }
+
         //check for the token, if not set then push the user to the signin page, make this a higher order component in the future
         let token = localStorage.getItem('token');
         if(!token) {
@@ -43,10 +56,11 @@ class Profile extends Component {
     }
 
     componentDidUpdate() {
+        console.log(this.props);
         //if new username is given then set the state with new username
-        if (this.state.username !== this.props.username) {
+        if (this.state.username !== this.props.username.username) {
             this.setState({
-                username: this.props.username
+                username: this.props.username.username
             })
         }
 
@@ -65,15 +79,25 @@ class Profile extends Component {
 
         //if user media changed or has a value, take the list and send it to userMediaList.js
         if(this.props.media && this.state.madeMedia === '0') {
+            let postArr = this.props.media.filter(item => {
+                return item.mediaType === 'post';
+            });
+
+            let profileArr = this.props.media.filter(item => {
+                return item.mediaType === 'profile';
+            });
+            debugger;
+
             this.setState({
                 madeMedia: '1',
-                media: this.props.media
+                postMedia: postArr,
+                profileMedia: profileArr,
             })
         }
     }
 
     makeMedia = (media) => {
-        let profileMediaList = this.props.media.map((media, index) => {
+        let profileMediaList = this.state.postMedia.map((media, index) => {
             return (
                 <UserMediaList key={index} media={media}/>
             )
@@ -84,16 +108,19 @@ class Profile extends Component {
 
     render() {
         let profileMediaList = '';
-        if(this.state.media) {
-            profileMediaList = this.makeMedia(this.state.media);
+        if(this.state.postMedia) {
+            profileMediaList = this.makeMedia(this.state.postMedia);
         }
+
         return (
             <Fragment>
                 <div className={"content-header"}>
                     <div className="profile-gutter">
                         <div className="user-info-container">
                             <div className="profile-pic-container">
-                                <div className="profile-pic-container-inner"></div>
+                                <div className="profile-pic-container-inner">
+                                    <img className="profilePic" src={this.state.profileMedia ? this.state.profileImages[this.state.profileMedia[0].fileName] : ''} alt=""/>
+                                </div>
                             </div>
                             <div className="profile-info-container">
                                 <div className="profile-info-content-container">
@@ -125,7 +152,7 @@ class Profile extends Component {
                             </ul>
                         </div>
                         <div className="tab-content">
-                            <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">{profileMediaList}</div>
+                            <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">{profileMediaList !== '' ? profileMediaList : <div className="center">You have no posted any media!</div>}</div>
                             <div className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"} id="IGTV">IGTV</div>
                             <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">SAVED</div>
                             <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
