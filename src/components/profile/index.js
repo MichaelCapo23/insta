@@ -5,7 +5,7 @@ import {getUsernameAction} from "../../actions/getUsernameAction";
 import {getUserStatsAction} from '../../actions/userStatsAction';
 import {getUserMediaAction} from "../../actions/getUserMediaAction";
 import UserMediaList from './userMediaList';
-import 'material-icons';
+
 
 class Profile extends Component {
 
