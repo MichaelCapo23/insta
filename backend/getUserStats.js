@@ -18,7 +18,7 @@ module.exports = (app, db) => {
                                 if(!err) {
                                     output.followers = data[0].followers;
 
-                                    let sql4 = "SELECT COUNT(*) AS `posts` FROM `media` AS fs WHERE `accountID` = ?";
+                                    let sql4 = "SELECT COUNT(*) AS `posts` FROM `media` AS fs WHERE `accountID` = ? AND `mediaType` = 'post'";
                                     db.query(sql4, id, (err, data) => {
                                         if(!err) {
                                             output.posts = data[0].posts;
