@@ -2,9 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getLandingAction} from '../../actions/getLandingMediaAction'
-import getLandingMediaReducer from "../../reducers/getLandingMediaReducer";
 import LandingPostList from './landingPostList';
-import UserMediaList from "../profile/userMediaList";
+import 'material-icons';
 
 class Landing extends Component {
 
@@ -18,20 +17,10 @@ class Landing extends Component {
         this.props.getLandingAction()
     }
 
-    componentDidUpdate() {
-        debugger;
-        let {landingMedia} = this.props;
-        if(landingMedia !== this.state.landingMedia) {
-            this.setState({
-                landingMedia: landingMedia,
-            })
-        }
-    }
-
     makeLandingPostList = (emdia) => {
-        let PostList = this.state.landingMedia.map((item, index) => {
+        let PostList = this.props.landingMedia.map((item, index) => {
             return (
-            <LandingPostList key={index} media={item} />
+                <LandingPostList key={index} media={item} />
             )
         });
         return PostList;
@@ -39,24 +28,22 @@ class Landing extends Component {
 
     render() {
         let landingPostList = '';
-        if(this.state.landingMedia) {
-            landingPostList = this.makeLandingPostList(this.state.landingMedia);
+        if(this.props.landingMedia) {
+            landingPostList = this.makeLandingPostList(this.props.landingMedia);
         }
         return (
             <Fragment>
                 <div className={"content-header"}>
                     <div className="landing-gutter">
-                        <div className="media-container">
-
-                        </div>
+                        <div className="media-container">{landingPostList}</div>
                         <div className="information-container">
                             <div className="landing-profile">
                                 <div className="profile-pic-landing">
                                     <img className='user-profile' src={this.state.images ? this.state.images[this.props.fileName] : ''} alt=""/>
                                 </div>
                                 <div className="profile-info-landing">
-                                    <div className="username-landing">mikeCapo23</div>{/*this.props.username*/}
-                                    <div className="name-landing">mike capo</div>{/*{this.props.name}*/}
+                                    <div className="username-landing">{this.props.username ? this.props.username : ''}</div>
+                                    <div className="name-landing">{this.props.name ? this.props.name : ''}</div>
                                 </div>
                             </div>
                             <div className="stories-container">
@@ -79,8 +66,8 @@ class Landing extends Component {
 
 function mapStateToProps(state) {
     return {
-        username: state.usernameReducer.username,
-        name: state.usernameReducer.name,
+        username: state.usernameReducer.username.username,
+        name: state.usernameReducer.username.name,
         fileName: state.getUserMediaReducer.media.fileName,
         landingMedia: state.getLandingMediaReducer.landingMedia
     }

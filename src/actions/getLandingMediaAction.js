@@ -1,7 +1,7 @@
 import axios from 'axios';
 import types from './types';
 
-export const getLandingAction = (app, db) => async dispatch => {
+export const getLandingAction = () => async dispatch => {
     try {
         axios({
             method: "POST",
