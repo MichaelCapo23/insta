@@ -16,19 +16,19 @@ module.exports = (app, db) => {
                                 followerIDArr.push(data[i].followAccount);
                             }
                             followerIDString = followerIDArr.join();
-                            let sql3 = "SELECT `ID`,`fileName`,`accountID` FROM `media` WHERE`accountID` in (?) and `mediaType` = 'post'";
+                            let sql3 = "SELECT `m`.`ID`,`m`.`fileName`,`m`.`accountID`, `a`.`username`  FROM `media` AS m JOIN `accounts` AS a ON(`m`.`accountID` = `a`.`ID`) WHERE `m`.`accountID` in (?) and `m`.`mediaType` = 'post'";
                             db.query(sql3, followerIDString, (err, mediaData) => {
                                 if(!err) {
                                     for(let index in mediaData) {
                                         let rowInfo = {
                                             comments: {},
                                             likes: 0,
-                                            posterID: '',
+                                            posterUsername: '',
                                             fileName: '',
                                             lastLikedUsername: '',
                                             lastLikedFileName: 'default.png',
                                         };
-                                        let currentMediaID = mediaData[index].ID
+                                        let currentMediaID = mediaData[index].ID;
                                         let sql4 = "SELECT `c`.`comment`, `c`.`mediaID`, `a`.`username` FROM `comments` AS c JOIN `accounts` AS a ON (`c`.`accountID` = `a`.`ID`) WHERE `mediaID` = ?";
                                         db.query(sql4, currentMediaID, (err, comments) => {
                                             if(!err) {
@@ -48,15 +48,24 @@ module.exports = (app, db) => {
                                                                         if(lastLikedProfilePic.length > 0) {
                                                                             rowInfo.lastLikedFileName = lastLikedProfilePic[0].fileName;
                                                                         }
-                                                                        console.log(lastLikedProfilePic)
-                                                                        rowInfo.likes = likesData[0].likes;
-                                                                        rowInfo.posterID = mediaData[index].accountID;
-                                                                        rowInfo.fileName = mediaData[index].fileName;
-                                                                        rowInfo.lastLikedUsername = lastLiked[0].username;
-                                                                        output.push(rowInfo);
-                                                                        if(index == (mediaData.length -1)) {
-                                                                            res.send(output);
-                                                                        }
+                                                                        let posterID = mediaData[index].accountID;
+                                                                        let sql8 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
+                                                                        db.query(sql8, posterID, (err, posterFileName) => {
+                                                                            if(!err) {
+                                                                                if(posterFileName.length > 0) {
+                                                                                    rowInfo.posterFileName = posterFileName[0].fileName;
+                                                                                }
+
+                                                                                rowInfo.likes = likesData[0].likes;
+                                                                                rowInfo.posterUsername = mediaData[index].username;
+                                                                                rowInfo.fileName = mediaData[index].fileName;
+                                                                                rowInfo.lastLikedUsername = lastLiked[0].username;
+                                                                                output.push(rowInfo);
+                                                                                if(index == (mediaData.length -1)) {
+                                                                                    res.send(output);
+                                                                                }
+                                                                            }
+                                                                        });
                                                                     } else {
                                                                         let message = 'Query Error (7) --getLandingMedia';
                                                                         res.send(message);
@@ -97,13 +106,4 @@ module.exports = (app, db) => {
     })
 };
 
-//rowInfo.likes = likesData[0].likes;
-//                                                         rowInfo.posterID = mediaData[index].accountID;
-//                                                         rowInfo.fileName = mediaData[index].fileName;
-//                                                         rowInfo.lastLikedUsername = lastLiked.username;
-//                                                         rowInfo.lastLikedFileName = lastLiked.username;
-//                                                         output.push(rowInfo);
-//                                                         if(index == (mediaData.length -1)) {
-//                                                             res.send(output);
-//                                                         }
-//SELECT `a`.`username`, `m`.`fileName` FROM `accounts` AS a JOIN `media` AS m ON (`a`.`ID` = `m`.`accountID`) JOIN `likes` AS l ON (`l`.`mediaID` = `m`.`ID`) WHERE `m`.`ID` = ? ORDER BY `l`.`created_at` DESC LIMIT 1
+//SELECT `ID`,`fileName`,`accountID` FROM `media` WHERE`accountID` in (?) and `mediaType` = 'post'
