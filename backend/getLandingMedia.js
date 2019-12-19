@@ -21,7 +21,7 @@ module.exports = (app, db) => {
                                 if(!err) {
                                     for(let index in mediaData) {
                                         let rowInfo = {
-                                            comments: {},
+                                            comments: [],
                                             likes: 0,
                                             posterUsername: '',
                                             fileName: '',
@@ -29,11 +29,11 @@ module.exports = (app, db) => {
                                             lastLikedFileName: 'default.png',
                                         };
                                         let currentMediaID = mediaData[index].ID;
-                                        let sql4 = "SELECT `c`.`comment`, `c`.`mediaID`, `a`.`username` FROM `comments` AS c JOIN `accounts` AS a ON (`c`.`accountID` = `a`.`ID`) WHERE `mediaID` = ?";
+                                        let sql4 = "SELECT `c`.`comment`, `c`.`mediaID`, `a`.`username` FROM `comments` AS c JOIN `accounts` AS a ON (`c`.`accountID` = `a`.`ID`) WHERE `mediaID` = ? ORDER BY `c`.`created_at`";
                                         db.query(sql4, currentMediaID, (err, comments) => {
                                             if(!err) {
                                                 for(let i in comments) {
-                                                    rowInfo.comments = {comment: comments[i].comment, mediaID: comments[i].mediaID, commenter: comments[i].username};
+                                                    rowInfo.comments.push({comment: comments[i].comment, mediaID: comments[i].mediaID, commenter: comments[i].username});
                                                 }
                                                 let sql5 = "SELECT count(*) AS `likes` FROM `likes` WHERE mediaID = ?";
                                                 db.query(sql5, currentMediaID, (err, likesData) => {
@@ -105,5 +105,3 @@ module.exports = (app, db) => {
         })
     })
 };
-
-//SELECT `ID`,`fileName`,`accountID` FROM `media` WHERE`accountID` in (?) and `mediaType` = 'post'
