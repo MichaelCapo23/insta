@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getLandingAction} from '../../actions/getLandingMediaAction'
 import LandingPostList from './landingPostList';
+import {createCommentAction} from "../../actions/createCommentAction";
 import 'material-icons';
 
 class Landing extends Component {
@@ -17,13 +18,20 @@ class Landing extends Component {
         this.props.getLandingAction()
     }
 
-    makeLandingPostList = (emdia) => {
+    makeLandingPostList = () => {
         let PostList = this.props.landingMedia.map((item, index) => {
             return (
-                <LandingPostList key={index} media={item} />
+                <LandingPostList onChangeFns={this.callCommentAction} key={index} media={item} />
             )
         });
         return PostList;
+    };
+
+    callCommentAction = (e, input) => {
+        debugger;
+        let mediaID = e.currentTarget.attributes.postID;
+        let comment = input
+        // this.props.createCommentAction() //add the values to use in axios
     };
 
     render() {
@@ -74,4 +82,5 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps, {
     getLandingAction,
+    createCommentAction,
 })(withRouter(Landing));

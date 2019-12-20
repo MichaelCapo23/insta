@@ -5,6 +5,7 @@ import signInReducer from './signInReducer';
 import getUserStatsReducer from './getUserStatsReducer';
 import getUserMediaReducer from './getUserMediaReducer';
 import getLandingMediaReducer from './getLandingMediaReducer';
+import createCommentReducer from './createCommentReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     getUserStatsReducer,
     getUserMediaReducer,
     getLandingMediaReducer,
+    createCommentReducer,
     form: formReducer,
 });
 
