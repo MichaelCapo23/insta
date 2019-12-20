@@ -13,4 +13,6 @@ export default {
     GET_USER_MEDIA_ERROR: 'get_user_media_error',
     GET_LANDING_MEDIA: 'get_landing_media',
     GET_LANDING_MEDIA_ERROR: 'get_landing_media_error',
+    CREATE_COMMENT: 'create_comment',
+    CREATE_COMMENT_ERROR: 'create_comment_error',
 }

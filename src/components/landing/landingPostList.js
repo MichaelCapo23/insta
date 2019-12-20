@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {Link} from 'react-router-dom';
 export default props => {
-    // let [allComments, addStateComment] = useState('');
+    let [disabledVal, enableBtn] = useState(true);
 
     let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername} = props.media;
     function importAll(r) {
@@ -23,13 +23,8 @@ export default props => {
     }
     let threeComments = newCommentsArr(comments);
 
-    function disabledPostBtn(e) {
-        debugger;
-    }
-
-    function createComment(posterID) {
-
-    }
+    const myInput = useRef();
+    const createComment = (e, myInput) => props.onChangeFns(e);
 
     return (
         <div userid={posterID} className="landing-media-container">
@@ -73,8 +68,8 @@ export default props => {
             </div>
 
             <div className="landing-media-add-comment">
-                <input onChange={disabledPostBtn()} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
-                <button userid={posterID} onClick={createComment(posterID)} className="add-comment-btn btn">Post</button>
+                <input ref={myInput} onChange={() => enableBtn(disabledVal = false)} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
+                <button postID={comments.mediaID} onClick={(e) => createComment(e)} disabled={disabledVal} className="add-comment-btn btn">Post</button>
             </div>
         </div>
     )
