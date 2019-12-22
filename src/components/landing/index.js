@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {withRouter} from 'react-router-dom';
+import AuthHOC from '../../HOC/authHOC';
 import {connect} from 'react-redux';
 import {getLandingAction} from '../../actions/getLandingMediaAction'
 import LandingPostList from './landingPostList';
@@ -15,7 +16,7 @@ class Landing extends Component {
     };
 
     componentDidMount() {
-        this.props.getLandingAction()
+        this.props.getLandingAction();
     }
 
     makeLandingPostList = () => {
@@ -27,12 +28,16 @@ class Landing extends Component {
         return PostList;
     };
 
-    callCommentAction = (e, input) => {
-        debugger;
-        let mediaID = e.currentTarget.attributes.postID;
-        let comment = input
-        // this.props.createCommentAction() //add the values to use in axios
+    callCommentAction = (input) => {
+        let mediaID = input.attributes['data-media'].value;
+        let comment = input.value;
+        input.value = '';
+        this.props.createCommentAction({mediaID, comment})
     };
+
+    componentDidUpdate() {
+        this.props.getLandingAction();
+    }
 
     render() {
         let landingPostList = '';
@@ -74,13 +79,12 @@ class Landing extends Component {
 
 function mapStateToProps(state) {
     return {
-        username: state.usernameReducer.username.username,
-        name: state.usernameReducer.username.name,
         fileName: state.getUserMediaReducer.media.fileName,
-        landingMedia: state.getLandingMediaReducer.landingMedia
+        landingMedia: state.getLandingMediaReducer.landingMedia,
+        commentID: state.createCommentReducer.commentID,
     }
 }
 export default connect(mapStateToProps, {
     getLandingAction,
     createCommentAction,
-})(withRouter(Landing));
+})(withRouter(AuthHOC(Landing)));

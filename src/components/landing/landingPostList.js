@@ -1,17 +1,8 @@
-import React, {useState, useRef} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState, useRef, useEffect} from 'react';
+import ReactDOM  from 'react-dom';
 export default props => {
     let [disabledVal, enableBtn] = useState(true);
-
     let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername} = props.media;
-    function importAll(r) {
-        let images = {};
-        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-        return images;
-    }
-    const mediaImages = importAll(require.context('../../assets/media', false, /\.(png|jpe?g|PNG)$/));
-    const profileImages = importAll(require.context('../../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));
-    const generalImages = importAll(require.context('../../assets/', false, /\.(png|jpe?g|PNG)$/));
 
     function newCommentsArr(comments) {
         let arr = [];
@@ -22,24 +13,27 @@ export default props => {
         return arr;
     }
     let threeComments = newCommentsArr(comments);
-
     const myInput = useRef();
-    const createComment = (e, myInput) => props.onChangeFns(e);
+
+    const createComment = (e, input) => {
+        props.onChangeFns(input);
+        enableBtn(() => {disabledVal = true})
+    };
 
     return (
-        <div userid={posterID} className="landing-media-container">
+        <div className="landing-media-container">
             <div className="landing-media-header">
                 <div className="poster-profile-pic">
-                    <img className='poster-profile-pic-img' src={profileImages[posterFileName]} alt="instagram poster profile picture"/>
+                    <img className='poster-profile-pic-img' src={this.props.profileImages[posterFileName]} alt="instagram poster profile picture"/>
                 </div>
                 <div className="poster-username-container">{posterUsername}</div>
                 <div className="ellipsis">
-                    <img className="ellipsis-img" src={generalImages['ellipsis.png']} alt=""/>
+                    <img className="ellipsis-img" src={this.props.generalImages['ellipsis.png']} alt=""/>
                 </div>
             </div>
 
             <div className="landing-media-pic">
-                <img className="landing-media-img" src={mediaImages[fileName]} alt=""/>
+                <img className="landing-media-img" src={this.props.mediaImages[fileName]} alt=""/>
             </div>
 
             <div className="landing-media-footer">
@@ -50,7 +44,7 @@ export default props => {
                 </div>
                 <div className="liked-container">
                     <div className="last-liked-profile-container">
-                        <img className="last-liked-img" src={lastLikedFileName !== 'default.png'? profileImages[lastLikedFileName] : generalImages[lastLikedFileName]} alt='instagram last liked profile picture'/>
+                        <img className="last-liked-img" src={lastLikedFileName !== 'default.png'? this.props.profileImages[lastLikedFileName] : this.props.generalImages[lastLikedFileName]} alt='instagram last liked profile picture'/>
                     </div>
                     <div className="last-liked-username">{likes !== 0 ? 'Liked by ': ''}</div>
                     <div className="username">{ likes !== 0 ? lastLikedUsername: ''}</div>
@@ -68,8 +62,8 @@ export default props => {
             </div>
 
             <div className="landing-media-add-comment">
-                <input ref={myInput} onChange={() => enableBtn(disabledVal = false)} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
-                <button postID={comments.mediaID} onClick={(e) => createComment(e)} disabled={disabledVal} className="add-comment-btn btn">Post</button>
+                <input data-media={comments[0].mediaID} ref={myInput} onChange={() => myInput.current.value !== '' ? enableBtn(disabledVal = false) : enableBtn(disabledVal = true)} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
+                <button onClick={(e) => createComment(myInput.current)} disabled={disabledVal} className="add-comment-btn btn">Post</button>
             </div>
         </div>
     )
