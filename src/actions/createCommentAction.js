@@ -11,7 +11,7 @@ export const createCommentAction = (values) => async dispatch => {
             },
             data: {
                 comment: values.comment,
-                postID: values.postID,
+                mediaID: values.mediaID,
             }
         }).then(response => {
             dispatch({

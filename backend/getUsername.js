@@ -1,7 +1,7 @@
 module.exports = (app, db) => {
     app.post('/getUsername', (req, res) => {
         let {token} = req.headers;
-        let sql = "SELECT `name`, `username` FROM `accounts` WHERE `token` = ?";
+        let sql = "SELECT `ID`, `name`, `username` FROM `accounts` WHERE `token` = ?";
         db.connect(() => {
             db.query(sql, token, (err, data) => {
                 if (!err) {

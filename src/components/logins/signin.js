@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {signInAction} from '../../actions/signInAction';
 import error from "../../assets/error.png";
+import AuthHOC from '../../HOC/authHOC';
 import appStore from '../../assets/appDownload.png'
 
 class Signin extends Component {
@@ -14,27 +15,24 @@ class Signin extends Component {
         passwordErr: 'true',
     };
 
+    componentDidMount() {
+        let token = localStorage.getItem('token');
+
+    }
+
     addToState = (e) => {
         this.setState({
             [e.target.id]: e.target.value
         }, () => this.signinValidation())
     };
 
-    componentDidMount() {
-        // let token = localStorage.getItem('token');
-        // if(token || this.props.token) {
-        //     this.props.history.push('/');
-        // }
-    }
-
     signinValidation = () => {
         let errObj = this.validate();
-        debugger;
         if(Object.entries(errObj).length !== 0) {
             for (let [key, value] of Object.entries(errObj)) {
                 this.setState({
                     [key]: value
-                }, () => {debugger; this.signinBtn.current.setAttribute('disabled', 'disabled')})
+                }, () => { this.signinBtn.current.setAttribute('disabled', 'disabled')})
             }
             return false;
         }
@@ -42,7 +40,7 @@ class Signin extends Component {
         this.setState({
             emailErr: 'false',
             passwordErr: 'false'
-        }, () => {debugger; this.signinBtn.current.removeAttribute('disabled')})
+        }, () => {this.signinBtn.current.removeAttribute('disabled')})
     };
 
     validate = () => {
@@ -59,16 +57,9 @@ class Signin extends Component {
     };
 
     loginUser = () => {
+        debugger;
         this.props.signInAction({email: this.state.email, password: this.state.password});
     };
-
-    componentDidUpdate() {
-        // let token = localStorage.getItem('token');
-        // if(token || this.props.token) {
-        //     this.props.history.push('/');
-        // }
-    }
-
 
     render() {
         this.signinBtn = React.createRef();
@@ -132,35 +123,10 @@ class Signin extends Component {
     }
 }
 
-//<div className="card card-styles-signin card-rounded">
-//                     <div className={"content-container"}>
-//                         <h1 className={"center"}>Sign In</h1>
-//                         <div className={"help-block-errMessage"}>{this.state.errMessage}</div>
-//                         <form className={"form-padding"}>
-//                             <div className={"col-sm-8 margin-auto form-group"}>
-//                                 <input onChange={this.addToState} placeholder={"Enter Email"} id="email" type="text" className={"form-control"}/>
-//                                 <label htmlFor="name">Email</label>
-//                                 <span className="help-block">{this.state.emailErr}</span>
-//                             </div>
-//
-//                             <div className={"col-sm-8 margin-auto form-group"}>
-//                                 <input onChange={this.addToState} placeholder={"Enter Password"} id="password" type="password" className={"form-control"}/>
-//                                 <label htmlFor="name">Password</label>
-//                                 <span className="help-block">{this.state.passwordErr}</span>
-//                                 <div className={"forgot-pass"}>Forgot Password?</div>
-//                             </div>
-//                         </form>
-//                         <div className="col-sm-8 btn-container margin-auto no-padding center">
-//                             <button onClick={this.signinValidation} type={"button"} className={"btn btn-info login-btn center"}>Login</button>
-//                         </div>
-//                         <div className={"create-account center"}>Dont have an account? <span className={"sign-up-now"}>Sign up now!</span></div>
-//                     </div>
-//                 </div>
-
 function mapStateToProps(state) {
     return {
         token: state.signInReducer.token
     }
 }
 
-export default connect(mapStateToProps, {signInAction})(withRouter(Signin));
+export default connect(mapStateToProps, {signInAction})(withRouter(AuthHOC(Signin)));

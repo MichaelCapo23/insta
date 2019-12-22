@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getUsernameAction} from "../../actions/getUsernameAction";
 import {getUserStatsAction} from '../../actions/userStatsAction';
 import {getUserMediaAction} from "../../actions/getUserMediaAction";
 import UserMediaList from './userMediaList';
@@ -26,31 +25,27 @@ class Profile extends Component {
         })
     };
 
-    importAll = (r) => {
-        let images = {};
-        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-        return images;
-    };
+    // importAll = (r) => {
+    //     let images = {};
+    //     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    //     return images;
+    // };
 
     componentDidMount() {
-        if(!this.state.profileImages) {
-            const images = this.importAll(require.context('../../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));
-            this.setState({
-                profileImages: images
-            })
-        }
+        // if(!this.state.profileImages) {
+        //     const images = this.importAll(require.context('../../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));
+        //     this.setState({
+        //         profileImages: images
+        //     })
+        // }
 
         //check for the token, if not set then push the user to the signin page, make this a higher order component in the future
         let token = localStorage.getItem('token');
         if(!token) {
             this.props.history.push('/signin');
         }
-        //get the username
-        this.props.getUsernameAction();
-
         //get users stats
         this.props.getUserStatsAction();
-
         //get user media
         this.props.getUserMediaAction();
     }
@@ -119,7 +114,7 @@ class Profile extends Component {
                         <div className="user-info-container">
                             <div className="profile-pic-container">
                                 <div className="profile-pic-container-inner">
-                                    <img className="profilePic" src={this.state.profileMedia ? this.state.profileImages[this.state.profileMedia[0].fileName] : ''} alt=""/>
+                                    <img className="profilePic" src={this.props.profileMedia ? this.props.profileImages[this.props.profileMedia[0].fileName] : ''} alt=""/>
                                 </div>
                             </div>
                             <div className="profile-info-container">
@@ -166,12 +161,10 @@ class Profile extends Component {
 
 function mapStateToProps(state) {
     return {
-        username: state.usernameReducer.username,
         stats: state.getUserStatsReducer.stats,
-        media: state.getUserMediaReducer.media,
     }
 }
 
 export default connect(mapStateToProps, {
-    getUsernameAction, getUserStatsAction, getUserMediaAction,
+    getUserStatsAction, getUserMediaAction,
 })(withRouter(Profile));

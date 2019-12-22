@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {withRouter, Link} from 'react-router-dom';
 import {signUpAction} from '../../actions/signUpAction'
 import {connect} from 'react-redux';
+import AuthHOC from '../../HOC/authHOC';
 import error from '../../assets/error.png'
 class Signup extends Component {
 
@@ -112,7 +113,7 @@ class Signup extends Component {
                                         <input autoComplete="off" onChange={e => this.addInputToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
                                         {this.state.passwordError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
-                                    <button  onClick={this.addAccount} type={"button"} className={"facebook-login-btn-login signup-btn"}>Sign up</button>
+                                    <button onClick={this.addAccount} type={"button"} className={"facebook-login-btn-login signup-btn"}>Sign up</button>
                                     <div className={"privacy-text"}>By signing up, you agree to our Terms , Data Policy and Cookies Policy.</div>
                                 </form>
                             </div>
@@ -156,4 +157,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {signUpAction})(withRouter(Signup));
+export default connect(mapStateToProps, {signUpAction})(withRouter(AuthHOC(Signup)));
