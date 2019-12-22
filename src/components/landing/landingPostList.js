@@ -15,11 +15,20 @@ export default props => {
     }
     let threeComments = newCommentsArr(comments);
     const myInput = useRef();
+    const likeBtn = useRef();
+
 
     const createComment = (input) => {
-        props.onChangeFns(input);
+        props.commentFunction(input);
         enableBtn(() => {disabledVal = true})
     };
+
+    const likeMedia = (likeBtn) => {
+        debugger;
+        props.likeFunction(likeBtn);
+        //THIS DOESN'T WORK YET FIX IT
+        likeBtn.attributes.src = generalImages['heartRed.png'];
+    }
     return (
         <div className="landing-media-container">
             <div className="landing-media-header">
@@ -38,8 +47,13 @@ export default props => {
 
             <div className="landing-media-footer">
                 <div className="material-icons-container">
-                    <div className="material-icons like-comment">thumb_up </div>
-                    <div className="material-icons like-comment landing-comments">mode_comment</div>
+                    <div className="heart-container">
+                        <img onClick={(e) => likeMedia(likeBtn.current)} data-media={comments[0].mediaID} data-userid={props.userID} ref={likeBtn} className="heart-img-landing" src={generalImages['heartClear.jpg']} alt=""/>{/*generalImages['heartRed.png']*/}
+                    </div>
+                    <div className="comment-container">
+                        <img className="comment-img-landing" src={generalImages['comment.png']} alt=""/>
+                    </div>
+                    {/*<div className="material-icons like-comment landing-comments">mode_comment</div>*/}
                     <div className="material-icons landing-bookmark">bookmark_border</div>
                 </div>
                 <div className="liked-container">

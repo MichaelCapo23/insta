@@ -62,6 +62,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
         return {
             username: state.usernameReducer.username.username,
             name: state.usernameReducer.username.name,
+            id: state.usernameReducer.username.id,
         }
 
     }

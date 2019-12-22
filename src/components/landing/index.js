@@ -12,6 +12,7 @@ class Landing extends Component {
     state = {
         data: null,
         landingMedia: null,
+        commentID: null,
     };
 
     componentWillMount() {
@@ -22,24 +23,32 @@ class Landing extends Component {
     makeLandingPostList = () => {
         let PostList = this.props.landingMedia.map((item, index) => {
             return (
-                <LandingPostList onChangeFns={this.callCommentAction} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
+                <LandingPostList likeFunction={this.calLikeAction} commentFunction={this.callCommentAction} key={index} userID={this.props.id} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
             )
         });
         return PostList;
     };
 
     callCommentAction = (input) => {
-        debugger;
         let mediaID = input.attributes['data-media'].value;
         let comment = input.value;
         input.value = '';
         this.props.createCommentAction({mediaID, comment})
     };
 
+    calLikeAction = (likeBtn) => {
+        debugger;
+        let mediaID = likeBtn.attributes['data-media'].value;
+        let userID = likeBtn.attributes['data-userid'].value;
+        // this.props.likeMediaAction();
+    }
+
     componentDidUpdate() {
-        if(this.props.landingMedia !== this.state.landingMedia) {
+        if(this.props.landingMedia !== this.state.landingMedia || this.props.commentID !== this.state.commentID) {
+            this.props.getLandingAction();
             this.setState({
-                landingMedia: this.props.landingMedia
+                landingMedia: this.props.landingMedia,
+                commentID: this.props.commentID
             })
         }
     }

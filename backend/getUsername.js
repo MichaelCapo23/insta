@@ -13,6 +13,7 @@ module.exports = (app, db) => {
                         output = {
                             status: "OK",
                             username: data[0].username,
+                            id: data[0].ID,
                             name: data[0].name
                         }
                     }
