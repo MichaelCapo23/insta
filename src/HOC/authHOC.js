@@ -5,7 +5,11 @@ import {getUsernameAction} from '../actions/getUsernameAction'
 export default (WrappedComponent, to ='./signIn', redirect = false) => {
     class Auth extends Component {
 
-        componentDidMount() {
+        state = {
+
+        };
+
+        componentWillMount () {
             this.checkAuth();
         }
 
@@ -14,7 +18,6 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
         }
 
         importAll = (r) => {
-            debugger
             let images = {};
             r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
             return images;
@@ -37,14 +40,11 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
                 if(!this.props.username || this.props.username === '') {
                     this.props.getUsernameAction();
                 }
-
-                debugger;
-                if(!this.props.mediaImages || this.props.mediaImages === '') {
-                    //CHANGE THE FILE PATH TO THE IMAGES AS ITS DIFFFRENENT IN THE HOC THAN THE COMPONENT
-                    const mediaImages = this.importAll(require.context('../../assets/media', false, /\.(png|jpe?g|PNG)$/));
-                    const profileImages = this.importAll(require.context('../../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));
-                    const generalImages = this.importAll(require.context('../../assets/', false, /\.(png|jpe?g|PNG)$/));
-                    Auth.setProps({
+                if((!this.props.mediaImages || this.props.mediaImages === '') && !this.state.mediaImages) {
+                    const mediaImages = this.importAll(require.context('../assets/media', false, /\.(png|jpe?g|PNG)$/));
+                    const profileImages = this.importAll(require.context('../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));
+                    const generalImages = this.importAll(require.context('../assets/', false, /\.(png|jpe?g|PNG)$/));
+                    this.setState({
                         mediaImages: mediaImages,
                         profileImages: profileImages,
                         generalImages: generalImages,
@@ -54,7 +54,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
         };
 
         render() {
-            return <WrappedComponent {...this.props}/>
+            return <WrappedComponent mediaImages={this.state.mediaImages} profileImages={this.state.profileImages} generalImages={this.state.generalImages} {...this.props}/>
         }
     }
 

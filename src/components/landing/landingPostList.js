@@ -3,6 +3,7 @@ import ReactDOM  from 'react-dom';
 export default props => {
     let [disabledVal, enableBtn] = useState(true);
     let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername} = props.media;
+    let {profileImages, generalImages, mediaImages} = props.images;
 
     function newCommentsArr(comments) {
         let arr = [];
@@ -15,25 +16,24 @@ export default props => {
     let threeComments = newCommentsArr(comments);
     const myInput = useRef();
 
-    const createComment = (e, input) => {
+    const createComment = (input) => {
         props.onChangeFns(input);
         enableBtn(() => {disabledVal = true})
     };
-
     return (
         <div className="landing-media-container">
             <div className="landing-media-header">
                 <div className="poster-profile-pic">
-                    <img className='poster-profile-pic-img' src={this.props.profileImages[posterFileName]} alt="instagram poster profile picture"/>
+                    <img className='poster-profile-pic-img' src={profileImages[posterFileName]} alt="instagram poster profile picture"/>
                 </div>
                 <div className="poster-username-container">{posterUsername}</div>
                 <div className="ellipsis">
-                    <img className="ellipsis-img" src={this.props.generalImages['ellipsis.png']} alt=""/>
+                    <img className="ellipsis-img" src={generalImages['ellipsis.png']} alt=""/>
                 </div>
             </div>
 
             <div className="landing-media-pic">
-                <img className="landing-media-img" src={this.props.mediaImages[fileName]} alt=""/>
+                <img className="landing-media-img" src={mediaImages[fileName]} alt=""/>
             </div>
 
             <div className="landing-media-footer">
@@ -44,7 +44,7 @@ export default props => {
                 </div>
                 <div className="liked-container">
                     <div className="last-liked-profile-container">
-                        <img className="last-liked-img" src={lastLikedFileName !== 'default.png'? this.props.profileImages[lastLikedFileName] : this.props.generalImages[lastLikedFileName]} alt='instagram last liked profile picture'/>
+                        <img className="last-liked-img" src={lastLikedFileName !== 'default.png'? profileImages[lastLikedFileName] : generalImages[lastLikedFileName]} alt='instagram last liked profile picture'/>
                     </div>
                     <div className="last-liked-username">{likes !== 0 ? 'Liked by ': ''}</div>
                     <div className="username">{ likes !== 0 ? lastLikedUsername: ''}</div>

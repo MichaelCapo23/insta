@@ -38,7 +38,7 @@ module.exports = (app, db) => {
                                                 let sql5 = "SELECT count(*) AS `likes` FROM `likes` WHERE mediaID = ?";
                                                 db.query(sql5, currentMediaID, (err, likesData) => {
                                                     if(!err) {
-                                                        let sql6 = "SELECT `l`.`accountID`, `a`.`username` FROM `accounts` AS a JOIN `likes` AS l ON (`a`.`ID` = `l`.`accountID`) WHERE `l`.`mediaID` = '3'  ORDER BY `l`.`created_at` DESC LIMIT 1";
+                                                        let sql6 = "SELECT `l`.`accountID`, `a`.`username` FROM `accounts` AS a JOIN `likes` AS l ON (`a`.`ID` = `l`.`accountID`) WHERE `l`.`mediaID` = ?  ORDER BY `l`.`created_at` DESC LIMIT 1";
                                                         db.query(sql6, currentMediaID, (err, lastLiked) => {
                                                             if(!err) {
                                                                 let lastLikedID = lastLiked[0].accountID;
@@ -61,6 +61,7 @@ module.exports = (app, db) => {
                                                                                 rowInfo.fileName = mediaData[index].fileName;
                                                                                 rowInfo.lastLikedUsername = lastLiked[0].username;
                                                                                 output.push(rowInfo);
+
                                                                                 if(index == (mediaData.length -1)) {
                                                                                     res.send(output);
                                                                                 }

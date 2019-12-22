@@ -11,24 +11,25 @@ class Landing extends Component {
 
     state = {
         data: null,
-        images: null,
         landingMedia: null,
     };
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log(this.props);
         this.props.getLandingAction();
     }
 
     makeLandingPostList = () => {
         let PostList = this.props.landingMedia.map((item, index) => {
             return (
-                <LandingPostList onChangeFns={this.callCommentAction} key={index} media={item} />
+                <LandingPostList onChangeFns={this.callCommentAction} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
             )
         });
         return PostList;
     };
 
     callCommentAction = (input) => {
+        debugger;
         let mediaID = input.attributes['data-media'].value;
         let comment = input.value;
         input.value = '';
@@ -36,7 +37,11 @@ class Landing extends Component {
     };
 
     componentDidUpdate() {
-        this.props.getLandingAction();
+        if(this.props.landingMedia !== this.state.landingMedia) {
+            this.setState({
+                landingMedia: this.props.landingMedia
+            })
+        }
     }
 
     render() {
@@ -52,7 +57,7 @@ class Landing extends Component {
                         <div className="information-container">
                             <div className="landing-profile">
                                 <div className="profile-pic-landing">
-                                    <img className='user-profile' src={this.state.images ? this.state.images[this.props.fileName] : ''} alt=""/>
+                                    <img className='user-profile' src={this.props.landingMedia ? this.props.profileImages[this.props.landingMedia[0].posterFileName] : ''} alt=""/>
                                 </div>
                                 <div className="profile-info-landing">
                                     <div className="username-landing">{this.props.username ? this.props.username : ''}</div>
