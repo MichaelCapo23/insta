@@ -11,18 +11,19 @@ class Landing extends Component {
 
     state = {
         data: null,
-        images: null,
         landingMedia: null,
+        commentID: null,
     };
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log(this.props);
         this.props.getLandingAction();
     }
 
     makeLandingPostList = () => {
         let PostList = this.props.landingMedia.map((item, index) => {
             return (
-                <LandingPostList onChangeFns={this.callCommentAction} key={index} media={item} />
+                <LandingPostList likeFunction={this.calLikeAction} commentFunction={this.callCommentAction} key={index} userID={this.props.id} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
             )
         });
         return PostList;
@@ -35,8 +36,21 @@ class Landing extends Component {
         this.props.createCommentAction({mediaID, comment})
     };
 
+    calLikeAction = (likeBtn) => {
+        debugger;
+        let mediaID = likeBtn.attributes['data-media'].value;
+        let userID = likeBtn.attributes['data-userid'].value;
+        // this.props.likeMediaAction();
+    }
+
     componentDidUpdate() {
-        this.props.getLandingAction();
+        if(this.props.landingMedia !== this.state.landingMedia || this.props.commentID !== this.state.commentID) {
+            this.props.getLandingAction();
+            this.setState({
+                landingMedia: this.props.landingMedia,
+                commentID: this.props.commentID
+            })
+        }
     }
 
     render() {
@@ -52,7 +66,7 @@ class Landing extends Component {
                         <div className="information-container">
                             <div className="landing-profile">
                                 <div className="profile-pic-landing">
-                                    <img className='user-profile' src={this.state.images ? this.state.images[this.props.fileName] : ''} alt=""/>
+                                    <img className='user-profile' src={this.props.landingMedia ? this.props.profileImages[this.props.landingMedia[0].posterFileName] : ''} alt=""/>
                                 </div>
                                 <div className="profile-info-landing">
                                     <div className="username-landing">{this.props.username ? this.props.username : ''}</div>

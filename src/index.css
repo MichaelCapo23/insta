@@ -949,6 +949,9 @@ input:-webkit-autofill {
 .landing-comments {
     position: relative;
     left: 10px;
+    font-size: 27px;
+    top: 2px;
+    vertical-align: super;
 }
 .like-comment {
     width: 30px;
@@ -1137,4 +1140,22 @@ input:-webkit-autofill {
 .add-comment-btn:focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+.heart-container, .comment-container {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.comment-container {
+    position: relative;
+    left: 15px;
+}
+
+.heart-img-landing, .comment-img-landing {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
 }
