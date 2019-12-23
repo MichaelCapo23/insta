@@ -15,4 +15,6 @@ export default {
     GET_LANDING_MEDIA_ERROR: 'get_landing_media_error',
     CREATE_COMMENT: 'create_comment',
     CREATE_COMMENT_ERROR: 'create_comment_error',
+    LIKE_MEDIA: 'like_media',
+    LIKE_MEDIA_ERROR: 'like_media_error',
 }

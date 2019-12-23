@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 export default props => {
+    debugger
     let {fileName, likes, comments} = props.media;
     function importAll(r) {
         let images = {};

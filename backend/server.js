@@ -36,4 +36,5 @@ require('./getUserStats')(app, db);
 require('./getUserMedia')(app, db);
 require('./getLandingMedia')(app, db);
 require('./createComment')(app, db);
+require('./likeMedia')(app, db);
 

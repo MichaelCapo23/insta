@@ -6,7 +6,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
     class Auth extends Component {
 
         state = {
-
+            mediaImages: null,
         };
 
         componentWillMount () {
@@ -38,8 +38,9 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
 
                 //check if username props is set, if not get it, needed on all auth files.
                 if(!this.props.username || this.props.username === '') {
-                    this.props.getUsernameAction();
+                    this.props.getUsernameAction({userID: this.props.id});
                 }
+
                 if((!this.props.mediaImages || this.props.mediaImages === '') && !this.state.mediaImages) {
                     const mediaImages = this.importAll(require.context('../assets/media', false, /\.(png|jpe?g|PNG)$/));
                     const profileImages = this.importAll(require.context('../assets/profilePics', false, /\.(png|jpe?g|PNG)$/));

@@ -7,7 +7,7 @@ export const createCommentAction = (values) => async dispatch => {
             method: 'POST',
             url: '/createComment',
             headers: {
-                token: localStorage.getItem('token'),
+                id: values.userID
             },
             data: {
                 comment: values.comment,

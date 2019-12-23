@@ -7,7 +7,7 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
         case types.GET_USERNAME:
-            return {...state, username:action.username, name: action.name, id: action.username.id};
+            return {...state, username:action.username, name: action.username.name, id: action.username.id};
         case types.GET_USERNAME_ERROR:
             return {...state, error:action.error};
         default:
