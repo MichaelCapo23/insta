@@ -1,13 +1,13 @@
 import axios from 'axios';
 import types from './types';
 
-export const getLandingAction = () => async dispatch => {
+export const getLandingAction = (id) => async dispatch => {
     try {
         axios({
             method: "POST",
             url: '/getLandingMedia',
             headers: {
-                token: localStorage.getItem('token')
+                id: id
             }
         }).then(response => {
             dispatch({

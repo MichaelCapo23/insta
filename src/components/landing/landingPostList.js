@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import ReactDOM  from 'react-dom';
 export default props => {
     let [disabledVal, enableBtn] = useState(true);
-    let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername} = props.media;
+    let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername, userLiked} = props.media;
     let {profileImages, generalImages, mediaImages} = props.images;
 
     function newCommentsArr(comments) {
@@ -24,11 +24,9 @@ export default props => {
     };
 
     const likeMedia = (likeBtn) => {
-        debugger;
         props.likeFunction(likeBtn);
-        //THIS DOESN'T WORK YET FIX IT
-        likeBtn.attributes.src = generalImages['heartRed.png'];
-    }
+        likeBtn.setAttribute('src',generalImages['heartRed.png']);
+    };
     return (
         <div className="landing-media-container">
             <div className="landing-media-header">
@@ -48,7 +46,7 @@ export default props => {
             <div className="landing-media-footer">
                 <div className="material-icons-container">
                     <div className="heart-container">
-                        <img onClick={(e) => likeMedia(likeBtn.current)} data-media={comments[0].mediaID} data-userid={props.userID} ref={likeBtn} className="heart-img-landing" src={generalImages['heartClear.jpg']} alt=""/>{/*generalImages['heartRed.png']*/}
+                        <img onClick={(e) => likeMedia(likeBtn.current)} data-media={comments[0].mediaID} ref={likeBtn} className="heart-img-landing" src={userLiked === 1 ? generalImages['heartRed.png'] : generalImages['heartClear.jpg']} alt=""/>{/*generalImages['heartRed.png']*/}
                     </div>
                     <div className="comment-container">
                         <img className="comment-img-landing" src={generalImages['comment.png']} alt=""/>

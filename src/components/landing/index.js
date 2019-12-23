@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {getLandingAction} from '../../actions/getLandingMediaAction'
 import LandingPostList from './landingPostList';
 import {createCommentAction} from "../../actions/createCommentAction";
+import {likeMediaAction} from "../../actions/likeMediaAction";
 import 'material-icons';
 
 class Landing extends Component {
@@ -13,17 +14,19 @@ class Landing extends Component {
         data: null,
         landingMedia: null,
         commentID: null,
+        likedID: null,
     };
 
     componentWillMount() {
-        console.log(this.props);
-        this.props.getLandingAction();
+        if(this.props.id) {
+            this.props.getLandingAction(this.props.id);
+        }
     }
 
     makeLandingPostList = () => {
         let PostList = this.props.landingMedia.map((item, index) => {
             return (
-                <LandingPostList likeFunction={this.calLikeAction} commentFunction={this.callCommentAction} key={index} userID={this.props.id} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
+                <LandingPostList likeFunction={this.calLikeAction} commentFunction={this.callCommentAction} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
             )
         });
         return PostList;
@@ -37,25 +40,25 @@ class Landing extends Component {
     };
 
     calLikeAction = (likeBtn) => {
-        debugger;
         let mediaID = likeBtn.attributes['data-media'].value;
-        let userID = likeBtn.attributes['data-userid'].value;
-        // this.props.likeMediaAction();
+        let userID = this.props.id;
+        this.props.likeMediaAction({userID, mediaID});
     }
 
     componentDidUpdate() {
-        if(this.props.landingMedia !== this.state.landingMedia || this.props.commentID !== this.state.commentID) {
-            this.props.getLandingAction();
+        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID) {
+            this.props.getLandingAction(this.props.id);
             this.setState({
                 landingMedia: this.props.landingMedia,
-                commentID: this.props.commentID
+                commentID: this.props.commentID,
+                likedID: this.props.likedID,
             })
         }
     }
 
     render() {
         let landingPostList = '';
-        if(this.props.landingMedia) {
+        if(this.props.landingMedia && this.props.landingMedia !== '') {
             landingPostList = this.makeLandingPostList(this.props.landingMedia);
         }
         return (
@@ -93,12 +96,13 @@ class Landing extends Component {
 
 function mapStateToProps(state) {
     return {
-        fileName: state.getUserMediaReducer.media.fileName,
         landingMedia: state.getLandingMediaReducer.landingMedia,
         commentID: state.createCommentReducer.commentID,
+        likedID: state.likeMediaReducer.likedID,
     }
 }
 export default connect(mapStateToProps, {
     getLandingAction,
     createCommentAction,
+    likeMediaAction,
 })(withRouter(AuthHOC(Landing)));

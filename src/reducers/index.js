@@ -6,6 +6,7 @@ import getUserStatsReducer from './getUserStatsReducer';
 import getUserMediaReducer from './getUserMediaReducer';
 import getLandingMediaReducer from './getLandingMediaReducer';
 import createCommentReducer from './createCommentReducer';
+import likeMediaReducer from './likeMediaReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     getUserMediaReducer,
     getLandingMediaReducer,
     createCommentReducer,
+    likeMediaReducer,
     form: formReducer,
 });
 
