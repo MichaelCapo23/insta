@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {unfollowUserAction} from "../../actions/unfollowUserAction";
 
 class UnfollowModal extends Component {
     constructor(props) {
@@ -17,6 +19,13 @@ class UnfollowModal extends Component {
         document.getElementById("unfollowModal").classList.remove("hide");
     };
 
+    unfollowUser = () => {
+        debugger;
+        //NEED TO ALSO GET this.props.userValues.posterID into props here don't have that yet
+        this.props.unfollowUserAction({id: this.props.userValues.userid, unfollowID: this.props.userValues.posterID});
+        document.getElementById("unfollowModal").classList.add("hide");
+    };
+
     render() {
         console.log(this.props);
         return (
@@ -30,7 +39,7 @@ class UnfollowModal extends Component {
                     <div className="unfollow-username">Unfollow @{this.props.userValues.username ? this.props.userValues.username: ''}</div>
                     <div className="options-list-container">
                         <ul className='option-ul'>
-                            <li className="no-styles options-li-unfollow">Unfollow</li>
+                            <li onClick={this.unfollowUser} className="no-styles options-li-unfollow">Unfollow</li>
                             <li onClick={this.hideModal} className="no-styles options-li-unfollow">Cancel</li>
                         </ul>
                     </div>
@@ -40,4 +49,12 @@ class UnfollowModal extends Component {
     }
 }
 
-export default UnfollowModal;
+function mapStateToProps(state) {
+    return {
+        unfollowID: state.unfollowUserReducer.unfollowID
+    };
+}
+
+export default connect(mapStateToProps, {
+    unfollowUserAction,
+})(UnfollowModal);

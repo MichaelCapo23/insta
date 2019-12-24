@@ -29,12 +29,12 @@ export default props => {
     };
 
     const openModalFns = () => {
-        let imgTag = document.getElementById("ellipsis-img")
+        let imgTag = document.getElementById("ellipsis-img");
         let userID = imgTag.attributes['data-userid'];
         let username = imgTag.attributes['data-username'];
         let filename = imgTag.attributes['data-filename'];
         props.openModal({userID: userID, username:username, filename:filename});
-    }
+    };
 
     return (
         <div className="landing-media-container">

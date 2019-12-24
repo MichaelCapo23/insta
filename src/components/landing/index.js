@@ -65,6 +65,7 @@ class Landing extends Component {
     };
 
     componentDidUpdate() {
+        debugger;
         if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID) {
             this.props.getLandingAction(this.props.id);
             this.setState({
