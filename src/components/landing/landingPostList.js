@@ -27,6 +27,15 @@ export default props => {
         props.likeFunction(likeBtn);
         likeBtn.setAttribute('src',generalImages['heartRed.png']);
     };
+
+    const openModalFns = () => {
+        let imgTag = document.getElementById("ellipsis-img")
+        let userID = imgTag.attributes['data-userid'];
+        let username = imgTag.attributes['data-username'];
+        let filename = imgTag.attributes['data-filename'];
+        props.openModal({userID: userID, username:username, filename:filename});
+    }
+
     return (
         <div className="landing-media-container">
             <div className="landing-media-header">
@@ -35,7 +44,7 @@ export default props => {
                 </div>
                 <div className="poster-username-container">{posterUsername}</div>
                 <div className="ellipsis">
-                    <img className="ellipsis-img" src={generalImages['ellipsis.png']} alt=""/>
+                    <img data-userid={posterID} data-username={posterUsername} data-filename={posterFileName} onClick={(e) => openModalFns(e)} id='ellipsis-img' className="ellipsis-img" src={generalImages['ellipsis.png']} alt=""/>
                 </div>
             </div>
 

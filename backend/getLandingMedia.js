@@ -33,7 +33,6 @@ module.exports = (app, db) => {
                                         }
                                         let sql5 = "SELECT count(*) AS `likes`, (SELECT count(*) FROM `likes` WHERE `accountID` = ? AND mediaID = ?) as userLiked FROM `likes` WHERE mediaID = ?";
                                         db.query(sql5, [id, currentMediaID, currentMediaID], (err, likesData) => {
-                                            console.log(sql5);
                                             if(!err) {
                                                 let sql6 = "SELECT `l`.`accountID`, `a`.`username` FROM `accounts` AS a JOIN `likes` AS l ON (`a`.`ID` = `l`.`accountID`) WHERE `l`.`mediaID` = ?  ORDER BY `l`.`created_at` DESC LIMIT 1";
                                                 db.query(sql6, currentMediaID, (err, lastLiked) => {
@@ -52,7 +51,7 @@ module.exports = (app, db) => {
                                                                         if(posterFileName.length > 0) {
                                                                             rowInfo.posterFileName = posterFileName[0].fileName;
                                                                         }
-
+                                                                        rowInfo.posterID = posterID;
                                                                         rowInfo.likes = likesData[0].likes;
                                                                         rowInfo.userLiked = likesData[0].userLiked;
                                                                         rowInfo.posterUsername = mediaData[index].username;
