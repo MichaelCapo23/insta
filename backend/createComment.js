@@ -6,7 +6,6 @@ module.exports = (app, db) => {
         let {id} = req.headers;
         let {mediaID, comment} = req.body;
         db.connect(() => {
-            let id = data[0].ID;
             let sql = "INSERT INTO `comments` (`accountID`, `mediaID`, `comment`) VALUES (?,?,?)";
             db.query(sql, [id, mediaID, comment], (err, data) => {
                 if(!err) {

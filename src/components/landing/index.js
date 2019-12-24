@@ -6,6 +6,9 @@ import {getLandingAction} from '../../actions/getLandingMediaAction'
 import LandingPostList from './landingPostList';
 import {createCommentAction} from "../../actions/createCommentAction";
 import {likeMediaAction} from "../../actions/likeMediaAction";
+import OptionsModal from './postOptionsModal';
+import UnfollowModal from './confirmUnfollowModal';
+
 import 'material-icons';
 
 class Landing extends Component {
@@ -15,6 +18,9 @@ class Landing extends Component {
         landingMedia: null,
         commentID: null,
         likedID: null,
+        userid: '',
+        username: '',
+        filename:'',
     };
 
     componentWillMount() {
@@ -26,7 +32,7 @@ class Landing extends Component {
     makeLandingPostList = () => {
         let PostList = this.props.landingMedia.map((item, index) => {
             return (
-                <LandingPostList likeFunction={this.calLikeAction} commentFunction={this.callCommentAction} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
+                <LandingPostList likeFunction={this.calLikeAction} openModal={this.openOptionsModal} commentFunction={this.callCommentAction} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
             )
         });
         return PostList;
@@ -36,14 +42,27 @@ class Landing extends Component {
         let mediaID = input.attributes['data-media'].value;
         let comment = input.value;
         input.value = '';
-        this.props.createCommentAction({mediaID, comment})
+        this.props.createCommentAction({userID:this.props.id, mediaID, comment})
     };
 
     calLikeAction = (likeBtn) => {
         let mediaID = likeBtn.attributes['data-media'].value;
         let userID = this.props.id;
         this.props.likeMediaAction({userID, mediaID});
-    }
+    };
+
+    openOptionsModal = (userValues) => {
+        this.setState({
+            userid: userValues.userID.value,
+            username: userValues.username.value,
+            filename: userValues.filename.value,
+        });
+        document.getElementById("optionsModal").classList.remove("hide");
+    };
+
+    openUnfollowModal = () => {
+        document.getElementById("unfollowModal").classList.remove("hide");
+    };
 
     componentDidUpdate() {
         if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID) {
@@ -63,6 +82,8 @@ class Landing extends Component {
         }
         return (
             <Fragment>
+                <OptionsModal openUnfollowModal={this.openUnfollowModal}/>
+                <UnfollowModal images={this.props.profileImages} userValues={{userid: this.state.userid, username: this.state.username, filename:this.state.filename}}/>
                 <div className={"content-header"}>
                     <div className="landing-gutter">
                         <div className="media-container">{landingPostList}</div>
