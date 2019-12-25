@@ -19,5 +19,7 @@ export default {
     LIKE_MEDIA_ERROR: 'like_media_error',
     UNFOLLOW_USER: 'unfollow_user',
     UNFOLLOW_USER_ERROR: 'unfollow_user_error',
+    GET_STORIES: 'get_stories',
+    GET_STORIES_ERROR: 'get_stories_error',
 
 }

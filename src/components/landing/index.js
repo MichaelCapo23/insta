@@ -6,6 +6,7 @@ import {getLandingAction} from '../../actions/getLandingMediaAction'
 import LandingPostList from './landingPostList';
 import {createCommentAction} from "../../actions/createCommentAction";
 import {likeMediaAction} from "../../actions/likeMediaAction";
+import {getStoriesAction} from "../../actions/getStoriesAction";
 import OptionsModal from './postOptionsModal';
 import UnfollowModal from './confirmUnfollowModal';
 
@@ -18,7 +19,9 @@ class Landing extends Component {
         landingMedia: null,
         commentID: null,
         likedID: null,
-        userid: '',
+        lastUnfollowID: null,
+        stories: null,
+        posterid: '',
         username: '',
         filename:'',
     };
@@ -26,6 +29,7 @@ class Landing extends Component {
     componentWillMount() {
         if(this.props.id) {
             this.props.getLandingAction(this.props.id);
+            this.props.getStoriesAction(this.props.id);
         }
     }
 
@@ -53,7 +57,7 @@ class Landing extends Component {
 
     openOptionsModal = (userValues) => {
         this.setState({
-            userid: userValues.userID.value,
+            posterid: userValues.posterID.value,
             username: userValues.username.value,
             filename: userValues.filename.value,
         });
@@ -65,13 +69,16 @@ class Landing extends Component {
     };
 
     componentDidUpdate() {
-        debugger;
-        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID) {
+        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID || this.props.stories !== this.state.stories) {
+            debugger;
             this.props.getLandingAction(this.props.id);
+            this.props.getStoriesAction(this.props.id);
             this.setState({
                 landingMedia: this.props.landingMedia,
                 commentID: this.props.commentID,
                 likedID: this.props.likedID,
+                lastUnfollowID: this.props.unfollowID,
+                stories: this.props.stories,
             })
         }
     }
@@ -84,7 +91,7 @@ class Landing extends Component {
         return (
             <Fragment>
                 <OptionsModal openUnfollowModal={this.openUnfollowModal}/>
-                <UnfollowModal images={this.props.profileImages} userValues={{userid: this.state.userid, username: this.state.username, filename:this.state.filename}}/>
+                <UnfollowModal images={this.props.profileImages} userValues={{posterid: this.state.posterid, username: this.state.username, filename:this.state.filename}}/>
                 <div className={"content-header"}>
                     <div className="landing-gutter">
                         <div className="media-container">{landingPostList}</div>
@@ -121,10 +128,13 @@ function mapStateToProps(state) {
         landingMedia: state.getLandingMediaReducer.landingMedia,
         commentID: state.createCommentReducer.commentID,
         likedID: state.likeMediaReducer.likedID,
+        unfollowID: state.unfollowUserReducer.unfollowID,
+        stories: state.getStoriesReducer.stories,
     }
 }
 export default connect(mapStateToProps, {
     getLandingAction,
     createCommentAction,
     likeMediaAction,
+    getStoriesAction,
 })(withRouter(AuthHOC(Landing)));

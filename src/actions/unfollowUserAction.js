@@ -4,16 +4,16 @@ import types from './types';
 export const unfollowUserAction = (values) => async dispatch => {
     try {
         axios({
-            mthod: 'POST',
+            method: 'POST',
             url: '/unfollowUser',
             headers: {
-                id: values.userID,
-                unfollowID: values.posterID
+                id: values.id,
+                unfollowid: values.unfollowID,
             }
         }).then(response => {
             dispatch({
                 type: types.UNFOLLOW_USER,
-                unfollowID: response.validateAssertion,
+                unfollowID: response.data,
             })
         })
     } catch {

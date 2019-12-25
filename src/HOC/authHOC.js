@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import {getUsernameAction} from '../actions/getUsernameAction'
 
 export default (WrappedComponent, to ='./signIn', redirect = false) => {
@@ -70,5 +71,5 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
 
     return connect(mapStateToProps,{
         getUsernameAction
-    })(Auth);
+    })(withRouter(Auth));
 }

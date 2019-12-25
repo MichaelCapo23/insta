@@ -30,10 +30,10 @@ export default props => {
 
     const openModalFns = () => {
         let imgTag = document.getElementById("ellipsis-img");
-        let userID = imgTag.attributes['data-userid'];
+        let posterID = imgTag.attributes['data-posterid'];
         let username = imgTag.attributes['data-username'];
         let filename = imgTag.attributes['data-filename'];
-        props.openModal({userID: userID, username:username, filename:filename});
+        props.openModal({posterID: posterID, username:username, filename:filename});
     };
 
     return (
@@ -44,7 +44,7 @@ export default props => {
                 </div>
                 <div className="poster-username-container">{posterUsername}</div>
                 <div className="ellipsis">
-                    <img data-userid={posterID} data-username={posterUsername} data-filename={posterFileName} onClick={(e) => openModalFns(e)} id='ellipsis-img' className="ellipsis-img" src={generalImages['ellipsis.png']} alt=""/>
+                    <img data-posterid={posterID} data-username={posterUsername} data-filename={posterFileName} onClick={(e) => openModalFns(e)} id='ellipsis-img' className="ellipsis-img" src={generalImages['ellipsis.png']} alt=""/>
                 </div>
             </div>
 

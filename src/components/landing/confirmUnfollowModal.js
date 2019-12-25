@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import {unfollowUserAction} from "../../actions/unfollowUserAction";
+import AuthHOC from '../../HOC/authHOC';
 
 class UnfollowModal extends Component {
     constructor(props) {
@@ -20,9 +22,7 @@ class UnfollowModal extends Component {
     };
 
     unfollowUser = () => {
-        debugger;
-        //NEED TO ALSO GET this.props.userValues.posterID into props here don't have that yet
-        this.props.unfollowUserAction({id: this.props.userValues.userid, unfollowID: this.props.userValues.posterID});
+        this.props.unfollowUserAction({unfollowID: this.props.userValues.posterid, id: this.props.id});
         document.getElementById("unfollowModal").classList.add("hide");
     };
 
@@ -57,4 +57,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     unfollowUserAction,
-})(UnfollowModal);
+})(AuthHOC(UnfollowModal));
