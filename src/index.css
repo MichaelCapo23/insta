@@ -880,6 +880,7 @@ input:-webkit-autofill {
     width: 50%;
     display: inline-block;
     height: 100%;
+    cursor: pointer;
 }
 
 .stories-title {
@@ -1050,6 +1051,10 @@ input:-webkit-autofill {
     font-size: 14px;
     color: #262626;
     font-weight: 600;
+}
+
+.poster-username-container::first-line {
+    cursor: pointer;
 }
 
 .ellipsis {

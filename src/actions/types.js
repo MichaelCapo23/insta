@@ -17,4 +17,9 @@ export default {
     CREATE_COMMENT_ERROR: 'create_comment_error',
     LIKE_MEDIA: 'like_media',
     LIKE_MEDIA_ERROR: 'like_media_error',
+    UNFOLLOW_USER: 'unfollow_user',
+    UNFOLLOW_USER_ERROR: 'unfollow_user_error',
+    GET_STORIES: 'get_stories',
+    GET_STORIES_ERROR: 'get_stories_error',
+
 }
