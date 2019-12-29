@@ -8,9 +8,13 @@ class Stories extends Component {
 
     };
 
+    getUserStories = () => {
+
+    };
+
     render() {
         return (
-            <div className="stories-container">
+            <div className="stories-container-stories">
                 <div className="stories-gutter">
                     <div className="stories-header-container">
                         <div className="profile-info">

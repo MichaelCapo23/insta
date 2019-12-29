@@ -404,7 +404,8 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .content-header {
-    height: calc(100vh - 75px);
+    /*height: calc(100vh - 75px);*/
+    height: 100%;
 }
 
 .landing-gutter {
@@ -1283,7 +1284,7 @@ input:-webkit-autofill {
     padding-bottom: 25px;
 }
 
-.stories-container {
+.stories-container-stories {
     height: 100%;
     width: 100%;
     background-color: #262626 !important;
@@ -1367,8 +1368,3 @@ input:-webkit-autofill {
     width: 100%;
     color: #525252;
 }
-
-/*width: 40px;
-    height: 100%;
-    display: inline-block;
-    vertical-align: text-top;*/

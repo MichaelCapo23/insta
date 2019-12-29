@@ -27,6 +27,7 @@ class Landing extends Component {
     };
 
     componentWillMount() {
+        debugger;
         if(this.props.id) {
             this.props.getLandingAction(this.props.id);
             this.props.getStoriesAction(this.props.id);
@@ -41,6 +42,14 @@ class Landing extends Component {
         });
         return PostList;
     };
+
+    makeStories = () => {
+        // let stories = this.props.stories.stories.map((item, index) => {
+        //     return (
+        //         <storiesPostList />
+        //     )
+        // })
+    }
 
     callCommentAction = (input) => {
         let mediaID = input.attributes['data-media'].value;
@@ -69,10 +78,9 @@ class Landing extends Component {
     };
 
     componentDidUpdate() {
-        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID || this.props.stories !== this.state.stories) {
-            debugger;
+        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID) { //add last watched stories to this when made
             this.props.getLandingAction(this.props.id);
-            this.props.getStoriesAction(this.props.id);
+            // this.props.getStoriesAction(this.props.id);
             this.setState({
                 landingMedia: this.props.landingMedia,
                 commentID: this.props.commentID,
@@ -85,9 +93,13 @@ class Landing extends Component {
 
     render() {
         let landingPostList = '';
+        let storiesList = '';
         if(this.props.landingMedia && this.props.landingMedia !== '') {
-            landingPostList = this.makeLandingPostList(this.props.landingMedia);
+            landingPostList = this.makeLandingPostList();
         }
+        // if(this.props.stories && this.props.stories !== '') {
+        //     storiesList = this.makeStories();
+        // }
         return (
             <Fragment>
                 <OptionsModal openUnfollowModal={this.openUnfollowModal}/>
