@@ -11,7 +11,7 @@ module.exports = (app, db) => {
                     for(let i in data) {
                         followerIDArr.push(data[i].followAccount);
                     }
-                    followerIDString = followerIDArr.join();
+                    followerIDString = [followerIDArr];
                     let sql3 = "SELECT `m`.`ID`,`m`.`fileName`,`m`.`accountID`, `a`.`username`  FROM `media` AS m JOIN `accounts` AS a ON(`m`.`accountID` = `a`.`ID`) WHERE `m`.`accountID` in (?) and `m`.`mediaType` = 'post'";
                     db.query(sql3, followerIDString, (err, mediaData) => {
                         if(!err) {
@@ -58,7 +58,6 @@ module.exports = (app, db) => {
                                                                         rowInfo.fileName = mediaData[index].fileName;
                                                                         rowInfo.lastLikedUsername = lastLiked[0].username;
                                                                         output.push(rowInfo);
-
                                                                         if(index == (mediaData.length -1)) {
                                                                             res.send(output);
                                                                         }
