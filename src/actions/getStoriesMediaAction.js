@@ -1,24 +1,23 @@
 import axios from 'axios';
 import types from './types';
 
-export const getStoriesAction = (id, type) => async dispatch => {
+export const getStoriesMediaAction = (id) => async dispatch => {
     try {
         axios({
             method: 'POST',
-            url: '/getStories',
+            url: '/getStoriesMedia',
             headers: {
                 id: id,
-                type: type,
             }
         }).then(response => {
             dispatch({
-                type: types.GET_STORIES,
+                type: types.GET_STORIES_MEDIA,
                 stories: response.data,
             })
         })
     } catch {
         dispatch({
-            type: types.GET_STORIES_ERROR,
+            type: types.GET_STORIES_MEDIA_ERROR,
             error: 'Unable to get stories',
         })
     }

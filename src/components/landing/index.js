@@ -6,7 +6,7 @@ import {getLandingAction} from '../../actions/getLandingMediaAction'
 import LandingPostList from './landingPostList';
 import {createCommentAction} from "../../actions/createCommentAction";
 import {likeMediaAction} from "../../actions/likeMediaAction";
-import {getStoriesAction} from "../../actions/getStoriesAction";
+import {getStoriesProfileAction} from "../../actions/getStoriesProfileAction";
 import StoriesPostList from './storiesPostList'
 import OptionsModal from './postOptionsModal';
 import UnfollowModal from './confirmUnfollowModal';
@@ -140,12 +140,12 @@ function mapStateToProps(state) {
         commentID: state.createCommentReducer.commentID,
         likedID: state.likeMediaReducer.likedID,
         unfollowID: state.unfollowUserReducer.unfollowID,
-        stories: state.getStoriesReducer.stories,
+        stories: state.getStoriesProfileReducer.stories,
     }
 }
 export default connect(mapStateToProps, {
     getLandingAction,
     createCommentAction,
     likeMediaAction,
-    getStoriesAction,
+    getStoriesAction: getStoriesProfileAction,
 })(withRouter(AuthHOC(Landing)));

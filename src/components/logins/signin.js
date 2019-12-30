@@ -15,11 +15,6 @@ class Signin extends Component {
         passwordErr: 'true',
     };
 
-    componentDidMount() {
-        let token = localStorage.getItem('token');
-
-    }
-
     addToState = (e) => {
         this.setState({
             [e.target.id]: e.target.value

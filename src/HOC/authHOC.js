@@ -22,7 +22,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             let images = {};
             r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
             return images;
-        }
+        };
 
         checkAuth = () => {
             let token = localStorage.getItem('token');
