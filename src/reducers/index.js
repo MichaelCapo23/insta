@@ -8,7 +8,8 @@ import getLandingMediaReducer from './getLandingMediaReducer';
 import createCommentReducer from './createCommentReducer';
 import likeMediaReducer from './likeMediaReducer';
 import unfollowUserReducer from './unfollowUserReducer';
-import getStoriesReducer from './getStoriesReducer';
+import getStoriesProfileReducer from './getStoriesProfileReducer';
+import getStoriesMediaReducer from './getStoriesMediaReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     createCommentReducer,
     likeMediaReducer,
     unfollowUserReducer,
-    getStoriesReducer,
+    getStoriesProfileReducer,
+    getStoriesMediaReducer,
     form: formReducer,
 });
 

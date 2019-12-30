@@ -21,5 +21,8 @@ export default {
     UNFOLLOW_USER_ERROR: 'unfollow_user_error',
     GET_STORIES: 'get_stories',
     GET_STORIES_ERROR: 'get_stories_error',
+    GET_STORIES_MEDIA: 'get_stories_media',
+    GET_STORIES_MEDIA_ERROR: 'get_stories_media_error',
+
 
 }

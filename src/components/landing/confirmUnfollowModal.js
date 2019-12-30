@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {unfollowUserAction} from "../../actions/unfollowUserAction";
 import AuthHOC from '../../HOC/authHOC';
 
 class UnfollowModal extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     state = {
         isOpen: false
     };
@@ -32,7 +27,7 @@ class UnfollowModal extends Component {
                 <div className="profile-modal-content center-align">
                     <div className="img-name-container">
                         <div className="unfollow-img-container">
-                            <img className='unfollow-user-img' src={this.props.userValues.filename ? this.props.images[this.props.userValues.filename] : ''} alt="instagram unfollow image"/>
+                            <img className='unfollow-user-img' src={this.props.userValues.filename ? this.props.images[this.props.userValues.filename] : ''} alt="unfollow-user-profile"/>
                         </div>
                     </div>
                     <div className="unfollow-username">Unfollow @{this.props.userValues.username ? this.props.userValues.username: ''}</div>

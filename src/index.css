@@ -1423,3 +1423,8 @@ input:-webkit-autofill {
     position: relative;
     top: -7px;
 }
+
+.stories-media-container {
+    height: calc(100% - 60px);
+    width: 100%;
+}

@@ -1,25 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import AuthHOC from '../../HOC/authHOC';
-import {getStoriesAction} from "../../actions/getStoriesAction";
+import {getStoriesMediaAction} from "../../actions/getStoriesMediaAction";
+import moment from "moment";
 
 class Stories extends Component {
 
     state = {
-        stories: '',
+        storiesMedia: '',
         actionCalled: false,
     };
 
     componentDidUpdate() {
         debugger;
         if(this.props.id && this.state.stories === '' && !this.state.actionCalled) {
-            this.props.getStoriesAction(this.props.id, 'story');
+            this.props.getStoriesMediaAction(this.props.id);
             this.setState({
                 actionCalled: true
             })
         }
 
-        if(this.props.stories !== '' && this.state.stories === '') {
+        if(this.props.storiesMedia !== '' && this.state.storiesMedia === '') {
             this.setState({
                 stories: this.props.stories,
             })
@@ -43,6 +44,7 @@ class Stories extends Component {
                             <img className="stories-ellipsis" src={this.props.generalImages['ellips.png']} alt=""/>
                         </div>
                     </div>
+                    <div className="stories-media-container"></div>
                 </div>
             </div>
         )
@@ -51,10 +53,10 @@ class Stories extends Component {
 
 function mapStateToProps(state) {
     return {
-        stories: state.getStoriesReducer.stories
+        storiesMedia: state.getStoriesMediaReducer.storiesMedia
     }
 }
 
 export default connect(mapStateToProps, {
-    getStoriesAction,
+    getStoriesMediaAction,
 })(AuthHOC(Stories))

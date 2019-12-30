@@ -38,5 +38,6 @@ require('./getLandingMedia')(app, db);
 require('./createComment')(app, db);
 require('./likeMedia')(app, db);
 require('./unfollowUser')(app, db);
-require('./getStories')(app, db);
+require('./getStoriesProfile')(app, db);
+require('./getStoriesMedia')(app, db);
 

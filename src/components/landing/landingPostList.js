@@ -1,5 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
-import ReactDOM  from 'react-dom';
+import React, {useState, useRef} from 'react';
 export default props => {
     let [disabledVal, enableBtn] = useState(true);
     let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername, userLiked} = props.media;
