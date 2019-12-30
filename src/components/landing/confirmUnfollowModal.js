@@ -27,7 +27,6 @@ class UnfollowModal extends Component {
     };
 
     render() {
-        console.log(this.props);
         return (
             <div onClick={this.hideModal} id={"unfollowModal"} className={this.state.isOpen ? 'unfollowModal col l12 m12 s12' : 'unfollowModal hide col l12 m12 s12'}>
                 <div className="profile-modal-content center-align">

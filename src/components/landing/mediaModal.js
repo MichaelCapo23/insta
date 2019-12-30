@@ -20,7 +20,6 @@ class MediaModal extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div id={"MediaModal"} className={this.state.isOpen ? 'MediaModal col l12 m12 s12' : 'MediaModal hide col l12 m12 s12'}>
                 <div className="profile-modal-content center-align">

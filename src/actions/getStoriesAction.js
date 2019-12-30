@@ -1,13 +1,14 @@
 import axios from 'axios';
 import types from './types';
 
-export const getStoriesAction = (id) => async dispatch => {
+export const getStoriesAction = (id, type) => async dispatch => {
     try {
         axios({
             method: 'POST',
             url: '/getStories',
             headers: {
                 id: id,
+                type: type,
             }
         }).then(response => {
             dispatch({

@@ -1,6 +1,6 @@
 module.exports = (app, db) => {
     app.post('/getStories', (req, res) => {
-        let {id} = req.headers;
+        let {id, type} = req.headers;
         let output = {status: 'NO'};
         let followIDs = [];
         let userStories = [];
@@ -14,10 +14,9 @@ module.exports = (app, db) => {
                         followIDs.push(currentFollowID)
                     }
                     for (let followerID in followIDs) {
-                        let sql2 = "SELECT `m`.`fileName`, `m`.`mediaType`, `a`.`username`, `a`.`name`, `a`.`ID` FROM `media` AS m JOIN `accounts` AS a ON (`m`.`accountID` = `a`.`ID`) WHERE `accountID` = ? AND (`m`.`mediaType` = 'profile' OR `m`.`mediaType` = 'story') ORDER BY `m`.`created_at`";
+                        let sql2 = "SELECT `m`.`fileName`, `a`.`username`, `a`.`name`, `a`.`ID` FROM `media` AS m JOIN `accounts` AS a ON (`m`.`accountID` = `a`.`ID`) WHERE `accountID` = ? AND `m`.`mediaType` = ? ORDER BY `m`.`created_at`";
                         let followID = followIDs[followerID];
-                        db.query(sql2, followID, (err, data) => {
-                            console.log(JSON.stringify(data, null, 2));
+                        db.query(sql2, [followID, type], (err, data) => {
                             if(err) throw err;
                             userStories[followerID] = data;
                             if(followerID == followIDs.length -1) {
