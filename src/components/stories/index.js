@@ -1,16 +1,30 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import AuthHOC from '../../HOC/authHOC';
+import {getStoriesAction} from "../../actions/getStoriesAction";
 
 class Stories extends Component {
 
     state = {
-
+        stories: '',
+        actionCalled: false,
     };
 
-    getUserStories = () => {
+    componentDidUpdate() {
+        debugger;
+        if(this.props.id && this.state.stories === '' && !this.state.actionCalled) {
+            this.props.getStoriesAction(this.props.id, 'story');
+            this.setState({
+                actionCalled: true
+            })
+        }
 
-    };
+        if(this.props.stories !== '' && this.state.stories === '') {
+            this.setState({
+                stories: this.props.stories,
+            })
+        }
+    }
 
     render() {
         return (
@@ -37,10 +51,10 @@ class Stories extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        stories: state.getStoriesReducer.stories
     }
 }
 
 export default connect(mapStateToProps, {
-
+    getStoriesAction,
 })(AuthHOC(Stories))

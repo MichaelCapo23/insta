@@ -1368,3 +1368,58 @@ input:-webkit-autofill {
     width: 100%;
     color: #525252;
 }
+
+.list-stories-container {
+    padding: 10px;
+    height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.list-stories-profile-img-container, .list-stories-username, .list-stories-time-posted, .list-stories-username-time-container {
+    display: inline-block;
+}
+
+.list-stories-profile-img-container {
+    height: 40px;
+    width: 40px;
+    background: linear-gradient(#F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);
+    margin-right: 15px;
+    padding:2px;
+    border-radius: 100px;
+}
+
+.list-stories-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    vertical-align: inherit;
+}
+
+.list-stories-username-time-container {
+    height: 100%;
+    width: calc(100% - 55px);
+}
+
+.list-stories-username, .list-stories-time-posted {
+    height: 50%;
+    width: 100%;
+}
+
+.list-stories-username {
+    color: #262626;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    height: calc(100% - 25px);
+}
+
+.list-stories-time-posted {
+    font-size: 10px;
+    line-height: 12px;
+    color: #999;
+    height: 14px;
+    position: relative;
+    top: -7px;
+}

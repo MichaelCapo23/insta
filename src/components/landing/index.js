@@ -7,6 +7,7 @@ import LandingPostList from './landingPostList';
 import {createCommentAction} from "../../actions/createCommentAction";
 import {likeMediaAction} from "../../actions/likeMediaAction";
 import {getStoriesAction} from "../../actions/getStoriesAction";
+import StoriesPostList from './storiesPostList'
 import OptionsModal from './postOptionsModal';
 import UnfollowModal from './confirmUnfollowModal';
 
@@ -20,14 +21,13 @@ class Landing extends Component {
         commentID: null,
         likedID: null,
         lastUnfollowID: null,
-        stories: null,
+        stories: '',
         posterid: '',
         username: '',
         filename:'',
     };
 
     componentWillMount() {
-        debugger;
         if(this.props.id) {
             this.props.getLandingAction(this.props.id);
             this.props.getStoriesAction(this.props.id);
@@ -44,12 +44,13 @@ class Landing extends Component {
     };
 
     makeStories = () => {
-        // let stories = this.props.stories.stories.map((item, index) => {
-        //     return (
-        //         <storiesPostList />
-        //     )
-        // })
-    }
+        let stories = this.props.stories.stories.map((item, index) => {
+            return (
+                <StoriesPostList stories={item} key={index} />
+            )
+        });
+        return stories
+    };
 
     callCommentAction = (input) => {
         let mediaID = input.attributes['data-media'].value;
@@ -80,7 +81,7 @@ class Landing extends Component {
     componentDidUpdate() {
         if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID) { //add last watched stories to this when made
             this.props.getLandingAction(this.props.id);
-            // this.props.getStoriesAction(this.props.id);
+            this.props.getStoriesAction(this.props.id, 'profile');
             this.setState({
                 landingMedia: this.props.landingMedia,
                 commentID: this.props.commentID,
@@ -97,9 +98,9 @@ class Landing extends Component {
         if(this.props.landingMedia && this.props.landingMedia !== '') {
             landingPostList = this.makeLandingPostList();
         }
-        // if(this.props.stories && this.props.stories !== '') {
-        //     storiesList = this.makeStories();
-        // }
+        if(this.props.stories  && this.props.stories !== '') {
+            storiesList = this.makeStories();
+        }
         return (
             <Fragment>
                 <OptionsModal openUnfollowModal={this.openUnfollowModal}/>
@@ -122,9 +123,7 @@ class Landing extends Component {
                                     <div className="stories-title">Stories</div>
                                     <div className="stories-watch-all">Watch all</div>
                                 </div>
-                                <div className="stories-container-inner">
-
-                                </div>
+                                <div className="stories-container-inner">{storiesList}</div>
                             </div>
                         </div>
                     </div>
