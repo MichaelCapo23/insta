@@ -13,7 +13,17 @@ class Stories extends Component {
         currentStoryIndex: 0,
         currentStoryIndexChild: 0,
         mediaJSX: '',
+        displayfinished: false,
     };
+
+    componentDidMount() {
+        if(this.props.id) {
+            this.props.getStoriesMediaAction(this.props.id);
+            this.setState({
+                actionCalled: true
+            })
+        }
+    }
 
     componentDidUpdate() {
         if(this.props.id && this.state.storiesMedia === '' && !this.state.actionCalled) {
@@ -32,7 +42,8 @@ class Stories extends Component {
     }
 
     displayMedia = async  () => { //check if child index exists, check if next currentStoryIndex exists if not send them back to /
-        let {storiesMedia, currentStoryIndex, currentMedia, currentStoryIndexChild} = this.state;
+        let {storiesMedia, currentStoryIndex, currentMedia, currentStoryIndexChild, displayfinished} = this.state;
+
         if(storiesMedia[currentStoryIndex]) {
             currentMedia = storiesMedia[currentStoryIndex];
         } else {
@@ -67,22 +78,36 @@ class Stories extends Component {
                 currentStoryIndex: currentStoryIndex+1,
                 currentStoryIndexChild: 0,
                 mediaJSX: mediaJSX,
+                displayfinished: true,
             }, () => { return false;})
         } else {
             await this.setState({
                 currentStoryIndexChild: currentStoryIndexChild+1,
                 mediaJSX: mediaJSX,
+                displayfinished: true,
             }, () => { return false;})
+        }
+    };
+
+    callDisplay = async () => {
+        if(this.state.displayfinished) {
+            setTimeout(this.displayMedia, '8000');
+            await this.setState({
+                displayfinished: false,
+            })
         }
     };
 
     render() {
         if(this.state.storiesMedia) {
             if (document.getElementById("story-video")) {
-                let vid = document.getElementById("story-video");
-                setTimeout(this.displayMedia, vid.duration);
+                // let vid = document.getElementById("story-video");
+                // setTimeout(this.displayMedia, vid.duration);
+                let time = 8000;
+                this.callDisplay(time);
             } else {
-                setTimeout(this.displayMedia, '5000');
+                let time = 8000;
+                this.callDisplay(time);
             }
         }
         return (
@@ -91,9 +116,9 @@ class Stories extends Component {
                     <div className="stories-header-container">
                         <div className="profile-info">
                             <div className="stories-profile-img-container">
-                                <img className="stories-profile-img" src="" alt="profile"/>
+                                <img className="stories-profile-img" src={this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.props.profileImages[this.state.storiesMedia[this.state.currentStoryIndex][0].profileFileName] : ''} alt="profile"/>
                             </div>
-                            <div className="stories-username">usernamehereeeee</div>
+                            <div className="stories-username">{this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.state.storiesMedia[this.state.currentStoryIndex][0].username : ''}</div>
                             <div className="stories-posted-at">1h</div>
                         </div>
                         <div className="stories-paused">Paused</div>
