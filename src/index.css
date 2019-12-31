@@ -1428,3 +1428,34 @@ input:-webkit-autofill {
     height: calc(100% - 60px);
     width: 100%;
 }
+
+.table-div{
+    display:table;
+    width: 100%;
+    padding-top: 10px;
+    height: 14px;
+}
+.tr-div{
+    display:table-row;
+}
+.td-div{
+    display:table-cell;
+    background-color: rgba(255,255,255,.35);
+    border:1px solid #262626 !important;
+}
+
+.completed {
+    background: #fff !important;
+}
+
+.story-media-containerInfo {
+    height: calc(100% - 35px);
+    width: 100%;
+    position: relative;
+    top: 23px;
+}
+
+.story-img {
+    height: 100%;
+    width: 100%;
+}

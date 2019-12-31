@@ -1,7 +1,7 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-    stories: '',
+    storiesMedia: '',
 };
 
 export default (state = DEFAULT_STATE, action) => {
