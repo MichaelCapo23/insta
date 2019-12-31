@@ -126,7 +126,7 @@ class Profile extends Component {
                             <div className="profile-info-container">
                                 <div className="profile-info-content-container">
                                     <div className="information-container-top">
-                                        <div className="profile-username">{this.state.username}</div>
+                                        <div className="profile-username">{this.props.username}</div>
                                         <div className="profile-edit">
                                             <button className={'btn-edit'} type={'button'}>Edit Profile</button>
                                             <div className={'cog-icon'}></div>

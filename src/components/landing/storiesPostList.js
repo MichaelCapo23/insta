@@ -23,7 +23,7 @@ class StoriesPostList extends Component {
         let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
         let d = moment.duration(ms);
 
-        console.log(d.days(), d.hours(), d.minutes(), d.seconds());
+        // console.log(d.days(), d.hours(), d.minutes(), d.seconds());
 
         this.setState({
             profileFileName: profileObj.fileName,
@@ -39,7 +39,10 @@ class StoriesPostList extends Component {
     };
 
     openStory = () => {
-        this.props.history.push('/stories');
+        this.props.history.push({
+            pathname: '/stories',
+            data: { data: 'update' }
+        });
     };
 
 
