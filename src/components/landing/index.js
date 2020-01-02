@@ -79,7 +79,7 @@ class Landing extends Component {
     };
 
     componentDidUpdate() {
-        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID) { //add last watched stories to this when made
+        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID, this.props.viewedIDs !== this.state.viewedIDs) { //add last watched stories to this when made
             this.props.getLandingAction(this.props.id);
             this.props.getStoriesAction(this.props.id, 'profile');
             this.setState({
@@ -88,6 +88,7 @@ class Landing extends Component {
                 likedID: this.props.likedID,
                 lastUnfollowID: this.props.unfollowID,
                 stories: this.props.stories,
+                viewedIDs: this.props.viewedIDs,
             })
         }
     }
@@ -141,6 +142,7 @@ function mapStateToProps(state) {
         likedID: state.likeMediaReducer.likedID,
         unfollowID: state.unfollowUserReducer.unfollowID,
         stories: state.getStoriesProfileReducer.stories,
+        viewedIDs: state.updateViewedStoriesReducer.viewedIDs,
     }
 }
 export default connect(mapStateToProps, {

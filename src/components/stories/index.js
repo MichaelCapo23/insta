@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import AuthHOC from '../../HOC/authHOC';
 import {getStoriesMediaAction} from "../../actions/getStoriesMediaAction";
+import {updateViewedStoriesAction} from "../../actions/updateViewedStoriesAction";
 import moment from "moment";
 
 class Stories extends Component {
@@ -15,6 +16,7 @@ class Stories extends Component {
         mediaJSX: '',
         displayfinished: false,
         isVideo: false,
+        viewedStoriesIDs: [],
     };
 
     componentDidMount() {
@@ -52,6 +54,8 @@ class Stories extends Component {
 
         if (!storiesMedia[currentStoryIndex][currentStoryIndexChild]) {
             if(!storiesMedia[currentStoryIndex+1]) {
+                debugger;
+                this.props.updateViewedStoriesAction({userID: this.props.id, storyIDs: this.state.viewedStoriesIDs.join()});
                 this.props.history.push('/');
                 return false;
             } else {
@@ -75,7 +79,7 @@ class Stories extends Component {
             mediaJSX = <video id="myVideo" width="100%" height="100%" controls autoPlay muted onLoadedMetadata={this.getVideoTime}>
                 <source id="story-video" src={this.props.mediaImages[currentMedia[currentStoryIndexChild].fileName]} type='video/mp4'/>
                 Your browser does not support HTML5 video.
-            </video>
+            </video>;
 
             await this.setState({
                 currentStoryIndexChild: currentStoryIndexChild+1,
@@ -83,7 +87,8 @@ class Stories extends Component {
                 displayfinished: true,
                 isVideo: true,
                 mediaMade: true,
-            }, () => { return false;})
+                viewedStoriesIDs: [...this.state.viewedStoriesIDs, currentMedia[currentStoryIndexChild].mediaID],
+            }, () => { console.log(this.state.viewedStoriesIDs); return false;})
 
         } else {
             mediaJSX = <div className="story-media-containerInfo">
@@ -95,7 +100,8 @@ class Stories extends Component {
                 mediaJSX: mediaJSX,
                 displayfinished: true,
                 mediaMade: true,
-            }, () => { return false;})
+                viewedStoriesIDs: [...this.state.viewedStoriesIDs, currentMedia[currentStoryIndexChild].mediaID],
+            }, () => { console.log(this.state.viewedStoriesIDs); return false;})
         }
     };
 
@@ -151,7 +157,6 @@ class Stories extends Component {
                         <div className="table-div">
                             <div className="tr-div">
                                 {this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.state.storiesMedia[this.state.currentStoryIndex].map((iem, index) => {
-                                    debugger;
                                     return <div key={index} className={Number(this.state.currentStoryIndexChild -1) >= Number(index) ? 'white td-div' : 'td-div'}/>
                                 }) : ''}
                             </div>
@@ -172,4 +177,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     getStoriesMediaAction,
+    updateViewedStoriesAction,
 })(AuthHOC(Stories))
