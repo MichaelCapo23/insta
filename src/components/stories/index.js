@@ -14,6 +14,7 @@ class Stories extends Component {
         currentStoryIndexChild: 0,
         mediaJSX: '',
         displayfinished: false,
+        isVideo: false,
     };
 
     componentDidMount() {
@@ -34,7 +35,6 @@ class Stories extends Component {
         }
 
         if(this.props.storiesMedia !== '' && this.state.storiesMedia === '') {
-            debugger;
             this.setState({
                 storiesMedia: this.props.storiesMedia.stories,
             }, () => {this.displayMedia()})
@@ -42,74 +42,97 @@ class Stories extends Component {
     }
 
     displayMedia = async  () => { //check if child index exists, check if next currentStoryIndex exists if not send them back to /
-        let {storiesMedia, currentStoryIndex, currentMedia, currentStoryIndexChild, displayfinished} = this.state;
+        let {storiesMedia, currentStoryIndex,currentStoryIndexChild} = this.state;
 
-        if(storiesMedia[currentStoryIndex]) {
-            currentMedia = storiesMedia[currentStoryIndex];
+        //check if current story array exists, then set it, check if current story exits if not route user to landing.
+        if(!storiesMedia[currentStoryIndex]) {
+            this.props.history.push('/');
+            return false;
+        }
+
+        if (!storiesMedia[currentStoryIndex][currentStoryIndexChild]) {
+            if(!storiesMedia[currentStoryIndex+1]) {
+                this.props.history.push('/');
+                return false;
+            } else {
+                await this.setState({
+                    currentStoryIndex: currentStoryIndex+1,
+                    currentStoryIndexChild: 0
+                }, () => {this.makeMediaHTML()})
+            }
         } else {
-            this.props.history.push('/');
-            return false;
+            this.makeMediaHTML();
         }
+    };
 
-        debugger;
-        if (!currentMedia[currentStoryIndexChild]) {
-            this.props.history.push('/');
-            return false;
-        }
-
+    makeMediaHTML = async () => {
         //check filetype and give html accordingly
+        let {storiesMedia, currentStoryIndex, currentMedia, currentStoryIndexChild, displayfinished} = this.state;
+        currentMedia = storiesMedia[currentStoryIndex];
         let extension = currentMedia[currentStoryIndexChild].fileName.split('.').pop();
         let mediaJSX = '';
         if(extension == 'MOV' || extension == 'MP4' || extension == 'AVI' || extension == 'FLV' || extension == 'WMV') {
-            mediaJSX = <video id="myVideo" width="320" height="176" controls>
-                <source id="story-video" src={currentMedia[currentStoryIndexChild].fileName} type={'video/'+extension}/>
+            mediaJSX = <video id="myVideo" width="100%" height="100%" controls autoPlay muted onLoadedMetadata={this.getVideoTime}>
+                <source id="story-video" src={this.props.mediaImages[currentMedia[currentStoryIndexChild].fileName]} type='video/mp4'/>
                 Your browser does not support HTML5 video.
             </video>
 
-        } else {
-            mediaJSX = <div className="story-media-containerInfo">
-                <img className="story-img" src={this.props.mediaImages[currentMedia[currentStoryIndexChild].fileName]} alt="story"/>
-            </div>
-        }
-
-        //increment child value if next index exists, if not increment index of array
-        if(!currentMedia[currentStoryIndexChild+1]) {
-            await this.setState({
-                currentStoryIndex: currentStoryIndex+1,
-                currentStoryIndexChild: 0,
-                mediaJSX: mediaJSX,
-                displayfinished: true,
-            }, () => { return false;})
-        } else {
             await this.setState({
                 currentStoryIndexChild: currentStoryIndexChild+1,
                 mediaJSX: mediaJSX,
                 displayfinished: true,
+                isVideo: true,
+                mediaMade: true,
+            }, () => { return false;})
+
+        } else {
+            mediaJSX = <div className="story-media-containerInfo">
+                <img onLoad={this.callDisplay} className="story-img" src={this.props.mediaImages[currentMedia[currentStoryIndexChild].fileName]} alt="story"/>
+            </div>;
+
+            await this.setState({
+                currentStoryIndexChild: currentStoryIndexChild+1,
+                mediaJSX: mediaJSX,
+                displayfinished: true,
+                mediaMade: true,
             }, () => { return false;})
         }
     };
 
-    callDisplay = async () => {
+    callDisplay = async (time) => {
         if(this.state.displayfinished) {
-            setTimeout(this.displayMedia, '8000');
+            if(!this.state.isVideo) {
+                time = 4000;
+                setTimeout(this.displayMedia, time);
+                this.setState({
+                    displayfinished: false,
+                    isVideo: false,
+                    mediaMade: false
+                })
+            } else {
+                time = time * 1000;
+                setTimeout(this.displayMedia, time);
+                await this.setState({
+                    isVideo: false,
+                    mediaMade: false
+                });
+            }
+        } else {
+            setTimeout(this.displayMedia, time);
             await this.setState({
-                displayfinished: false,
+                displayfinished: true,
             })
         }
     };
 
+    getVideoTime = async () => {
+        let time = '4000';
+        let vid = document.getElementById("myVideo");
+        time = vid.duration;
+        this.callDisplay(time);
+    };
+
     render() {
-        if(this.state.storiesMedia) {
-            if (document.getElementById("story-video")) {
-                // let vid = document.getElementById("story-video");
-                // setTimeout(this.displayMedia, vid.duration);
-                let time = 8000;
-                this.callDisplay(time);
-            } else {
-                let time = 8000;
-                this.callDisplay(time);
-            }
-        }
         return (
             <div className="stories-container-stories">
                 <div className="stories-gutter">
@@ -128,7 +151,8 @@ class Stories extends Component {
                         <div className="table-div">
                             <div className="tr-div">
                                 {this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.state.storiesMedia[this.state.currentStoryIndex].map((iem, index) => {
-                                    return <div key={index} className="td-div"/>
+                                    debugger;
+                                    return <div key={index} className={Number(this.state.currentStoryIndexChild -1) >= Number(index) ? 'white td-div' : 'td-div'}/>
                                 }) : ''}
                             </div>
                         </div>
