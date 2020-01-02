@@ -43,9 +43,9 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
                 }
 
                 if((!this.props.mediaImages || this.props.mediaImages === '') && !this.state.mediaImages) {
-                    const mediaImages = this.importAll(require.context('../assets/media', false, /\.(png|jpe?g|PNG|JPG)$/));
-                    const profileImages = this.importAll(require.context('../assets/profilePics', false, /\.(png|jpe?g|PNG|JPG)$/));
-                    const generalImages = this.importAll(require.context('../assets/', false, /\.(png|jpe?g|PNG|JPG)$/));
+                    const mediaImages = this.importAll(require.context('../assets/media', false, /\.(png|jpe?g|PNG|JPG|MOV|MP4|AVI)$/));
+                    const profileImages = this.importAll(require.context('../assets/profilePics', false, /\.(png|jpe?g|PNG|JPG|MOV|MP4|AVI)$/));
+                    const generalImages = this.importAll(require.context('../assets/', false, /\.(png|jpe?g|PNG|JPG|MOV|MP4|AVI)$/));
                     this.setState({
                         mediaImages: mediaImages,
                         profileImages: profileImages,
