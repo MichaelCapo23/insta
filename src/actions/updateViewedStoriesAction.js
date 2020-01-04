@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const updateViewedStoriesAction = (values) => async dispatch => {
     try {
-        debugger;
         axios({
             method: 'POST',
             url: '/updateViewedStories',

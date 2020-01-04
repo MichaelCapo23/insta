@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-// const md5 = require('md5');
 const mysql_creds = require('./mysql_creds');
 const mysql = require('mysql');
 const db = mysql.createConnection(mysql_creds);

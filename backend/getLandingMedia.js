@@ -7,7 +7,6 @@ module.exports = (app, db) => {
             db.query(sql2, id, (err, data) => {
                 if(!err) {
                     let followerIDArr = [];
-                    let followerIDString = '';
                     for(let i in data) {
                         followerIDArr.push(data[i].followAccount);
                     }
