@@ -1005,7 +1005,7 @@ input:-webkit-autofill {
     display: inline-block;
 }
 
-.last-liked-img {
+.last-liked-img, .follows-you-img, .arrow-img1, .arrow-img2 {
     height: 100%;
     width: 100%;
     border-radius: 100px;
@@ -1547,23 +1547,47 @@ input:-webkit-autofill {
 
 .suggested-container {
     width: 100%;
-    height: 180px;
+    height: 200px;
     overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    background: linear-gradient(to left, #FFF, transparent 4%);
+    position: relative;
+}
+.suggested-container::-webkit-scrollbar {
+    display: none;
+}
+
+.suggested-overlay {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to left, #FFF, transparent 7%);
+    position: absolute;
 }
 
 .follows-you-overall-container {
     box-sizing: border-box;
-    width: 158px;
-    height: 180px;
+    width: 180px;
+    height: 200px;
     padding: 16px;
+    display: inline-block;
+    background-color: #FFF;
+    border: var(--default-border);
+    border-radius: 3px;
+    margin: 0 13px;
+}
+
+.follows-you-overall-container:nth-child(1) {
+    margin-left: 25px !important;
 }
 
 .follows-you-profile-img {
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     margin: auto;
     border: var(--default-border);
+    border-radius: 100px;
 }
 
 .follows-you-username {
@@ -1573,10 +1597,15 @@ input:-webkit-autofill {
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
+    margin-top: 12px;
+    color: #262626;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
 }
 
 .follows-you-description {
-    margin-top: 10px;
+    margin-top: 3px;
     white-space: pre-wrap;
     text-align: center;
     color: #999;
@@ -1588,10 +1617,9 @@ input:-webkit-autofill {
 }
 
 .follows-you-follow-btn {
-    background-color: rgba(56,151,240,.7);
+    background-color: #3897f0;
     border: 1px solid transparent;
     color: #fff;
-    position: relative;
     border-radius: 4px;
     box-sizing: border-box;
     cursor: pointer;
@@ -1602,6 +1630,31 @@ input:-webkit-autofill {
     font-size: 14px;
     line-height: 18px;
     margin: auto;
-    height: 47px;
+    height: 30px;
 }
 
+.explore-left, .explore-right {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    position: absolute;
+    top: 100px;
+    background-color: #9c9697 !important;
+    border-radius: 100px;
+    background-image: url("./assets/sprite.png");
+    background-position: -499px -414.5px;
+    background-repeat: no-repeat;
+    background-size: 550px;
+    cursor: pointer;
+}
+
+.explore-left {
+    left: 0px;
+
+}
+
+.explore-right {
+    right: 20px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
