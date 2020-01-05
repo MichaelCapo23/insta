@@ -40,4 +40,5 @@ require('./unfollowUser')(app, db);
 require('./getStoriesProfile')(app, db);
 require('./getStoriesMedia')(app, db);
 require('./updateViewedStories')(app, db);
+require('./suggestedFollows.js')(app, db);
 

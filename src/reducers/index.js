@@ -10,7 +10,8 @@ import likeMediaReducer from './likeMediaReducer';
 import unfollowUserReducer from './unfollowUserReducer';
 import getStoriesProfileReducer from './getStoriesProfileReducer';
 import getStoriesMediaReducer from './getStoriesMediaReducer';
-import updateViewedStoriesReducer from './updateViewedStoriesReducer'
+import updateViewedStoriesReducer from './updateViewedStoriesReducer';
+import suggestedFollowsReducer from './suggestedFollowsReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     getStoriesProfileReducer,
     getStoriesMediaReducer,
     updateViewedStoriesReducer,
+    suggestedFollowsReducer,
     form: formReducer,
 });
 

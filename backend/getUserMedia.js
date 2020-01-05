@@ -17,14 +17,16 @@ module.exports = (app, db) => {
                                 res.send(output);
                             }
                         } else {
-                            let message = 'Query Error (2) --getUserMedia';
-                            res.send(message);
+                            console.log(err);
+                            res.sendStatus(500);
+                            return;
                         }
                     })
                 }
             } else {
-                let message = 'Query Error (1) --getUserMedia';
-                res.send(message);
+                console.log(err);
+                res.sendStatus(500);
+                return;
             }
         })
     })

@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import AuthHOC from '../../HOC/authHOC';
 import {getStoriesMediaAction} from "../../actions/getStoriesMediaAction";
 import {updateViewedStoriesAction} from "../../actions/updateViewedStoriesAction";
-import moment from "moment";
 
 class Stories extends Component {
 
@@ -93,7 +92,7 @@ class Stories extends Component {
                 isVideo: true,
                 mediaMade: true,
                 viewedStoriesIDs: [...this.state.viewedStoriesIDs, currentMedia[currentStoryIndexChild].mediaID],
-            }, () => { console.log(this.state.viewedStoriesIDs); return false;})
+            })
 
         } else {
             mediaJSX = <div className="story-media-containerInfo">
@@ -106,7 +105,7 @@ class Stories extends Component {
                 displayfinished: true,
                 mediaMade: true,
                 viewedStoriesIDs: [...this.state.viewedStoriesIDs, currentMedia[currentStoryIndexChild].mediaID],
-            }, () => { console.log(this.state.viewedStoriesIDs); return false;})
+            })
         }
     };
 

@@ -27,19 +27,22 @@ module.exports = (app, db) => {
                                         }
                                     })
                                 } else {
-                                    let message = 'Query Error (3) --getUserStats';
-                                    res.send(message)
+                                    console.log(err);
+                                    res.sendStatus(500);
+                                    return;
                                 }
                             })
 
                         } else {
-                            let message = 'Query Error (2) --getUserStats';
-                            res.send(message)
+                            console.log(err);
+                            res.sendStatus(500);
+                            return;
                         }
                     })
                 } else {
-                    let message = 'Querry Error (1) --getUserStats';
-                    res.send(message)
+                    console.log(err);
+                    res.sendStatus(500);
+                    return;
                 }
             })
         })

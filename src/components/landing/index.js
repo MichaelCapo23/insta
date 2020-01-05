@@ -93,6 +93,13 @@ class Landing extends Component {
         }
     }
 
+    openStory = () => {
+        this.props.history.push({
+            pathname: '/stories',
+            data: { data: 'update' }
+        });
+    };
+
     render() {
         let landingPostList = '';
         let storiesList = '';
@@ -122,7 +129,7 @@ class Landing extends Component {
                             <div className="stories-container">
                                 <div className="stories-header">
                                     <div className="stories-title">Stories</div>
-                                    <div className="stories-watch-all">Watch all</div>
+                                    <div onClick={this.openStory} className="stories-watch-all">Watch all</div>
                                 </div>
                                 <div className="stories-container-inner">{storiesList}</div>
                             </div>

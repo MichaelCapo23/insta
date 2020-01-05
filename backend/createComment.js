@@ -14,8 +14,9 @@ module.exports = (app, db) => {
                     output.insertID = insertID;
                     res.send(output);
                 } else {
-                    let message = 'Query Error (2) --create comment';
-                    res.send(message);
+                    console.log(err);
+                    res.sendStatus(500);
+                    return;
                 }
             })
         })

@@ -2,7 +2,6 @@ import types from './types';
 import axios from 'axios';
 
 export const updateViewedStoriesAction = (values) => async dispatch => {
-    console.log(JSON.stringify(values.storyIDs));
     try {
         axios({
             method: 'POST',
