@@ -27,4 +27,6 @@ export default {
     VIEWED_STORIES_ERROR: 'viewed_stories_error',
     SUGGESTED_FOLLOWS: 'suggested_follows',
     SUGGESTED_FOLLOWS_ERROR: 'suggested_follows_error',
+    EXPLORE_MEDIA: 'explore_media',
+    EXPLORE_MEDIA_ERROR: 'explore_media_error',
 }
