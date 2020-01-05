@@ -12,6 +12,7 @@ import getStoriesProfileReducer from './getStoriesProfileReducer';
 import getStoriesMediaReducer from './getStoriesMediaReducer';
 import updateViewedStoriesReducer from './updateViewedStoriesReducer';
 import suggestedFollowsReducer from './suggestedFollowsReducer';
+import exploreMediaReducer from './exploreMediaReducer'
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     getStoriesMediaReducer,
     updateViewedStoriesReducer,
     suggestedFollowsReducer,
+    exploreMediaReducer,
     form: formReducer,
 });
 

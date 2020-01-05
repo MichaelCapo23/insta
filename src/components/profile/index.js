@@ -100,7 +100,7 @@ class Profile extends Component {
     makeMedia = (media) => {
         let profileMediaList = this.state.postMedia.map((media, index) => {
             return (
-                <UserMediaList key={index} media={media}/>
+                <UserMediaList mediaImages={this.props.mediaImages} key={index} media={media}/>
             )
         });
 

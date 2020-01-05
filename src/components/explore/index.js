@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import AuthHOC from '../../HOC/authHOC';
 import {suggestedFollowsAction} from '../../actions/suggestedFollowsAction'
 import FollowsYouList from './followsYouList';
+import {exploreMediaAction} from '../../actions/exploreMediaAction';
 import {connect} from 'react-redux';
 
 class Explore extends Component {
@@ -10,7 +11,8 @@ class Explore extends Component {
         discoverUsers: '',
         initalMethods: false,
         suggestedList: '',
-    }
+        exploreMediaList: '',
+    };
 
     componentWillMount() {
         if(this.props.id) {
@@ -23,14 +25,14 @@ class Explore extends Component {
 
     componentDidUpdate()  {
         if(this.props.id && this.state.discoverUsers === '' && !this.state.initalMethods) {
-            //call initial actions
             this.props.suggestedFollowsAction(this.props.id);
+            // this.props.exploreMediaAction(this.props.id);
             this.setState({
                 initalMethods: true,
             })
         }
 
-        if(this.props.suggestedList != this.state.suggestedList) {
+        if(this.props.suggestedList !== this.state.suggestedList || this.props.exploreMediaList !== this.state.exploreMediaList) {
             this.setState({
                 suggestedList: this.props.suggestedList
             })
@@ -50,8 +52,8 @@ class Explore extends Component {
         debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
-        container.scrollLeft -= 10;
-        overlay.scrollLeft -= 10;
+        container.scrollLeft += 250;
+        overlay.scrollLeft += 250;
         e.preventDefault();
     };
 
@@ -59,8 +61,8 @@ class Explore extends Component {
         debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
-        container.scrollLeft += 10;
-        overlay.scrollLeft += 10;
+        container.scrollLeft -= 250;
+        overlay.scrollLeft -= 250;
         e.preventDefault();
     };
 
@@ -84,6 +86,14 @@ class Explore extends Component {
                         </div>
                         {suggestions}
                     </div>
+                    <div className="explore-media-overall-container">
+                        <div className="explore-media-header">
+                            <div className="header-explore-text">Explore</div>
+                        </div>
+                        <div className="explore-media-inner-container">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -92,10 +102,12 @@ class Explore extends Component {
 
 function mapStateToProps(state) {
     return {
-        suggestedList: state.suggestedFollowsReducer.suggestedList
+        suggestedList: state.suggestedFollowsReducer.suggestedList,
+        exploreMediaList: state.exploreMediaReducer.exploreMediaList,
     }
 }
 
 export default connect(mapStateToProps, {
     suggestedFollowsAction,
+    exploreMediaAction,
 })(AuthHOC(Explore));
