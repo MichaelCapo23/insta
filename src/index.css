@@ -1427,6 +1427,7 @@ input:-webkit-autofill {
 .stories-media-container {
     height: calc(100% - 60px);
     width: 100%;
+    position: relative;
 }
 
 .table-div{
@@ -1462,4 +1463,20 @@ input:-webkit-autofill {
 
 .white {
     background: #FFF;
+}
+
+.exit-stories-container {
+    position: absolute;
+    top: 28px;
+    right: -34px;
+    height: 20px;
+    width: 20px;
+    background: url(./assets/sprite.png) -2375px -401px;
+    background-size: 600px;
+    cursor: pointer;
+}
+
+.exit-sprite {
+    height: 100%;
+    width: 100%;
 }
