@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AuthHOC from '../../HOC/authHOC';
 import {suggestedFollowsAction} from '../../actions/suggestedFollowsAction'
+import FollowsYouList from './followsYouList';
 import {connect} from 'react-redux';
 
 class Explore extends Component {
@@ -32,12 +33,43 @@ class Explore extends Component {
         if(this.props.suggestedList != this.state.suggestedList) {
             this.setState({
                 suggestedList: this.props.suggestedList
-            }, () => {console.log(this.state.suggestedList)})
+            })
         }
     }
 
+    makeSuggestions = () => {
+        let suggestions = this.state.suggestedList.map((item, index) => {
+            return (
+                <FollowsYouList person={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+            )
+        });
+        return suggestions;
+    };
+
+    moveRight = (e) => {
+        debugger;
+        let container = document.getElementById('container');
+        let overlay = document.getElementById('overlay');
+        container.scrollLeft -= 10;
+        overlay.scrollLeft -= 10;
+        e.preventDefault();
+    };
+
+    moveLeft = (e) => {
+        debugger;
+        let container = document.getElementById('container');
+        let overlay = document.getElementById('overlay');
+        container.scrollLeft += 10;
+        overlay.scrollLeft += 10;
+        e.preventDefault();
+    };
+
 
     render() {
+        let suggestions = '';
+        if(this.state.suggestedList !== '') {
+            suggestions = this.makeSuggestions();
+        }
         return (
             <div className="explore-overall-container">
                 <div className="explore-gutter">
@@ -45,7 +77,13 @@ class Explore extends Component {
                         <div className="discover-people">Discover People</div>
                         <div className="see-all">See All</div>
                     </div>
-                    <div className="suggested-container"></div>
+                    <div id="container" className="suggested-container">
+                        <div id="overlay" className="suggested-overlay">
+                            <div onClick={this.moveLeft} className="explore-left"/>
+                            <div onClick={this.moveRight} className="explore-right"/>
+                        </div>
+                        {suggestions}
+                    </div>
                 </div>
             </div>
         )
