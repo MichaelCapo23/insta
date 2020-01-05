@@ -18,7 +18,11 @@ module.exports = (app, db) => {
                         let sql2 = "SELECT `m`.`ID` AS `mediaID`, `m`.`fileName`, `m`.`created_at`, `a`.`username`, `a`.`name`, `a`.`ID`, (SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile' LIMIT 1) AS `profileFileName` FROM `media` AS m JOIN `accounts` AS a ON (`m`.`accountID` = `a`.`ID`) WHERE `accountID` = ? AND `m`.`mediaType` = 'story' ORDER BY `m`.`created_at`";
                         let followID = followIDs[followerID];
                         db.query(sql2, [followID, followID], (err, data) => {
-                            if(err) throw err;
+                            if(err) {
+                                console.log(err);
+                                res.sendStatus(500);
+                                return;
+                            }
                             let removeIDs = [];
                             let dataLength = data.length;
                             for(let index in data) {
@@ -26,7 +30,11 @@ module.exports = (app, db) => {
                                 let currentMediaID = currentStory.mediaID;
                                 let sql3 = "SELECT COUNT(*) AS `hasIndex` FROM `viewed_stories` WHERE `mediaID` = ?";
                                 db.query(sql3, currentMediaID, (err, viewedData) => {
-                                    if(err) throw err;
+                                    if(err) {
+                                        console.log(err);
+                                        res.sendStatus(500);
+                                        return;
+                                    }
                                     if(viewedData[0]['hasIndex'] != 0) {
                                         removeIDs.push(index);
                                     }

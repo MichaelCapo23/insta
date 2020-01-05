@@ -2,14 +2,7 @@ module.exports = (app, db) => {
     app.post('/likeMedia', (req, res) => {
         let {id} = req.headers;
         let {mediaID} = req.body;
-
-        let output = {
-            status: 'NO',
-        };
-
-        console.log(id);
-        console.log(mediaID);
-
+        let output = {status: 'NO'};
         let sql = "INSERT INTO `likes` (`accountID`, `mediaID`) VALUES (?,?)";
         db.connect(() => {
             db.query(sql, [id, mediaID], (err, data) => {

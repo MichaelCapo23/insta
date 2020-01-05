@@ -59,38 +59,45 @@ module.exports = (app, db) => {
                                                                         output.push(rowInfo);
                                                                         if(index == (mediaData.length -1)) {
                                                                             res.send(output);
+                                                                            return;
                                                                         }
                                                                     }
                                                                 });
                                                             } else {
-                                                                let message = 'Query Error (7) --getLandingMedia';
-                                                                res.send(message);
+                                                                console.log(err);
+                                                                res.sendStatus(500);
+                                                                return;
                                                             }
                                                         })
                                                     } else {
-                                                        let message = 'Query Error (6) --getLandingMedia';
-                                                        res.send(message);
+                                                        console.log(err);
+                                                        res.sendStatus(500);
+                                                        return;
                                                     }
                                                 })
                                             } else {
-                                                let message = 'Query Error (5) --getLandingMedia';
-                                                res.send(message);
+                                                console.log(err);
+                                                res.sendStatus(500);
+                                                return;
                                             }
                                         })
                                     } else {
-                                        let message = 'Query Error (4) --getLandingMedia';
-                                        res.send(message);
+                                        console.log(err);
+                                        res.sendStatus(500);
+                                        return;
                                     }
                                 });
                             }
                         } else {
-                            let message = 'Query Error (3) --getLandingMedia';
-                            res.send(message);
+                            console.log(err);
+                            res.sendStatus(500);
+                            return;
                         }
                     })
                 } else {
-                    let message = 'Query Error (2) --getLandingMedia';
-                    res.send(message);
+                    console.log(err);
+                    res.sendStatus(500);
+                    return;
                 }
             })
         })

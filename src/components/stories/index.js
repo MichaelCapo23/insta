@@ -43,6 +43,12 @@ class Stories extends Component {
         }
     }
 
+    exitStories = () => {
+        this.props.updateViewedStoriesAction({userID: this.props.id, storyIDs: this.state.viewedStoriesIDs});
+        this.props.history.push('/');
+        return false;
+    };
+
     displayMedia = async  () => { //check if child index exists, check if next currentStoryIndex exists if not send them back to /
         let {storiesMedia, currentStoryIndex,currentStoryIndexChild} = this.state;
 
@@ -54,8 +60,7 @@ class Stories extends Component {
 
         if (!storiesMedia[currentStoryIndex][currentStoryIndexChild]) {
             if(!storiesMedia[currentStoryIndex+1]) {
-                debugger;
-                this.props.updateViewedStoriesAction({userID: this.props.id, storyIDs: this.state.viewedStoriesIDs.join()});
+                this.props.updateViewedStoriesAction({userID: this.props.id, storyIDs: this.state.viewedStoriesIDs});
                 this.props.history.push('/');
                 return false;
             } else {
@@ -162,7 +167,10 @@ class Stories extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="stories-media-container">{this.state.mediaJSX}</div>
+                    <div className="stories-media-container">
+                        <div onClick={this.exitStories} className="exit-stories-container"></div>
+                        {this.state.mediaJSX}
+                    </div>
                 </div>
             </div>
         )
