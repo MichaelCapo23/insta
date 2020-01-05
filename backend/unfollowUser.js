@@ -18,8 +18,9 @@ module.exports = (app, db) => {
                     }
                     res.send(output);
                 } else {
-                    console.log('Query Error (1) --unfollow user service');
-                    res.send(output)
+                    console.log(err);
+                    res.sendStatus(500);
+                    return;
                 }
             })
         })

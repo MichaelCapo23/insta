@@ -5,6 +5,7 @@ import Signin from './components/logins/signin'
 import Signup from './components/logins/signup';
 import Profile from './components/profile';
 import Stories from './components/stories'
+import Explore from './components/explore';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 class App extends Component {
@@ -18,7 +19,8 @@ class App extends Component {
                     <Route path={"/profile"} component={Profile} />
                     <Route path={"/signin"} component={Signin} />
                     <Route path={"/signup"} component={Signup} />
-                    <Route path={'/stories'} component={Stories}></Route>
+                    <Route path={'/stories'} component={Stories}/>
+                    <Route path={'/explore'} component={Explore}/>
                 </div>
             </Router>
 

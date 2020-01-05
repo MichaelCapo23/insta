@@ -33,6 +33,8 @@ module.exports = (app, db) => {
                         res.send(output);
                     } else {
                         console.log(err);
+                        res.sendStatus(500);
+                        return;
                     }
                 })
             });
