@@ -34,11 +34,6 @@ class Profile extends Component {
     };
 
     componentDidMount() {
-        //check for the token, if not set then push the user to the signin page, make this a higher order component in the future
-        let token = localStorage.getItem('token');
-        if(!token) {
-            this.props.history.push('/signin');
-        }
         //get users stats
         this.props.getUserStatsAction();
         //get user media
