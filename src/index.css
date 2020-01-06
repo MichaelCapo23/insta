@@ -411,8 +411,8 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .content-header {
-    /*height: calc(100vh - 75px);*/
-    height: 100%;
+    height: calc(100vh - 75px);
+    /*height: 100%;*/
 }
 
 .landing-gutter {
@@ -614,13 +614,13 @@ input:not(:placeholder-shown) ~ label {
 
 .overall-container:hover .inline-comments {
     position: absolute !important;
-    left: 42%;
+    left: 35%;
     color: white !important;
 }
 
 .overall-container:hover .inline-likes {
     position: absolute !important;
-    left: 58%;
+    left: 52%;
     color: white !important;
 }
 
@@ -1567,7 +1567,7 @@ input:-webkit-autofill {
     height: 200px;
     width: 935px;
     background: linear-gradient(to left, #FFF, transparent 7%);
-    position: fixed;
+    position: absolute;
     background-position: right;
 }
 
@@ -1581,6 +1581,10 @@ background-color: #FFF;
 border: var(--default-border);
 border-radius: 3px;
 margin: 0 13px;
+}
+
+.follows-you-overall-container:nth-child(8) {
+    margin-right: 0 !important;
 }
 
 .follows-you-overall-container:nth-child(1) {
@@ -1690,4 +1694,33 @@ transform: scaleX(-1);
 .explore-media-inner-container {
     height: auto;
     width: 100%;
+}
+
+.explore-media-list-overall { /* 992px width css needs to change */
+    display: inline-block;
+    height: 293px;
+    width: 293px;
+    margin: 0 28px 28px 0;
+    position: relative;
+}
+
+.explore-media-list-overall:nth-child(3n) {
+    margin-right: 0 !important;
+}
+
+
+.explore-media-list-overall:hover .overlay {
+    opacity: .7 !important;
+}
+
+.explore-media-list-overall:hover .inline-comments {
+    position: absolute !important;
+    left: 35%;
+    color: white !important;
+}
+
+.explore-media-list-overall:hover .inline-likes {
+    position: absolute !important;
+    left: 52%;
+    color: white !important;
 }

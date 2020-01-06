@@ -3,6 +3,7 @@ import AuthHOC from '../../HOC/authHOC';
 import {suggestedFollowsAction} from '../../actions/suggestedFollowsAction'
 import FollowsYouList from './followsYouList';
 import {exploreMediaAction} from '../../actions/exploreMediaAction';
+import ExploreMediaList from './exploreMediaList';
 import {connect} from 'react-redux';
 
 class Explore extends Component {
@@ -15,18 +16,24 @@ class Explore extends Component {
     };
 
     componentWillMount() {
-        if(this.props.id) {
-            //call initial actions
-            this.setState({
-                initalMethods: true,
-            })
+        debugger;
+        if(this.props.location.state) {
+            if (this.props.location.state.id) {
+                //call initial actions
+                this.props.suggestedFollowsAction(this.props.location.state.id);
+                this.props.exploreMediaAction(this.props.location.state.id);
+                this.setState({
+                    initalMethods: true,
+                })
+            }
         }
     }
 
     componentDidUpdate()  {
+        debugger;
         if(this.props.id && this.state.discoverUsers === '' && !this.state.initalMethods) {
             this.props.suggestedFollowsAction(this.props.id);
-            // this.props.exploreMediaAction(this.props.id);
+            this.props.exploreMediaAction(this.props.id);
             this.setState({
                 initalMethods: true,
             })
@@ -34,7 +41,8 @@ class Explore extends Component {
 
         if(this.props.suggestedList !== this.state.suggestedList || this.props.exploreMediaList !== this.state.exploreMediaList) {
             this.setState({
-                suggestedList: this.props.suggestedList
+                suggestedList: this.props.suggestedList,
+                exploreMediaList: this.props.exploreMediaList,
             })
         }
     }
@@ -48,12 +56,21 @@ class Explore extends Component {
         return suggestions;
     };
 
+    makeExplorePostList = () => {
+        let explorePostList = this.state.exploreMediaList.map((item, index) => {
+            return (
+                <ExploreMediaList post={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+            )
+        });
+        return explorePostList;
+    };
+
     moveRight = (e) => {
         debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
         container.scrollLeft += 250;
-        overlay.scrollLeft += 250;
+        overlay.style.left += '250px';
         e.preventDefault();
     };
 
@@ -62,16 +79,22 @@ class Explore extends Component {
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
         container.scrollLeft -= 250;
-        overlay.scrollLeft -= 250;
+        overlay.style.left -= '250px';
         e.preventDefault();
     };
 
 
     render() {
         let suggestions = '';
+        let explorePostList = '';
         if(this.state.suggestedList !== '') {
             suggestions = this.makeSuggestions();
         }
+
+        if(this.state.exploreMediaList !== '') {
+            explorePostList = this.makeExplorePostList();
+        }
+
         return (
             <div className="explore-overall-container">
                 <div className="explore-gutter">
@@ -91,7 +114,7 @@ class Explore extends Component {
                             <div className="header-explore-text">Explore</div>
                         </div>
                         <div className="explore-media-inner-container">
-
+                            {explorePostList}
                         </div>
                     </div>
                 </div>

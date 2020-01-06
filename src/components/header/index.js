@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AuthHOC from '../../HOC/authHOC'
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
@@ -7,10 +8,6 @@ class Header extends Component {
         super(props);
         this.input = React.createRef();
     }
-
-    state = {
-
-    };
 
     searchInput = () => {
         if(this.input.current.value === '') {
@@ -37,7 +34,7 @@ class Header extends Component {
                         <input ref={this.input} onChange={this.searchInput} placeholder={'Search'} type="text" className="searchbar-input"/>
                     </div>
                     <div className="header-icons-container">
-                        <Link to='/explore' className="header-compass-container">
+                        <Link to={{pathname: '/explore', state: {id: this.props.id}}} className="header-compass-container">
                             <svg aria-label="Find People" className="_8-yf5 " fill="#262626" height="24"
                                  viewBox="0 0 48 48" width="24">
                                 <path clipRule="evenodd"
@@ -73,4 +70,4 @@ function mapStateToProps() {
     }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(AuthHOC(Header));
