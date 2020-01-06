@@ -4,6 +4,7 @@ import {suggestedFollowsAction} from '../../actions/suggestedFollowsAction'
 import FollowsYouList from './followsYouList';
 import {exploreMediaAction} from '../../actions/exploreMediaAction';
 import ExploreMediaList from './exploreMediaList';
+import PostModal from '../postModal/'
 import {connect} from 'react-redux';
 
 class Explore extends Component {
@@ -59,7 +60,7 @@ class Explore extends Component {
     makeExplorePostList = () => {
         let explorePostList = this.state.exploreMediaList.map((item, index) => {
             return (
-                <ExploreMediaList post={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+                <ExploreMediaList openPostModal={this.openPostModal} post={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
             )
         });
         return explorePostList;
@@ -69,8 +70,8 @@ class Explore extends Component {
         debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
-        container.scrollLeft += 250;
-        overlay.style.left += '250px';
+        container.scrollLeft += 260;
+        overlay.style.left = container.scrollLeft + 'px';
         e.preventDefault();
     };
 
@@ -78,11 +79,15 @@ class Explore extends Component {
         debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
-        container.scrollLeft -= 250;
-        overlay.style.left -= '250px';
+        container.scrollLeft -= 260;
+        overlay.style.left = container.scrollLeft + 'px';
         e.preventDefault();
     };
 
+    openPostModal = () => {
+        document.getElementById("postModal").classList.remove("hide");
+        //get info and fill in modal
+    };
 
     render() {
         let suggestions = '';
@@ -97,17 +102,18 @@ class Explore extends Component {
 
         return (
             <div className="explore-overall-container">
+                <PostModal/>
                 <div className="explore-gutter">
                     <div className="explore-discover-container">
                         <div className="discover-people">Discover People</div>
                         <div className="see-all">See All</div>
                     </div>
                     <div id="container" className="suggested-container">
+                        {suggestions}
                         <div id="overlay" className="suggested-overlay">
                             <div onClick={this.moveLeft} className="explore-left"/>
                             <div onClick={this.moveRight} className="explore-right"/>
                         </div>
-                        {suggestions}
                     </div>
                     <div className="explore-media-overall-container">
                         <div className="explore-media-header">
