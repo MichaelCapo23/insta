@@ -4,8 +4,10 @@ import {suggestedFollowsAction} from '../../actions/suggestedFollowsAction'
 import FollowsYouList from './followsYouList';
 import {exploreMediaAction} from '../../actions/exploreMediaAction';
 import ExploreMediaList from './exploreMediaList';
+import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import PostModal from '../postModal/'
 import {connect} from 'react-redux';
+import singlePostInfoReducer from "../../reducers/singlePostInfoReducer";
 
 class Explore extends Component {
 
@@ -17,7 +19,6 @@ class Explore extends Component {
     };
 
     componentWillMount() {
-        debugger;
         if(this.props.location.state) {
             if (this.props.location.state.id) {
                 //call initial actions
@@ -31,7 +32,6 @@ class Explore extends Component {
     }
 
     componentDidUpdate()  {
-        debugger;
         if(this.props.id && this.state.discoverUsers === '' && !this.state.initalMethods) {
             this.props.suggestedFollowsAction(this.props.id);
             this.props.exploreMediaAction(this.props.id);
@@ -67,7 +67,6 @@ class Explore extends Component {
     };
 
     moveRight = (e) => {
-        debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
         container.scrollLeft += 260;
@@ -76,7 +75,6 @@ class Explore extends Component {
     };
 
     moveLeft = (e) => {
-        debugger;
         let container = document.getElementById('container');
         let overlay = document.getElementById('overlay');
         container.scrollLeft -= 260;
@@ -84,9 +82,9 @@ class Explore extends Component {
         e.preventDefault();
     };
 
-    openPostModal = () => {
+    openPostModal = (postid) => {
+        this.props.singlePostInfoAction(postid);
         document.getElementById("postModal").classList.remove("hide");
-        //get info and fill in modal
     };
 
     render() {
@@ -133,10 +131,12 @@ function mapStateToProps(state) {
     return {
         suggestedList: state.suggestedFollowsReducer.suggestedList,
         exploreMediaList: state.exploreMediaReducer.exploreMediaList,
+        singlePostInfo: state.singlePostInfoReducer.singlePostInfo,
     }
 }
 
 export default connect(mapStateToProps, {
     suggestedFollowsAction,
     exploreMediaAction,
+    singlePostInfoAction,
 })(AuthHOC(Explore));
