@@ -1699,7 +1699,7 @@ transform: scaleX(-1);
     width: 100%;
 }
 
-.explore-media-list-overall { /* 992px width css needs to change */
+.explore-media-list-overall {
     display: inline-block;
     height: 293px;
     width: 293px;
@@ -1750,19 +1750,45 @@ transform: scaleX(-1);
     top: 50%;
     transform: translate(0, -41%);
 }
-.post-modal-content {
+
+.post-modal-page-padding {
+    padding: 0 40px;
+    pointer-events: none;
+    height: 100vh;
+    overflow: auto;
+    width: auto;
+    z-index: 1;
+}
+
+.post-modal-gutter {
+    max-width: 815px;
+    margin: auto;
+    pointer-events: auto;
+    width: 100%;
+    background-color: #fff;
     position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.post-modal-content-container {
+    width: 100%;
+    padding: 0;
+    position: relative;
+}
+
+.post-modal-left-img {
     height: 100%;
     width: 100%;
 }
 
 .post-modal-img-container {
     height: 100%;
-    width: 55%;
+    width: 100%;
     display: inline-block;
 }
 
-.post-modal-img, .post-modal-left-img, .post-modal-content-left-ellipsis-img {
+.post-modal-img, .post-modal-content-left-ellipsis-img {
     height: 100%;
     width: 100%;
 }
@@ -1772,16 +1798,18 @@ transform: scaleX(-1);
 }
 
 .post-modal-content-left-container {
-    width: 45%;
     background-color: #FFF;
     display: inline-block;
     vertical-align: top;
+    position: relative;
+    height: 100%;
 }
 
 .post-modal-content-header {
     height: 72px;
     width: 100%;
     padding: 16px;
+    position: relative;
 }
 
 .post-modal-left-img-container {
@@ -1796,13 +1824,20 @@ transform: scaleX(-1);
     display: inline-block;
     vertical-align: sub;
     vertical-align: -webkit-baseline-middle;
-    width: 175px;
+    max-width: 333px;
 }
 
 .post-modal-content-left-username, .post-modal-content-left-dot, .post-modal-content-left-follow {
     display: inline-block;
     width: auto;
-    max-width: 105px;
+}
+
+.post-modal-content-left-dot {
+    color: #262626;
+}
+
+.post-modal-content-left-username {
+    max-width: 200px;
 }
 
 .post-modal-content-left-username, .post-modal-content-left-dot {
@@ -1836,13 +1871,56 @@ transform: scaleX(-1);
 }
 
 .post-modal-comments-container {
-    height: calc(100% - 50px);
     width: 100%;
+    height: calc(100% - 230px);
 }
 
 .post-modal-content-left-ellipsis-container {
     width: 29px;
     height: 26px;
-    /* margin-left: 34px; */
     display: inline-block;
+    position: absolute;
+    right: 23px;
+}
+
+.post-modal-likes-media-container {
+    min-height: 100px;
+    padding: 5px;
+    border: var(--default-border);
+    border-collapse: collapse;
+    position: absolute;
+    bottom: 58px;
+    width: 100%;
+}
+
+.post-modal-add-comment {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px;
+    border: var(--default-border);
+    position: absolute;
+    bottom: 0;
+}
+
+.post-media-add-comment-btn {
+    font-weight: 600;
+    color: #3897f0;
+    position: relative;
+    max-width: 58px;
+    border: none !important;
+    background-color: transparent !important;
+}
+.post-modal-content-grid {
+    grid-template-columns: 55% auto;
+    width: 100%;
+    display: grid;
+    min-height: 450px;
+    max-height: 800px;
+    min-width: 690px;
+}
+
+@media only screen and (max-width: 894px) {
+    .post-modal-content-grid {
+        min-height: 400px !important;
+    }
 }
