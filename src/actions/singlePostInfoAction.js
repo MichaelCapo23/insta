@@ -1,13 +1,14 @@
 import axios from 'axios';
 import types from './types';
 
-export const singlePostInfoAction = (postid) => async dispatch => {
+export const singlePostInfoAction = (postid, id) => async dispatch => {
       try {
           axios({
               method: "POST",
               url: '/singlePostInfo',
               headers: {
                   postid: Number(postid),
+                  id: id
               }
           }).then(response => {
               dispatch({
