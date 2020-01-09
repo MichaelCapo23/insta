@@ -22,7 +22,6 @@ class PostModal extends Component {
     };
 
     render () {
-        debugger;
         return (
             <div onClick={this.closeModal} id="postModal" className="post-modal-overall-container hide">
                 <div className="post-modal-page-padding">
@@ -62,7 +61,7 @@ class PostModal extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        singlePostInfo: state.singlePostInfoReducer.singlePostInfo,
     }
 }
 

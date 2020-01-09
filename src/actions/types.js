@@ -29,4 +29,6 @@ export default {
     SUGGESTED_FOLLOWS_ERROR: 'suggested_follows_error',
     EXPLORE_MEDIA: 'explore_media',
     EXPLORE_MEDIA_ERROR: 'explore_media_error',
+    SINGLE_POST: 'single_post',
+    SINGLE_POST_ERROR: 'single_post_error',
 }

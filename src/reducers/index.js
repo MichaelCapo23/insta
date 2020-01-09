@@ -13,6 +13,7 @@ import getStoriesMediaReducer from './getStoriesMediaReducer';
 import updateViewedStoriesReducer from './updateViewedStoriesReducer';
 import suggestedFollowsReducer from './suggestedFollowsReducer';
 import exploreMediaReducer from './exploreMediaReducer'
+import singlePostInfoReducer from './singlePostInfoReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     updateViewedStoriesReducer,
     suggestedFollowsReducer,
     exploreMediaReducer,
+    singlePostInfoReducer,
     form: formReducer,
 });
 
