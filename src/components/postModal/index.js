@@ -15,10 +15,6 @@ class PostModal extends Component {
     };
 
     closeModal = (e) => {
-        const scrollY = document.body.style.top;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
         document.getElementById('postModal').classList.add("hide");
     };
 
@@ -36,9 +32,8 @@ class PostModal extends Component {
     // }
 
     makeCommentsList = () => {
-        debugger;
         let commentsList = this.props.singlePostInfo.comments.map((item, index) => {
-            return <ModalCommentList comments={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} key={index}/>
+            return <ModalCommentList comments={item} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} key={index}/>
         });
         return commentsList;
     };

@@ -4,7 +4,7 @@ module.exports = (app, db) => {
         let comments = [];
         let likes = [];
         db.connect(() => {
-            let sql = "SELECT `accountID`, `fileName` FROM `media` WHERE `ID` = ?";
+            let sql = "SELECT `accountID`, `fileName`  FROM `media` WHERE `ID` = ?";
             db.query(sql, [postid,postid], (err, mediaData) => {
                 if(err) {
                     console.log(err);
@@ -21,24 +21,40 @@ module.exports = (app, db) => {
                         return;
                     }
 
-                    let sql3 = "SELECT `accountID`, `comment`, `a`.`username` FROM `comments` c JOIN `accounts` a WHERE `c`.`mediaID` = '3' ORDER BY `c`.`created_at` LIMIT 50"; //change '3' to ?
+                    let sql3 = "SELECT `accountID`, `comment`, `created_at` FROM `comments` WHERE `mediaID` = ? ORDER BY `created_at` LIMIT 50"; //change '3' to ?
                     db.query(sql3, postid, (err, commentsData) => {
                         if(err) {
                             console.log(err);
                             res.sendStatus(500);
                             return;
                         }
+
+                        if(commentsData.length === 0) {
+                            let outputObj = {
+                                accountID: userID,
+                                mediaFileName: mediaData[0].fileName,
+                                mediaCreatedAt: mediaData[0].mediaCreatedAt,
+                                profileFileName: accountData[0].profileFileName,
+                                username: accountData[0].username,
+                                name: accountData[0].name,
+                                comments: comments,
+                                likes: likes,
+                            };
+                            res.send(outputObj);
+                        }
+
                         for(let comment in commentsData) {
                             comments[comment] = commentsData[comment];
                             let currentCommentAccountID = commentsData[comment].accountID;
-                            let sqlCommentUsername = "SELECT IFNULL((SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') AS `fileName`";
-                            db.query(sqlCommentUsername, currentCommentAccountID, (err, commentProfile) => {
+                            let sqlCommentUsername = "SELECT `username`, IFNULL((SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') AS `fileName` FROM `accounts` WHERE `ID` = ?";
+                            db.query(sqlCommentUsername, [currentCommentAccountID,currentCommentAccountID], (err, commentProfile) => {
                                 if(err) {
                                     console.log(err);
                                     res.sendStatus(500);
                                     return;
                                 }
                                 comments[comment].profileFileName = commentProfile[0].fileName;
+                                comments[comment].username = commentProfile[0].username;
                             });
 
                             if(comment == (commentsData.length - 1)) {
@@ -63,6 +79,7 @@ module.exports = (app, db) => {
                                         let outputObj = {
                                             accountID: userID,
                                             mediaFileName: mediaData[0].fileName,
+                                            mediaCreatedAt: mediaData[0].mediaCreatedAt,
                                             profileFileName: accountData[0].profileFileName,
                                             username: accountData[0].username,
                                             name: accountData[0].name,
@@ -77,8 +94,6 @@ module.exports = (app, db) => {
                         }
 
                     })
-
-
                 })
             })
         })

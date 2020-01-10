@@ -84,10 +84,6 @@ class Explore extends Component {
 
     openPostModal = (postid) => {
         this.props.singlePostInfoAction(postid, this.props.id);
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${window.scrollY}px`;
-        document.body.style.position = '';
-        document.body.style.top = '';
         document.getElementById("postModal").classList.remove("hide");
     };
 
