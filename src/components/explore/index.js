@@ -83,7 +83,7 @@ class Explore extends Component {
     };
 
     openPostModal = (postid) => {
-        this.props.singlePostInfoAction(postid);
+        this.props.singlePostInfoAction(postid, this.props.id);
         document.getElementById("postModal").classList.remove("hide");
     };
 
