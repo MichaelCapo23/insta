@@ -14,6 +14,7 @@ import updateViewedStoriesReducer from './updateViewedStoriesReducer';
 import suggestedFollowsReducer from './suggestedFollowsReducer';
 import exploreMediaReducer from './exploreMediaReducer'
 import singlePostInfoReducer from './singlePostInfoReducer';
+import getNotificationsReducer from './getNotificationsReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     suggestedFollowsReducer,
     exploreMediaReducer,
     singlePostInfoReducer,
+    getNotificationsReducer,
     form: formReducer,
 });
 

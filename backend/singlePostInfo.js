@@ -4,7 +4,7 @@ module.exports = (app, db) => {
         let comments = [];
         let likes = [];
         db.connect(() => {
-            let sql = "SELECT `accountID`, `fileName`  FROM `media` WHERE `ID` = ?";
+            let sql = "SELECT `ID`, `accountID`, `fileName`  FROM `media` WHERE `ID` = ?";
             db.query(sql, [postid,postid], (err, mediaData) => {
                 if(err) {
                     console.log(err);
@@ -21,7 +21,7 @@ module.exports = (app, db) => {
                         return;
                     }
 
-                    let sql3 = "SELECT `accountID`, `comment`, `created_at` FROM `comments` WHERE `mediaID` = ? ORDER BY `created_at` LIMIT 50"; //change '3' to ?
+                    let sql3 = "SELECT `accountID`, `comment`, `created_at` FROM `comments` WHERE `mediaID` = ? ORDER BY `created_at` LIMIT 50";
                     db.query(sql3, postid, (err, commentsData) => {
                         if(err) {
                             console.log(err);
@@ -32,6 +32,7 @@ module.exports = (app, db) => {
                         if(commentsData.length === 0) {
                             let outputObj = {
                                 accountID: userID,
+                                mediaID: mediaData[0].ID,
                                 mediaFileName: mediaData[0].fileName,
                                 mediaCreatedAt: mediaData[0].mediaCreatedAt,
                                 profileFileName: accountData[0].profileFileName,
@@ -78,6 +79,7 @@ module.exports = (app, db) => {
                                         }
                                         let outputObj = {
                                             accountID: userID,
+                                            mediaID: mediaData[0].ID,
                                             mediaFileName: mediaData[0].fileName,
                                             mediaCreatedAt: mediaData[0].mediaCreatedAt,
                                             profileFileName: accountData[0].profileFileName,

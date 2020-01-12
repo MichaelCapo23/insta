@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createCommentAction} from '../../actions/createCommentAction';
 import ModalCommentList from './modalCommentList';
+import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import AuthHOC from '../../HOC/authHOC';
 
 class PostModal extends Component {
@@ -12,24 +13,40 @@ class PostModal extends Component {
 
     state = {
         enableBtn: true,
+        commentID: '',
     };
 
     closeModal = (e) => {
-        document.getElementById('postModal').classList.add("hide");
+        if(e.target.classList[0] === 'post-modal-overall-container') {
+            document.getElementById('postModal').classList.add("hide");
+        }
     };
 
     createComment = () => {
-        this.props.createCommentAction(this.myInput.value);
+        this.props.createCommentAction({userID: this.props.id, comment: this.myInput.current.value, mediaID: this.props.singlePostInfo.mediaID});
     };
 
-    // componentDidUpdate() {
-    //     console.log(this.props.singlePostInfo);
-    //     if(this.props.singlePostInfo != this.state.singlePostInfo) {
-    //         this.setState({
-    //             singlePostInfo: this.props.singlePostInfo,
-    //         })
-    //     }
-    // }
+    enableBtnVal = () => {
+        if(this.myInput.current.value !== '') {
+            this.setState({
+                enableBtn: false
+            })
+        } else {
+            this.setState({
+                enableBtn: true
+            })
+        }
+    };
+
+    componentDidUpdate() {
+        if((this.props.commentID.commentID !== '' && this.props.singlePostInfo !== '') && this.props.commentID.commentID != this.state.commentID ) {
+            debugger;
+            this.setState({
+                commentID: this.props.commentID.commentID
+            });
+            this.props.singlePostInfoAction(this.props.singlePostInfo.mediaID, this.props.id);
+        }
+    }
 
     makeCommentsList = () => {
         let commentsList = this.props.singlePostInfo.comments.map((item, index) => {
@@ -44,7 +61,7 @@ class PostModal extends Component {
             commentsList = this.makeCommentsList();
         }
         return (
-            <div onClick={this.closeModal} id="postModal" className="post-modal-overall-container hide">
+            <div onClick={this.closeModal} id="postModal" className="post-modal-overall-container hide"> {/*onClick={this.closeModal}*/}
                 <div className="post-modal-page-padding">
                     <div className="post-modal-gutter">
                         <div className="post-modal-content-grid">
@@ -68,8 +85,8 @@ class PostModal extends Component {
                                 <div className="post-modal-comments-container">{commentsList}</div>
                                 <div className="post-modal-likes-media-container"></div>
                                 <div className="post-modal-add-comment">
-                                    <input ref={this.myInput} onChange={() => this.myInput.current.value !== '' ? this.state.enableBtn = true : this.state.enableBtn = false} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
-                                    <button onClick={() => {this.createComment(this.myInput.current)}} disabled={this.state.enableBtn} className="post-media-add-comment-btn btn">Post</button>
+                                    <input ref={this.myInput} onChange={this.enableBtnVal} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
+                                    <button onClick={this.createComment} disabled={this.state.enableBtn} className="post-media-add-comment-btn btn">Post</button>
                                 </div>
                             </div>
                         </div>
@@ -83,9 +100,11 @@ class PostModal extends Component {
 function mapStateToProps(state) {
     return {
         singlePostInfo: state.singlePostInfoReducer.singlePostInfo,
+        commentID: state.createCommentReducer.commentID,
     }
 }
 
 export default connect(mapStateToProps, {
     createCommentAction,
+    singlePostInfoAction,
 })(AuthHOC(PostModal));
