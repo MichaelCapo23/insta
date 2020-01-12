@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getUsernameAction} from '../actions/getUsernameAction'
+import {getUsernameAction} from '../actions/getUsernameAction';
+import {getNotificationsAction} from '../actions/getNotificationsAction'
 
 export default (WrappedComponent, to ='./signIn', redirect = false) => {
     class Auth extends Component {
@@ -40,6 +41,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
                 //check if username props is set, if not get it, needed on all auth files.
                 if(!this.props.username || this.props.username === '') {
                     this.props.getUsernameAction({userID: this.props.id});
+                    this.props.getNotificationsAction({userID: this.props.id});
                 }
 
                 if((!this.props.mediaImages || this.props.mediaImages === '') && !this.state.mediaImages) {
@@ -65,11 +67,13 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             username: state.usernameReducer.username.username,
             name: state.usernameReducer.username.name,
             id: state.usernameReducer.username.id,
+            notification_list: state.getNotificationsReducer.getNotificationsAction,
         }
 
     }
 
     return connect(mapStateToProps,{
-        getUsernameAction
+        getUsernameAction,
+        getNotificationsAction,
     })(withRouter(Auth));
 }

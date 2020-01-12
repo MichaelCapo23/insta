@@ -5,7 +5,6 @@ export default props => {
     let [disabledVal, enableBtn] = useState(true);
     let {accountID, comment, username, profileFileName, created_at} = props.comments;
     let {profileImages, generalImages, mediaImages} = props.images;
-    debugger;
     let now  = moment();
     let then = moment(created_at);
     let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));

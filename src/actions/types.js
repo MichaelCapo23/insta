@@ -31,4 +31,6 @@ export default {
     EXPLORE_MEDIA_ERROR: 'explore_media_error',
     SINGLE_POST: 'single_post',
     SINGLE_POST_ERROR: 'single_post_error',
+    GET_NOTIFICATIONS: 'get_notifications',
+    GET_NOTIFICATIONS_ERROR: 'get_notifications_error',
 }
