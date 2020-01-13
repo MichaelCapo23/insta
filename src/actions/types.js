@@ -33,4 +33,6 @@ export default {
     SINGLE_POST_ERROR: 'single_post_error',
     GET_NOTIFICATIONS: 'get_notifications',
     GET_NOTIFICATIONS_ERROR: 'get_notifications_error',
+    CREATE_NOTIFICATIONS: 'create_notifications',
+    CREATE_NOTIFICATIONS_ERROR: 'create_notifications_error',
 }

@@ -9,10 +9,15 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
 
         state = {
             mediaImages: null,
+            getUsernameCalled: false,
+            getNotificationsCalled: false
         };
 
-        componentWillMount () {
+        async componentWillMount () {
             this.checkAuth();
+            await this.setState({
+                getUsernameCalled: true,
+            });
         }
 
         componentDidUpdate() {
@@ -38,10 +43,16 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
                     this.props.history.push('/');
                 }
 
-                //check if username props is set, if not get it, needed on all auth files.
-                if(!this.props.username || this.props.username === '') {
-                    this.props.getUsernameAction({userID: this.props.id});
-                    this.props.getNotificationsAction({userID: this.props.id});
+                //check if username props is set, if not get it, username needed on all auth files.
+                if(!this.props.username || this.props.username === '' && !this.state.getUsernameCalled) {
+                    this.props.getUsernameAction();
+                }
+
+                if(this.props.id && this.props.notification_list === '' && !this.state.getNotificationsCalled) {
+                    this.setState({
+                        getNotificationsCalled: true,
+                    });
+                    this.props.getNotificationsAction(this.props.id);
                 }
 
                 if((!this.props.mediaImages || this.props.mediaImages === '') && !this.state.mediaImages) {
@@ -67,7 +78,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             username: state.usernameReducer.username.username,
             name: state.usernameReducer.username.name,
             id: state.usernameReducer.username.id,
-            notification_list: state.getNotificationsReducer.getNotificationsAction,
+            notification_list: state.getNotificationsReducer.notification_list,
         }
 
     }

@@ -1991,6 +1991,26 @@ transform: scaleX(-1);
         min-height: 400px;
     }
 }
-.post-modal-comments-container::-webkit-scrollbar {
+.post-modal-comments-container::-webkit-scrollbar, .notifications-overall-container::-webkit-scrollbar {
     display: none;
+}
+
+.notifications-overall-container {
+    background: #fff;
+    border-radius: 3px;
+    border: solid 1px #e6e6e6;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,.0975);
+    box-shadow: 0 0 5px rgba(0,0,0,.0975);
+    display: block;
+    /*margin-left: -423px;*/
+    max-height: 362px;
+    min-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    white-space: normal;
+    width: 500px;
+    z-index: 11;
 }

@@ -43,3 +43,4 @@ require('./updateViewedStories')(app, db);
 require('./suggestedFollows.js')(app, db);
 require('./exploreMedia.js')(app, db);
 require('./singlePostInfo.js')(app, db);
+require('./getNotifications')(app,db);

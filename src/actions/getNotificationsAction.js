@@ -1,13 +1,13 @@
 import axios from 'axios';
 import types from './types';
 
-export const getNotificationsAction = (values) => async dispatch => {
+export const getNotificationsAction = (id) => async dispatch => {
     try {
         axios({
             method: "POST",
             url: "/getNotifications",
             headers: {
-                id: values.id,
+                id: id,
             },
             data: {
 

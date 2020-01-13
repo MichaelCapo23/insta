@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createCommentAction} from '../../actions/createCommentAction';
+import {getNotificationsAction} from "../../actions/getNotificationsAction";
 import ModalCommentList from './modalCommentList';
 import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import AuthHOC from '../../HOC/authHOC';
@@ -24,6 +25,7 @@ class PostModal extends Component {
 
     createComment = () => {
         this.props.createCommentAction({userID: this.props.id, comment: this.myInput.current.value, mediaID: this.props.singlePostInfo.mediaID});
+        // this.props.getNotificationsAction()
     };
 
     enableBtnVal = () => {
