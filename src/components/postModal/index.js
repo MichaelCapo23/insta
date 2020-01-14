@@ -42,7 +42,6 @@ class PostModal extends Component {
 
     componentDidUpdate() {
         if((this.props.commentID.commentID !== '' && this.props.singlePostInfo !== '') && this.props.commentID.commentID != this.state.commentID ) {
-            debugger;
             this.setState({
                 commentID: this.props.commentID.commentID
             });

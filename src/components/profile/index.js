@@ -9,11 +9,6 @@ import authHOC from "../../HOC/authHOC";
 
 class Profile extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    //     const img
-    // }
-
     state = {
         data: null,
         username: '',
@@ -23,6 +18,7 @@ class Profile extends Component {
         madeMedia: '0',
         media: '',
         waiting: false,
+        waiting2: false,
         activeTab: 'posts'
     };
 
@@ -34,9 +30,6 @@ class Profile extends Component {
     };
 
     componentDidMount() {
-        //get users stats
-        this.props.getUserStatsAction();
-        //get user media
         if(this.props.id) {
             this.props.getUserMediaAction(this.props.id);
         }
@@ -57,11 +50,24 @@ class Profile extends Component {
         }
 
         //get the profile media once component updates with this.props.id
-        if(this.props.id && this.props.media === '' && !this.state.waiting) {
-            this.props.getUserMediaAction(this.props.id);
+        if(this.props.id && !this.state.waiting) {
+            if(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
+                this.props.getFollowerUsernameAction(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
+            } else {
+                this.props.getUserStatsAction(this.props.id);
+                this.props.getUserMediaAction(this.props.id);
+            }
             this.setState({
                 waiting: true,
             })
+        }
+
+        if(this.props.followerID !== '' && this.props.followerID && !this.state.waiting2 && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
+            this.setState({
+                waiting2: true,
+            });
+            this.props.getUserStatsAction(this.props.followerID);
+            this.props.getUserMediaAction(this.props.followerID);
         }
 
         //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
@@ -90,7 +96,7 @@ class Profile extends Component {
                 })
             }
         }
-    }
+    };
 
     makeMedia = (media) => {
         let profileMediaList = this.state.postMedia.map((media, index) => {
@@ -107,7 +113,6 @@ class Profile extends Component {
         if(this.state.postMedia) {
             profileMediaList = this.makeMedia(this.state.postMedia);
         }
-
         return (
             <Fragment>
                 <div className={"content-header"}>
@@ -121,7 +126,7 @@ class Profile extends Component {
                             <div className="profile-info-container">
                                 <div className="profile-info-content-container">
                                     <div className="information-container-top">
-                                        <div className="profile-username">{this.props.username}</div>
+                                        <div className="profile-username">{!this.state.waiting2 ? this.props.username : this.props.followerUsername ? this.props.followerUsername : this.props.username}</div>
                                         <div className="profile-edit">
                                             <button className={'btn-edit'} type={'button'}>Edit Profile</button>
                                             <div className={'cog-icon'}></div>
@@ -163,7 +168,10 @@ class Profile extends Component {
 function mapStateToProps(state) {
     return {
         stats: state.getUserStatsReducer.stats,
-        media: state.getUserMediaReducer.media
+        media: state.getUserMediaReducer.media,
+        followerID: state.getFollowerUsernameReducer.followerUsername.id,
+        followerUsername: state.getFollowerUsernameReducer.followerUsername.username,
+        followerName: state.getFollowerUsernameReducer.followerUsername.name,
     }
 }
 

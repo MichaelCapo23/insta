@@ -1,45 +1,33 @@
 const wrap = require("./wrap");
 const md5 = require('md5');
-const nodeFns = require('./nodeFns');
+// const {checkPassword} = require('./nodeFns');
 
-module.exports = (app, db) => {
-    app.post('/loginUser', wrap(async (req, res) => {
-        req.body.password = md5(req.body.password);
+module.exports = async (app, db) => {
+    app.post('/loginUser', (req, res) => {
+        let output = {
+            status: "NO",
+            errMessage: 'Invalid Username/Password'
+        };
         let {email, password} = req.headers;
-        if(!(await nodeFns.checkPassword(app,db,password))) {
-            console.log('newPassword2:' + newPassword);
-            if (!newPassword) {
-                let output = {
-                    status: 'NO',
-                    errMessage: 'Invalid Username/Password',
-                };
-                res.send(output);
-                return;
-            }
+        password = md5(password);
+        db.connect(() => {
             let sql = "SELECT `token` FROM `accounts` WHERE `email` = ? AND `password` = ?";
-            db.connect(() => {
-                db.query(sql, [email, password], (err, data) => {
-                    if (!err) {
-                        let output = {
-                            status: "NO",
-                            errMessage: 'Invalid Username/Password'
-                        };
-                        if (data.length > 0) {
-                            output = {
-                                status: "OK",
-                                token: data[0].token
-                            };
-                        }
-                        res.send(output);
-                    } else {
-                        console.log(err);
-                        res.sendStatus(500);
-                        return;
-                    }
-                })
-            });
-        }
-    }));
+            db.query(sql, [email, password], (err, data) => {
+                if (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                    return;
+                }
+                if (data.length > 0) {
+                    output = {
+                        status: "OK",
+                        token: data[0].token
+                    };
+                }
+                res.send(output);
+            })
+        })
+    })
 };
 
 // let newPassword = await nodeFns.checkPassword(app, db, password);

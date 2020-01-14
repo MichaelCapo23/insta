@@ -52,9 +52,15 @@ class Signin extends Component {
     };
 
     loginUser = () => {
-        debugger;
         this.props.signInAction({email: this.state.email, password: this.state.password});
     };
+
+    componentDidUpdate() {
+        if(this.props.token !== '' && this.props.token) {
+            localStorage.setItem('token', this.props.token);
+            this.props.history.push('/');
+        }
+    }
 
     render() {
         this.signinBtn = React.createRef();
@@ -74,7 +80,7 @@ class Signin extends Component {
                                         <input autoComplete="off" onChange={e => this.addToState(e)} placeholder={"Password"} id="password" type="password" className={"signup-val"}/>
                                         {this.state.passwordError ? <img className="error-signup" src={error} alt="instagram error"/> : ''}
                                     </div>
-                                    <button onClick={this.loginUser} ref={this.signinBtn} disabled={'disabled'} type={"button"} className={"facebook-login-btn-login signin-btn"}>Log in</button>
+                                    <button onClick={this.loginUser} ref={this.signinBtn} type={"button"} className={"facebook-login-btn-login signin-btn"}>Log in</button>
                                 </form>
                                 <div className="divider-container">
                                     <div className="divider-one"/>
@@ -86,7 +92,7 @@ class Signin extends Component {
                             </div>
                         </div>
                         <div className="have-an-account-container">
-                            <div className="link-signup">Don't have an account? <Link to={"signup"}>Sign up</Link></div>
+                            <div className="link-signup">Don't have an account? <Link to={"/signUp"}>Sign up</Link></div>
                         </div>
                         <div className="get-app">Get the app.</div>
                         <div className="get-app-link-container">
