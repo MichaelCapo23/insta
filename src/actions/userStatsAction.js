@@ -1,13 +1,13 @@
 import axios from 'axios';
 import types from './types';
 
-export const getUserStatsAction = () => async dispatch => {
+export const getUserStatsAction = (id) => async dispatch => {
     try {
         axios({
             method: "POST",
             url: '/getUserStats',
             headers: {
-                token: localStorage.getItem('token')
+                id: id
             }
         }).then(response => {
             dispatch({

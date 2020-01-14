@@ -7,7 +7,7 @@ export const signInAction = (values) => async dispatch =>{
         axios({
             method: 'POST',
             url: '/loginUser',
-            data: {
+            headers: {
                 email: values.email,
                 password: values.password
             }

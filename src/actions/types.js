@@ -35,4 +35,6 @@ export default {
     GET_NOTIFICATIONS_ERROR: 'get_notifications_error',
     CREATE_NOTIFICATIONS: 'create_notifications',
     CREATE_NOTIFICATIONS_ERROR: 'create_notifications_error',
+    GET_FOLLOWER_USERNAME: 'get_follower_username',
+    GET_FOLLOWER_USERNAME_ERROR: 'get_follower_username_error',
 }

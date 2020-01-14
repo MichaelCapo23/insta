@@ -24,8 +24,17 @@ module.exports = async (app, db) => {
                     let followID = followIDs[followerID];
                     db.query(sql2, followID, (err, allUserStories) => {
                         let storiesArr = [];
-                        for(let i in allUserStories) {
-                            storiesArr.push(allUserStories[i].ID);
+                        if(allUserStories.length > 0) {
+                            for (let i in allUserStories) {
+                                storiesArr.push(allUserStories[i].ID);
+                            }
+                        } else {
+                            output = {
+                                status: 'OK',
+                                stories: userStories,
+                            };
+                            res.send(output);
+                            return;
                         }
                         let sql3 = "SELECT COUNT(*) AS `viewed_story` FROM `viewed_stories` WHERE `accountID` = ? AND `mediaID` IN (?)";
                         db.query(sql3, [id, storiesArr], (err, viewed_count) => {

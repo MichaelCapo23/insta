@@ -19,27 +19,27 @@ class Header extends Component {
     };
 
     closeModal = (e) => {
-        if(e.target.classList[0] === 'post-modal-overall-container') {
-            document.getElementById('postModal').classList.add("hide");
+        if(e.target.classList[0] === 'notifications-overall-container') {
+            document.getElementById('notificationsModal').classList.add("hide");
         }
     };
 
-
-    openNotifications = () => {
-        console.log('open notifications');
+    openNotifications = (e) => {
+        document.getElementById('notificationsModal').classList.remove("hide");
     };
 
-    componentDidUpdate(prevProps) {
-        let notificationsList = '';
-        if(this.props.notification_list !== '') {
-            notificationsList = this.props.notification_list.map((item, index) => {
-                return <Notifications notifications={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
-            })
-        }
+    makeNotificationsList = () => {
+        let notificationsList = this.props.notification_list.map((item, index) => {
+            return <Notifications notifications={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+        });
         return notificationsList
-    }
+    };
 
     render() {
+        let notificationsList = '';
+        if(this.props.notification_list !== '') {
+            notificationsList = this.makeNotificationsList();
+        }
         return (
             <Fragment>
                 <div className={'header-container'}>
@@ -79,11 +79,11 @@ class Header extends Component {
                         </div>
                     </div>
                 </div>
-
                 <div onClick={this.closeModal} id="notificationsModal" className="notifications-overall-container hide"> {/*onClick={this.closeModal}*/}
-                    <div className="post-modal-page-padding">
-                        <div className="post-modal-gutter">
-
+                    <div className="notifications-gutter">
+                        <div className="notification-point"></div>
+                        <div className="notifications-content">
+                            {notificationsList}
                         </div>
                     </div>
                 </div>

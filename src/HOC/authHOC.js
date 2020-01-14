@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {getUsernameAction} from '../actions/getUsernameAction';
-import {getNotificationsAction} from '../actions/getNotificationsAction'
+import {getNotificationsAction} from '../actions/getNotificationsAction';
+import {getFollowerUsernameAction} from '../actions/getFollowerUsernameAction';
 
 export default (WrappedComponent, to ='./signIn', redirect = false) => {
     class Auth extends Component {
@@ -20,8 +21,10 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             });
         }
 
-        componentDidUpdate() {
-            this.checkAuth();
+        componentDidUpdate(prevProps) {
+            if(this.props != prevProps) {
+                this.checkAuth();
+            }
         }
 
         importAll = (r) => {
@@ -47,6 +50,16 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
                 if(!this.props.username || this.props.username === '' && !this.state.getUsernameCalled) {
                     this.props.getUsernameAction();
                 }
+
+                if(!this.props.followerID || this.props.followerID === '' && !this.state.getUsernameCalled) {
+                    if (window.location.pathname.substring(window.location.pathname.indexOf('/') + 1, window.location.pathname.indexOf('/') + 8) === 'profile') {
+                        if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
+                            this.props.getFollowerUsernameAction(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
+                        }
+                    }
+                }
+
+
 
                 if(this.props.id && this.props.notification_list === '' && !this.state.getNotificationsCalled) {
                     this.setState({
@@ -79,6 +92,9 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             name: state.usernameReducer.username.name,
             id: state.usernameReducer.username.id,
             notification_list: state.getNotificationsReducer.notification_list,
+            followerID: state.getFollowerUsernameReducer.followerUsername.id,
+            followerUsername: state.getFollowerUsernameReducer.followerUsername.username,
+            followerName: state.getFollowerUsernameReducer.followerUsername.name,
         }
 
     }
@@ -86,5 +102,6 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
     return connect(mapStateToProps,{
         getUsernameAction,
         getNotificationsAction,
+        getFollowerUsernameAction,
     })(withRouter(Auth));
 }
