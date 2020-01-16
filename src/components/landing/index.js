@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import AuthHOC from '../../HOC/authHOC';
 import {connect} from 'react-redux';
 import {getLandingAction} from '../../actions/getLandingMediaAction'
@@ -35,11 +35,19 @@ class Landing extends Component {
     }
 
     makeLandingPostList = () => {
-        let PostList = this.props.landingMedia.map((item, index) => {
-            return (
-                <LandingPostList likeFunction={this.calLikeAction} openModal={this.openOptionsModal} commentFunction={this.callCommentAction} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}} media={item} />
-            )
-        });
+        let PostList = '';
+        if(this.props.landingMedia.length > 0) {
+            PostList = this.props.landingMedia.map((item, index) => {
+                return (
+                    <LandingPostList likeFunction={this.calLikeAction} openModal={this.openOptionsModal}
+                                     commentFunction={this.callCommentAction} key={index} images={{
+                        mediaImages: this.props.mediaImages,
+                        profileImages: this.props.profileImages,
+                        generalImages: this.props.generalImages
+                    }} media={item}/>
+                )
+            });
+        }
         return PostList;
     };
 
@@ -106,20 +114,22 @@ class Landing extends Component {
         if(this.props.landingMedia && this.props.landingMedia !== '') {
             landingPostList = this.makeLandingPostList();
         }
+
         if(this.props.stories  && this.props.stories !== '') {
             storiesList = this.makeStories();
         }
+        debugger;
         return (
             <Fragment>
                 <OptionsModal openUnfollowModal={this.openUnfollowModal}/>
                 <UnfollowModal images={this.props.profileImages} userValues={{posterid: this.state.posterid, username: this.state.username, filename:this.state.filename}}/>
                 <div className={"content-header"}>
                     <div className="landing-gutter">
-                        <div className="media-container">{landingPostList}</div>
+                        <div className="media-container">{landingPostList === '' ? <div className="no-post-container"><div className="no-posts-text">No Posts!</div><Link className="new-media-text" to="/explore">Explore New Media Here!</Link></div> : landingPostList}</div>
                         <div className="information-container">
                             <div className="landing-profile">
                                 <div className="profile-pic-landing">
-                                    <img className='user-profile' src={this.props.landingMedia ? this.props.profileImages[this.props.landingMedia[0].posterFileName] : ''} alt=""/>
+                                    <img className='user-profile' src={this.props.landingMedia ? this.props.landingMedia.status === 'NO' ? this.props.generalImages['default.png'] : this.props.profileImages[this.props.landingMedia[0].posterFileName] : this.props.generalImages['default.png']} alt=""/>
                                 </div>
                                 <div className="profile-info-landing">
                                     <div className="username-landing">{this.props.username ? this.props.username : ''}</div>

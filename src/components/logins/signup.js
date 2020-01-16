@@ -20,6 +20,7 @@ class Signup extends Component {
     };
 
     addInputToState = (e) => {
+        debugger;
         this.setState({
             [e.target.id] : e.target.value,
         });
@@ -78,6 +79,15 @@ class Signup extends Component {
         }
         return errors;
     };
+
+    componentDidUpdate(prevProps) {
+        if(this.props != prevProps) {
+            if(this.props.token) {
+                localStorage.setItem('token', this.props.token);
+                this.props.history.push('/');
+            }
+        }
+    }
 
 
     render() {
@@ -153,7 +163,7 @@ class Signup extends Component {
 
 function mapStateToProps(state) {
     return {
-        // token: state.SignUpReducer.token
+        token: state.signUpReducer.token
     }
 }
 

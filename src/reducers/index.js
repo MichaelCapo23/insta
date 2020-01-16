@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form';
 import usernameReducer from './getUsernameReducer';
 import signInReducer from './signInReducer';
+import signUpReducer from './signUpReducer';
 import getUserStatsReducer from './getUserStatsReducer';
 import getUserMediaReducer from './getUserMediaReducer';
 import getLandingMediaReducer from './getLandingMediaReducer';
@@ -21,6 +22,7 @@ import getFollowerUsernameReducer from './getFollowerUsernameReducer';
 const rootReducer = combineReducers({
     usernameReducer,
     signInReducer,
+    signUpReducer,
     getUserStatsReducer,
     getUserMediaReducer,
     getLandingMediaReducer,

@@ -10,6 +10,25 @@ module.exports = (app, db) => {
                     for(let i in data) {
                         followerIDArr.push(data[i].followAccount);
                     }
+
+                    if(data.length === 0) {
+                        output = {
+                            status: 'NO',
+                            rowinfo: {
+                                comments: [],
+                                likes: 0,
+                                posterUsername: '',
+                                fileName: '',
+                                lastLikedUsername: '',
+                                lastLikedFileName: 'default.png',
+                                posterFileName: ''
+                            }
+                        };
+                        res.send(output);
+                        return;
+                    }
+
+
                     followerIDString = [followerIDArr];
                     let sql3 = "SELECT `m`.`ID`,`m`.`fileName`,`m`.`accountID`, `a`.`username`  FROM `media` AS m JOIN `accounts` AS a ON(`m`.`accountID` = `a`.`ID`) WHERE `m`.`accountID` in (?) and `m`.`mediaType` = 'post'";
                     db.query(sql3, followerIDString, (err, mediaData) => {

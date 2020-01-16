@@ -13,6 +13,8 @@ export const signUpAction = values => async dispatch => {
             headers: {
                 password: values.password,
                 email: values.email,
+                username: values.username,
+                name: values.name,
             }
         }).then(response => {
             dispatch({
