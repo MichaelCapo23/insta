@@ -1,6 +1,5 @@
 const wrap = require("./wrap");
 const md5 = require('md5');
-// const {checkPassword} = require('./nodeFns');
 
 module.exports = async (app, db) => {
     app.post('/loginUser', (req, res) => {
@@ -29,5 +28,3 @@ module.exports = async (app, db) => {
         })
     })
 };
-
-// let newPassword = await nodeFns.checkPassword(app, db, password);
