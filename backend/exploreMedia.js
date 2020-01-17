@@ -60,12 +60,42 @@ module.exports = (app, db) => {
                             }
                         })
                     } else {
-                        output = {
-                            status: 'OK',
-                            exploreMediaList: [],
-                        };
-                        res.send(output);
-                        return;
+                        //get random media data here
+                        let sqlRandom = "SELECT `ID`, `accountID`, `fileName` FROM `media` WHERE `mediaType` = 'post' ORDER BY `created_at` LIMIT 50";
+                        db.query(sqlRandom, (err, randomMediaData) => {
+                            if(err) {
+                                console.log(err);
+                                res.sendStatus(500);
+                                return;
+                            }
+
+                            for(let currentMedia in randomMediaData) {
+                                let currentMediaID = randomMediaData[currentMedia].ID;
+                                let sqlLikesCommentsRandom = "SELECT (SELECT COUNT(*)  FROM `likes` WHERE `mediaID` = ?) AS `likes`, (SELECT COUNT(*) AS `comments` FROM `comments` WHERE `mediaID` = ?) AS `comments`";
+                                db.query(sqlLikesCommentsRandom, [currentMediaID,currentMediaID], (err, randomMediaCommentsLikesData) => {
+                                    if(err) {
+                                        console.log(err);
+                                        res.sendStatus(500);
+                                        return;
+                                    }
+                                    randomMediaData[currentMedia]['likes'] = randomMediaCommentsLikesData[0].likes;
+                                    randomMediaData[currentMedia]['comments'] = randomMediaCommentsLikesData[0].comments;
+                                    if(currentMedia == (randomMediaData.length - 1)) {
+                                        res.send(randomMediaData);
+                                        return;
+                                    }
+                                })
+                            }
+
+                        })
+
+
+                        // output = {
+                        //     status: 'OK',
+                        //     exploreMediaList: [],
+                        // };
+                        // res.send(output);
+                        // return;
                     }
                 });
             })
