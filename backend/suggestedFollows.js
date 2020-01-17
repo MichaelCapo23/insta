@@ -29,31 +29,64 @@ module.exports = (app, db) => {
                     let suggestedValuesArr = followsUserArr.filter((value) => {
                         return userFollowsArr.indexOf(value) == -1;
                     });
-                    if(suggestedValuesArr.length <= 0) {
-                        output = {
-                            status: 'OK',
-                            suggestedList: [],
-                        };
-                        res.send(output);
-                    }
-                    for(let suggested in suggestedValuesArr) {
-                        let sql3 = "SELECT `username`, (IFNULL( (SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') ) AS `fileName` FROM `accounts` WHERE `ID` = ?";
-                        let suggestedUser = suggestedValuesArr[suggested];
-                        db.query(sql3, [suggestedUser,suggestedUser], (err, suggestedData) => {
+                    if(suggestedValuesArr.length === 0) {
+                        //get random media
+                        let sqlRandom = "SELECT `ID`, `username` FROM `accounts`  WHERE `ID` != ? LIMIT 50";
+                        db.query(sqlRandom, [id], (err, randomSuggestedUsers) => {
                             if(err) {
                                 console.log(err);
                                 res.sendStatus(500);
                                 return;
                             }
-                            suggestedDataArr.push(suggestedData[0]);
-                            if(suggested == (suggestedValuesArr.length - 1)) {
-                                output = {
-                                    status: 'OK',
-                                    suggestedList: suggestedDataArr,
-                                };
-                                res.send(output);
+
+                            for(let i in randomSuggestedUsers) {
+                                let currentRandomUser = randomSuggestedUsers[i].ID;
+                                let sqlrandomProfile = "SELECT (IFNULL( (SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') ) AS `fileName`";
+                                db.query(sqlrandomProfile, [currentRandomUser], (err, randomSuggestedUsersFileName) => {
+                                    if(err) {
+                                        console.log(err);
+                                        res.sendStatus(500);
+                                        return;
+                                    }
+
+                                    randomSuggestedUsers[i].fileName = randomSuggestedUsersFileName[0].fileName;
+                                    randomSuggestedUsers[i].type = 'suggested';
+                                    suggestedDataArr.push(randomSuggestedUsers[i]);
+
+
+
+                                    if(i == (randomSuggestedUsers.length - 1)) {
+                                        output = {
+                                            status: 'OK',
+                                            suggestedList: suggestedDataArr,
+                                        };
+                                        res.send(output)
+                                    }
+
+                                })
                             }
                         })
+                    } else {
+                        for(let suggested in suggestedValuesArr) {
+                            let sql3 = "SELECT `ID`, `username`, (IFNULL( (SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') ) AS `fileName` FROM `accounts` WHERE `ID` = ?";
+                            let suggestedUser = suggestedValuesArr[suggested];
+                            db.query(sql3, [suggestedUser,suggestedUser], (err, suggestedData) => {
+                                if(err) {
+                                    console.log(err);
+                                    res.sendStatus(500);
+                                    return;
+                                }
+                                suggestedData[0].type = 'followed';
+                                suggestedDataArr.push(suggestedData[0]);
+                                if(suggested == (suggestedValuesArr.length - 1)) {
+                                    output = {
+                                        status: 'OK',
+                                        suggestedList: suggestedDataArr,
+                                    };
+                                    res.send(output);
+                                }
+                            })
+                        }
                     }
                 })
             })

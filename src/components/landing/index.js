@@ -118,7 +118,6 @@ class Landing extends Component {
         if(this.props.stories  && this.props.stories !== '') {
             storiesList = this.makeStories();
         }
-        debugger;
         return (
             <Fragment>
                 <OptionsModal openUnfollowModal={this.openUnfollowModal}/>

@@ -1553,7 +1553,7 @@ input:-webkit-autofill {
     white-space: nowrap;
     -ms-overflow-style: none;
     position: relative;
-    transition: .4s ease-in;
+    cursor: pointer;
 }
 .suggested-container::-webkit-scrollbar {
     display: none;
