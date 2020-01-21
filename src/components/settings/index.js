@@ -23,7 +23,6 @@ class Settings extends Component {
                }, () => {this.props.getSettingsUserDataAction(this.props.id)})
            }
         }
-        console.log(this.props)
     }
 
 
@@ -40,14 +39,62 @@ class Settings extends Component {
                             <div className="settings-content-container">
                                 <div className="profile-header-container">
                                     <div className="profile-img-container">
-                                        <img className="profile-img" src={this.props.generalImages['default.png']} alt=""/>
+                                        <img className="profile-img" src={this.props.settingsData ? this.props.settingsData.fileName !== 'default' ? this.props.profileImages[this.props.settingsData.fileName] : this.props.generalImages['default.png'] : this.props.generalImages['default.png']} alt=""/>
+                                    </div>
+                                    <div className="username-modal-btn-container">
+                                        <div className="profile-header-profile-username">{this.props.username ? this.props.username : ''}</div>
+                                        <div className="change-profile-img-btn">Change Profile Photo</div>
                                     </div>
                                 </div>
+
+                                <div className="settings-profile-content">
+                                    <div className="name-input-label settings-label">Name</div>
+                                    <input type="text" id="name" className="settings-profile-input"/>
+                                </div>
+
+                                <div className="settings-profile-content">
+                                    <div className="name-input-label settings-label">Username</div>
+                                    <input type="text" id="username" className="settings-profile-input"/>
+                                </div>
+
+                                <div className="settings-profile-content">
+                                    <div className="name-input-label settings-label">Website</div>
+                                    <input type="text" id="website" className="settings-profile-input"/>
+                                </div>
+
+
+                                <div className="settings-profile-content">
+                                    <div className="name-input-label settings-label bio-label">Bio</div>
+                                    <textarea type="text" id="bio" className="settings-profile-input bio-textarea"/>
+                                </div>
+
+                                <div className="private-info">Private Information</div>
+
+                                <div className="settings-profile-content email-input">
+                                    <div className="name-input-label settings-label">Email</div>
+                                    <input type="text" id="email" className="settings-profile-input"/>
+                                </div>
+
+
+                                <div className="settings-profile-content">
+                                    <div className="name-input-label settings-label">Phone Number</div>
+                                    <input type="text" id="phone_number" className="settings-profile-input"/>
+                                </div>
+
+                                <div className="submit-btn-container">
+                                    <button className="settings-profile-submit-btn">Submit</button>
+                                </div>
+
                             </div>
                         </div>
                         <div className={this.state.activeTab === 'password' ? 'active tab-pane settings-tab-content' :"tab-pane settings-tab-content"} id="POSTS">
                             <div className="settings-content-container">
-                                <div className="profile-header-container">password</div>
+                                <div className="profile-header-container">
+                                    <div className="profile-img-container">
+                                        <img className="profile-img" src={this.props.settingsData ? this.props.settingsData.fileName !== 'default' ? this.props.profileImages[this.props.settingsData.fileName] : this.props.generalImages['default.png'] : this.props.generalImages['default.png']} alt=""/>
+                                    </div>
+                                    <div className="profile-header-username">{this.props.username ? this.props.username : ''}</div>
+                                </div>
                             </div>
                         </div>
                     </div>

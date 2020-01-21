@@ -2202,6 +2202,7 @@ transform: scaleX(-1);
     margin-left: 100px;
     height: 40px;
     width: 40px;
+    vertical-align: top;
     margin-right: 30px;
 }
 
@@ -2209,6 +2210,115 @@ transform: scaleX(-1);
     height: 100%;
     width: 100%;
     border-radius: 100%;
+}
+
+.profile-img-container, .profile-header-username, .profile-header-profile-username, .username-modal-btn-container {
+    display: inline-block;
+}
+
+.username-modal-btn-container {
+    width: calc(100% - 100px - 40px - 30px);
+    height: 40px;
+}
+
+.profile-header-username {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 38px;
+}
+
+.profile-header-profile-username {
+    font-size: 20px;
+    line-height: 22px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+.change-profile-img-btn {
+    position: relative;
+    top: -7px;
+    text-align: left;
+    border: 0;
+    color: #3897f0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    display: inline;
+    cursor: pointer;
+}
+
+.settings-profile-content {
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.settings-label {
+    display: inline-block;
+    padding-right: 32px;
+    text-align: right;
+    margin-top: 6px;
+    box-sizing: border-box;
+    color: #262626;
+    -webkit-box-flex: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    margin-left: 32px;
+    width: 144px;
+    text-align: right;
+}
+
+.settings-profile-input {
+    width: calc(100% - 20px - 32px - 240px);
+    min-width: 200px;
+    border: 1px solid #efefef !important;
+    border-radius: 3px;
+    font-size: 16px;
+    height: 32px;
+    padding: 0 10px;
+}
+
+.private-info {
+    color: #999;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+    left: 178px;
+    margin-top: 30px;
+}
+
+.bio-label {
+    vertical-align: top;
+}
+
+.bio-textarea {
+    height: 80px;
+}
+
+.email-input {
+    margin-top: 10px;
+}
+
+.settings-profile-submit-btn {
+    border: 1px solid transparent;
+    background-color: #3897f0;
+    border-radius: 4px;
+    color: #fff;
+    position: relative;
+    font-size: 14px;
+    line-height: 18px;
+    left: 178px;
+    margin-top: 30px;
+    cursor: pointer;
+    display: block;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
 }
 
 @media only screen and (max-width: 800px) {
@@ -2222,6 +2332,10 @@ transform: scaleX(-1);
 
     .profile-img-container {
         margin-left: 0;
+    }
+
+    .settings-card-container {
+        margin: 20px;
     }
 
 }
