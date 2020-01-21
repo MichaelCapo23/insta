@@ -108,6 +108,10 @@ class Profile extends Component {
         return profileMediaList;
     };
 
+    toSettings = () => {
+        this.props.history.push('/settings');
+    };
+
     render() {
         let profileMediaList = '';
         if(this.state.postMedia) {
@@ -128,7 +132,7 @@ class Profile extends Component {
                                     <div className="information-container-top">
                                         <div className="profile-username">{!this.state.waiting2 ? this.props.username : this.props.followerUsername ? this.props.followerUsername : this.props.username}</div>
                                         <div className="profile-edit">
-                                            <button className={'btn-edit'} type={'button'}>Edit Profile</button>
+                                            <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
                                             <div className={'cog-icon'}></div>
                                         </div>
                                     </div>
@@ -138,8 +142,8 @@ class Profile extends Component {
                                         <div className="following">{this.state.numberFollowing} following</div>
                                     </div>
                                     <div className="information-container-bottom">
-                                        <div className="first-last-name">Michael Capobianco</div>
-                                        <div className="bio">subscribe for more content!</div>
+                                        <div className="first-last-name">{this.props.name}</div>
+                                        <div className="bio">{this.props.bio}</div>
                                     </div>
                                 </div>
                             </div>

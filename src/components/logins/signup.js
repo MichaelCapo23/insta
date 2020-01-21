@@ -153,7 +153,7 @@ class Signup extends Component {
                             <li className={"signup-link"}>HASHTAGS</li>
                             <li className={"signup-link"}>LANGUAGE</li>
                         </ul>
-                        <span className={'signup-copyright'}>© 2019 INSTAGRAM FROM MICHAEL</span>
+                        <span className={'signup-copyright'}>© 2020 INSTAGRAM FROM MICHAEL</span>
                     </div>
                 </footer>
             </div>

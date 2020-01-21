@@ -6,6 +6,7 @@ import Signup from './components/logins/signup';
 import Profile from './components/profile';
 import Stories from './components/stories'
 import Explore from './components/explore';
+import Settings from './components/settings'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
                     <Route path={"/signup"} component={Signup} />
                     <Route path={'/stories'} component={Stories}/>
                     <Route path={'/explore'} component={Explore}/>
+                    <Route path={'/settings'} component={Settings}/>
                 </div>
             </Router>
 
