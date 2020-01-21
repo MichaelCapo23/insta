@@ -45,3 +45,4 @@ require('./exploreMedia.js')(app, db);
 require('./singlePostInfo.js')(app, db);
 require('./getNotifications')(app,db);
 require('./getFollowerUsername')(app, db);
+require('./getSettingsUserData')(app, db);

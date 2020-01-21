@@ -91,6 +91,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             username: state.usernameReducer.username.username,
             name: state.usernameReducer.username.name,
             id: state.usernameReducer.username.id,
+            bio: state.usernameReducer.username.bio,
             notification_list: state.getNotificationsReducer.notification_list,
             followerID: state.getFollowerUsernameReducer.followerUsername.id,
             followerUsername: state.getFollowerUsernameReducer.followerUsername.username,

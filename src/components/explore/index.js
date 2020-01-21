@@ -40,7 +40,6 @@ class Explore extends Component {
             })
         }
 
-        debugger;
         if(this.props.suggestedList !== this.state.suggestedList || this.props.exploreMediaList !== this.state.exploreMediaList) {
             this.setState({
                 suggestedList: this.props.suggestedList,
@@ -50,7 +49,6 @@ class Explore extends Component {
     }
 
     makeSuggestions = () => {
-        debugger;
         let suggestions = this.state.suggestedList.map((item, index) => {
             return (
                 <FollowsYouList person={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
