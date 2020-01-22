@@ -14,7 +14,7 @@ module.exports = (app, db) => {
 
                 // data[0].password = reverse(data[0].password);
 
-                let sql2 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile' ORDER BY `created_at` DESC LIMIT 1";
+                let sql2 = "SELECT IFNULL((SELECT `fileName` FROM `media` WHERE `accountID` = '1' AND `mediaType` = 'profile' ORDER BY `created_at` DESC LIMIT 1), 'default') AS 'fileName'";
                 db.query(sql2, id, (err, profileData) => {
                     if(err) {
                         console.log(err);

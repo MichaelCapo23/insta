@@ -21,4 +21,4 @@ export const getSettingsUserDataAction = (id) => async dispatch => {
             error: 'Unable to get settings user data',
         })
     }
-}
+};
