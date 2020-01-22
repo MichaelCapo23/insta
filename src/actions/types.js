@@ -39,4 +39,8 @@ export default {
     GET_FOLLOWER_USERNAME_ERROR: 'get_follower_username_error',
     GET_SETTINGS_DATA: 'get_settings_data',
     GET_SETTINGS_DATA_ERROR: 'get_settings_data_error',
+    UPDATE_SETTINGS: 'update_settings',
+    UPDATE_SETTINGS_ERROR: 'update_settings_error',
+    UPDATE_PASSWORD: 'update_password',
+    UPDATE_PASSWORD_ERROR: 'update_password_error',
 }

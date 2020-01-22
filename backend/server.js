@@ -46,3 +46,5 @@ require('./singlePostInfo.js')(app, db);
 require('./getNotifications')(app,db);
 require('./getFollowerUsername')(app, db);
 require('./getSettingsUserData')(app, db);
+require('./updatePassword')(app, db);
+require('./updateSettings')(app, db);

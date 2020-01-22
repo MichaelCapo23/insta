@@ -19,6 +19,8 @@ import getNotificationsReducer from './getNotificationsReducer';
 import createNotificationReducer from './createNotificationReducer';
 import getFollowerUsernameReducer from './getFollowerUsernameReducer';
 import getSettingsUserDataReducer from './getSettingsUserDataReducer';
+import updateSettingsReducer from './updateSettingsReducer';
+import updatePasswordReducer from './updatePasswordReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -40,6 +42,8 @@ const rootReducer = combineReducers({
     createNotificationReducer,
     getFollowerUsernameReducer,
     getSettingsUserDataReducer,
+    updateSettingsReducer,
+    updatePasswordReducer,
     form: formReducer,
 });
 

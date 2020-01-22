@@ -2136,15 +2136,16 @@ transform: scaleX(-1);
 .settings-card-container {
     background-color: #fff;
     border: var(--default-border);
-    height: 700px;
+    min-height: 700px;
+    display: flex;
 }
 
 .settings-nav-tabs {
     float: left;
     border-right: var(--default-border);
     display: inline-block;
-    height: 100%;
     width: 25%;
+    flex-direction: column;
 }
 
 .active > #profile.side-nav-profile, .active > #password.side-nav-profile {
@@ -2175,12 +2176,12 @@ transform: scaleX(-1);
 }
 .settings-tab-content.active {
     display: block !important;
-    margin-left: 25%;
 }
 
 .settings-tab-content {
     display: none !important;
-    margin-left: 25%;
+    padding-bottom: 50px;
+    width: 100%;
 }
 
 .profile-footer-container {
@@ -2281,6 +2282,7 @@ transform: scaleX(-1);
     font-size: 16px;
     height: 32px;
     padding: 0 10px;
+    vertical-align: top;
 }
 
 .private-info {
