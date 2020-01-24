@@ -11,6 +11,7 @@ export const updatePasswordAction = (password, id) => async dispatch => {
                 id: id,
             }
         }).then(response => {
+            debugger;
             dispatch({
                 type: types.UPDATE_PASSWORD,
                 updatedPasswordRows: response.data.updatedPasswordRows,

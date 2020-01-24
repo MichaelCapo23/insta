@@ -13,6 +13,17 @@ class Settings extends Component {
         updatedPasswordRows: 0,
     };
 
+    componentDidMount() {
+        let url = window.location.href;
+        let tabSwitchIndex = url.lastIndexOf('#');
+        if(tabSwitchIndex != -1) {
+            let tabSwitch = url.substring(tabSwitchIndex + 1, url.length);
+            this.setState({
+                activeTab: tabSwitch,
+            })
+        }
+    }
+
     changeTabs = (e) => {
         let id = e.target.attributes.id.value;
         this.setState({
@@ -40,6 +51,8 @@ class Settings extends Component {
                         updatedSettingsRows: this.props.updatedSettingsRows
                     });
                     this.props.getSettingsUserDataAction(this.props.id);
+                    document.getElementsByClassName('profile-changed-confirmation')[0].classList.remove('hide');
+                    setTimeout(function(){ document.getElementsByClassName('profile-changed-confirmation')[0].classList.add('hide'); }, 7000);
                 }
             }
 
@@ -49,9 +62,15 @@ class Settings extends Component {
                         updatedPasswordRows: this.props.updatedPasswordRows
                     });
                     this.props.getSettingsUserDataAction(this.props.id);
+                    document.getElementsByClassName('password-changed-confirmation')[0].classList.remove('hide');
+                    setTimeout(function(){ document.getElementsByClassName('password-changed-confirmation')[0].classList.add('hide'); }, 7000);
                 }
             }
         }
+
+
+        console.log(this.props);
+
     }
 
     updateSettings = () => {
@@ -67,7 +86,7 @@ class Settings extends Component {
 
     updatePassword = () => {
         if(document.getElementsByClassName('settings-profile-input password-old')[0].value !== document.getElementsByClassName('settings-profile-input password-new')[0].value) {
-            if(document.getElementsByClassName('settings-profile-input password-old')[0].value === document.getElementsByClassName('settings-profile-input password-confirm')[0].value) {
+            if(document.getElementsByClassName('settings-profile-input password-new')[0].value === document.getElementsByClassName('settings-profile-input password-confirm')[0].value) {
                 this.props.updatePasswordAction(document.getElementsByClassName('settings-profile-input password-new')[0].value, this.props.id);
             }
         }
@@ -92,6 +111,7 @@ class Settings extends Component {
                                     <div className="username-modal-btn-container">
                                         <div className="profile-header-profile-username">{this.props.username ? this.props.username : ''}</div>
                                         <div className="change-profile-img-btn">Change Profile Photo</div>
+                                        <div className="profile-changed-confirmation hide">Profile Updated!</div>
                                     </div>
                                 </div>
 
@@ -142,21 +162,22 @@ class Settings extends Component {
                                         <img className="profile-img" src={this.props.settingsData ? this.props.settingsData.fileName !== 'default' ? this.props.profileImages[this.props.settingsData.fileName] : this.props.generalImages['default.png'] : this.props.generalImages['default.png']} alt=""/>
                                     </div>
                                     <div className="profile-header-username">{this.props.username ? this.props.username : ''}</div>
+                                    <div className="password-changed-confirmation hide">Password Updated!</div>
                                 </div>
 
                                 <div className="settings-profile-content">
                                     <div className="name-input-label settings-label">Old Password</div>
-                                    <input data-old={this.props.name ? this.props.name : ''} name="name" defaultValue={this.props.name ? this.props.name : ''} type="text" id="name" className="settings-profile-input password-old"/>
+                                    <input type="password" name="name" id="name" className="settings-profile-input password-old"/>
                                 </div>
 
                                 <div className="settings-profile-content">
                                     <div className="name-input-label settings-label">New Password</div>
-                                    <input data-old={this.props.name ? this.props.name : ''} name="name" defaultValue={this.props.name ? this.props.name : ''} type="text" id="name" className="settings-profile-input password-new"/>
+                                    <input type="password" name="name" id="name" className="settings-profile-input password-new"/>
                                 </div>
 
                                 <div className="settings-profile-content">
                                     <div className="name-input-label settings-label">Confirm New Password</div>
-                                    <input data-old={this.props.name ? this.props.name : ''} name="name" defaultValue={this.props.name ? this.props.name : ''} type="text" id="name" className="settings-profile-input password-confirm"/>
+                                    <input type="password" name="name" id="name" className="settings-profile-input password-confirm"/>
                                 </div>
 
                                 <div className="submit-btn-container">

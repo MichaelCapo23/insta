@@ -4,8 +4,9 @@ import {withRouter} from 'react-router-dom';
 import {getUserStatsAction} from '../../actions/userStatsAction';
 import {getUserMediaAction} from "../../actions/getUserMediaAction";
 import UserMediaList from './userMediaList';
+import ProfileOptionsModal from './profileOptionsModal';
+import CreatePostModal from './createPostModal';
 import authHOC from "../../HOC/authHOC";
-
 
 class Profile extends Component {
 
@@ -98,6 +99,11 @@ class Profile extends Component {
         }
     };
 
+    openProfileOptionsModal = () => {
+        document.getElementsByClassName('profileOptionsModal')[0].classList.remove("hide");
+
+    }
+
     makeMedia = (media) => {
         let profileMediaList = this.state.postMedia.map((media, index) => {
             return (
@@ -120,6 +126,8 @@ class Profile extends Component {
         return (
             <Fragment>
                 <div className={"content-header"}>
+                    <ProfileOptionsModal/>
+                    <CreatePostModal/>
                     <div className="profile-gutter">
                         <div className="user-info-container">
                             <div className="profile-pic-container">
@@ -133,7 +141,7 @@ class Profile extends Component {
                                         <div className="profile-username">{!this.state.waiting2 ? this.props.username : this.props.followerUsername ? this.props.followerUsername : this.props.username}</div>
                                         <div className="profile-edit">
                                             <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
-                                            <div className={'cog-icon'}></div>
+                                            <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
                                         </div>
                                     </div>
                                     <div className="information-container-middle">
