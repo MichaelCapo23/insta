@@ -7,7 +7,7 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
         case types.UPDATE_PASSWORD:
-            return {...state, updatedPassword: action.updatedPasswordRows};
+            return {...state, updatedPasswordRows: action.updatedPasswordRows};
         case types.UPDATE_PASSWORD_ERROR:
             return {...state, error: action.error};
         default:
