@@ -48,3 +48,4 @@ require('./getFollowerUsername')(app, db);
 require('./getSettingsUserData')(app, db);
 require('./updatePassword')(app, db);
 require('./updateSettings')(app, db);
+require('./createNotification')(app, db);

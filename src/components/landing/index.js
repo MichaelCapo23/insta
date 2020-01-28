@@ -10,6 +10,7 @@ import {getStoriesProfileAction} from "../../actions/getStoriesProfileAction";
 import StoriesPostList from './storiesPostList'
 import OptionsModal from './postOptionsModal';
 import UnfollowModal from './confirmUnfollowModal';
+import {createNotificationAction} from '../../actions/createNotificationAction'
 
 import 'material-icons';
 
@@ -60,11 +61,13 @@ class Landing extends Component {
         return stories
     };
 
-    callCommentAction = (input) => {
-        let mediaID = input.attributes['data-media'].value;
+    callCommentAction = (input, posterID, mediaID) => {
+        debugger;
+        // let mediaID = input.attributes['data-media'].value;
         let comment = input.value;
         input.value = '';
-        this.props.createCommentAction({userID:this.props.id, mediaID, comment})
+        this.props.createCommentAction({userID:this.props.id, mediaID, comment});
+        this.props.createNotificationAction(this.props.id, posterID, 'comment', mediaID);
     };
 
     calLikeAction = (likeBtn) => {
@@ -166,4 +169,5 @@ export default connect(mapStateToProps, {
     createCommentAction,
     likeMediaAction,
     getStoriesAction: getStoriesProfileAction,
+    createNotificationAction
 })(withRouter(AuthHOC(Landing)));

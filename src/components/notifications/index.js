@@ -24,7 +24,7 @@ export default props => {
             <div className="notification-info-container">
                 <div className="notification-text-container">
                     <div className="notification-username">{username}</div>
-                    <div className="notification-text">{notificationType === 'follow' ? 'Started following you.' : notificationType === 'like' ? 'Liked your photo.' : notificationType === 'tag' ? 'Tagged you in a photo.' : ''} <span className="notification-time">{days > 0 ? days + 'd' : hours > 0 ? hours + 'h' : minutes + 'm'}</span></div>
+                    <div className="notification-text">{notificationType === 'follow' ? 'Started following you.' : notificationType === 'like' ? 'Liked your photo.' : notificationType === 'tag' ? 'Tagged you in a photo.' : notificationType === 'comment' ? 'Commented on your photo.' : ''} <span className="notification-time">{days > 0 ? days + 'd' : hours > 0 ? hours + 'h' : minutes + 'm'}</span></div>
                 </div>
                 <button type={"button"} className="notification-follow-btn">Follow</button>
             </div>

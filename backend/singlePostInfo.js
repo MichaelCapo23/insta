@@ -13,7 +13,7 @@ module.exports = (app, db) => {
                 }
 
                 let userID = mediaData[0].accountID;
-                let sql2 = "SELECT `username`, `name`, IFNULL((SELECT `fileName` FROM `media` WHERE `ID` = ? AND `mediaType` = 'profile' ORDER BY `created_at` LIMIT 1), 'default') AS `profileFileName` FROM `accounts` WHERE `ID` = ?";
+                let sql2 = "SELECT `username`, `name`, IFNULL((SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile' ORDER BY `created_at` LIMIT 1), 'default') AS `profileFileName` FROM `accounts` WHERE `ID` = ?";
                 db.query(sql2, [userID,userID], (err, accountData) => {
                     if(err) {
                         console.log(err);

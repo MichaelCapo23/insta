@@ -10,10 +10,11 @@ export default props => {
     let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
     let d = moment.duration(ms);
 
+    debugger;
     return (
         <div className="comment-list-container">
             <div className="comment-list-img-container">
-                <img className="comment-list-img" src={profileFileName == 'default' ? generalImages['default'] : profileImages[profileFileName]} alt=""/>
+                <img className="comment-list-img" src={profileFileName == 'default' ? generalImages['default.png'] : profileImages[profileFileName]} alt=""/>
             </div>
             <div className="comment-list-username-comment-container">
                 <div className="comment-list-username">{username}     {comment}</div>

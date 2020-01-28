@@ -1,13 +1,16 @@
 import axios from 'axios';
 import types from './types';
 
-export const createNotificationAction = (values) => async dispatch => {
+export const createNotificationAction = (id, posterID, type, mediaID) => async dispatch => {
     try {
         axios({
             method: "POST",
             url: '/createNotification',
             headers: {
-                id: values.userid,
+                fromid: id,
+                toid : posterID,
+                type : type,
+                mediaid : mediaID
             }
         }).then(response => {
             dispatch({

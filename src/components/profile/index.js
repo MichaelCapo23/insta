@@ -7,6 +7,10 @@ import UserMediaList from './userMediaList';
 import ProfileOptionsModal from './profileOptionsModal';
 import CreatePostModal from './createPostModal';
 import authHOC from "../../HOC/authHOC";
+import PostModal from '../postModal'
+import {singlePostInfoAction} from "../../actions/singlePostInfoAction";
+import {getFollowerUsernameAction} from "../../actions/getFollowerUsernameAction";
+import {getUsernameAction} from "../../actions/getUsernameAction";
 
 class Profile extends Component {
 
@@ -20,7 +24,8 @@ class Profile extends Component {
         media: '',
         waiting: false,
         waiting2: false,
-        activeTab: 'posts'
+        activeTab: 'posts',
+        followerUsernameID: '',
     };
 
     changeTabs = (e) => {
@@ -31,13 +36,52 @@ class Profile extends Component {
     };
 
     componentDidMount() {
-        if(this.props.id) {
-            this.props.getUserMediaAction(this.props.id);
-        }
+        this.setState({
+            profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
+        })
     }
 
     componentDidUpdate() {
-        //if new stats are given then set the state
+        if(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== this.state.profileTracker) {
+            this.setState({
+                waiting: false,
+            })
+        }
+
+        //get the profile media once component updates with this.props.id
+        if(this.props.id && !this.state.waiting) {
+            if(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
+                this.props.getUsernameAction(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
+            } else {
+                this.props.getUserStatsAction(this.props.id);
+                this.props.getUserMediaAction(this.props.id);
+                this.props.getUsernameAction();
+            }
+            this.setState({
+                waiting: true,
+                waiting2: false,
+                profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
+            })
+        }
+
+        if((this.props.followerUsernameID && this.props.followerUsernameID !== '') && this.props.followerUsernameID != this.state.followerUsernameID && (!this.state.waiting2 || window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== this.state.profileTracker)) {
+            this.setState({
+                profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
+                waiting2: true,
+                followerUsernameID: this.props.followerUsernameID,
+            });
+            this.props.getUserStatsAction(this.props.followerUsernameID);
+            this.props.getUserMediaAction(this.props.followerUsernameID);
+            // this.props.getUsernameAction(this.props.followerUsernameUsername);
+        }
+
+        //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
+        if(this.props.media !== '' && this.props.media !== this.state.media && this.props.id) {
+            this.setState({
+                media: this.props.media,
+            }, () => {this.separatePropsInState()})
+        }
+
         if(this.props.stats) {
             let {posts, followers, following} = this.props.stats;
             let {numberPosts, numberFollower, numberFollowing} = this.state;
@@ -48,34 +92,6 @@ class Profile extends Component {
                     numberFollowing: following,
                 })
             }
-        }
-
-        //get the profile media once component updates with this.props.id
-        if(this.props.id && !this.state.waiting) {
-            if(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
-                this.props.getFollowerUsernameAction(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
-            } else {
-                this.props.getUserStatsAction(this.props.id);
-                this.props.getUserMediaAction(this.props.id);
-            }
-            this.setState({
-                waiting: true,
-            })
-        }
-
-        if(this.props.followerID !== '' && this.props.followerID && !this.state.waiting2 && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
-            this.setState({
-                waiting2: true,
-            });
-            this.props.getUserStatsAction(this.props.followerID);
-            this.props.getUserMediaAction(this.props.followerID);
-        }
-
-        //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
-        if(this.props.media !== '' && this.props.media !== this.state.media) {
-            this.setState({
-                media: this.props.media,
-            }, () => {this.separatePropsInState()})
         }
     }
 
@@ -89,25 +105,28 @@ class Profile extends Component {
                 return item.mediaType === 'profile';
             });
 
-            if(this.props.media && this.state.madeMedia === '0') {
+            if(this.props.media) {
                 this.setState({
-                    madeMedia: '1',
                     postMedia: postArr,
                     profileMedia: profileArr[0].fileName,
                 })
             }
+        } else {
+            this.setState({
+                postMedia: '',
+                profileMedia: '',
+            })
         }
     };
 
     openProfileOptionsModal = () => {
         document.getElementsByClassName('profileOptionsModal')[0].classList.remove("hide");
-
-    }
+    };
 
     makeMedia = (media) => {
         let profileMediaList = this.state.postMedia.map((media, index) => {
             return (
-                <UserMediaList mediaImages={this.props.mediaImages} key={index} media={media}/>
+                <UserMediaList postFns={this.openPostModal} mediaImages={this.props.mediaImages} key={index} media={media}/>
             )
         });
 
@@ -118,16 +137,23 @@ class Profile extends Component {
         this.props.history.push('/settings');
     };
 
+    openPostModal = (postid) => {
+        this.props.singlePostInfoAction(postid, this.props.id);
+        document.getElementById("postModal").classList.remove("hide");
+    };
+
     render() {
         let profileMediaList = '';
-        if(this.state.postMedia) {
+        if(this.props.media !== '' && this.state.postMedia) {
             profileMediaList = this.makeMedia(this.state.postMedia);
         }
+
         return (
             <Fragment>
                 <div className={"content-header"}>
                     <ProfileOptionsModal/>
                     <CreatePostModal/>
+                    <PostModal/>
                     <div className="profile-gutter">
                         <div className="user-info-container">
                             <div className="profile-pic-container">
@@ -138,7 +164,7 @@ class Profile extends Component {
                             <div className="profile-info-container">
                                 <div className="profile-info-content-container">
                                     <div className="information-container-top">
-                                        <div className="profile-username">{!this.state.waiting2 ? this.props.username : this.props.followerUsername ? this.props.followerUsername : this.props.username}</div>
+                                        <div className="profile-username">{this.props.followerUsernameName ? this.props.followerUsernameName : this.props.username ? this.props.username : ''}</div>
                                         <div className="profile-edit">
                                             <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
                                             <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
@@ -150,8 +176,8 @@ class Profile extends Component {
                                         <div className="following">{this.state.numberFollowing} following</div>
                                     </div>
                                     <div className="information-container-bottom">
-                                        <div className="first-last-name">{this.props.name}</div>
-                                        <div className="bio">{this.props.bio}</div>
+                                        <div className="first-last-name">{this.props.followerUsernameName ? this.props.followerUsernameName : this.props.name ? this.props.name : ''}</div>
+                                        <div className="bio">{this.props.followerUsernameBio === 'none' ? this.props.bio ? this.props.bio : '' : this.props.followerUsernameBio ? this.props.followerUsernameBio : ''}</div>
                                     </div>
                                 </div>
                             </div>
@@ -181,12 +207,24 @@ function mapStateToProps(state) {
     return {
         stats: state.getUserStatsReducer.stats,
         media: state.getUserMediaReducer.media,
-        followerID: state.getFollowerUsernameReducer.followerUsername.id,
-        followerUsername: state.getFollowerUsernameReducer.followerUsername.username,
-        followerName: state.getFollowerUsernameReducer.followerUsername.name,
+        // followerID: state.getFollowerUsernameReducer.followerUsername.id,
+        // followerUsername: state.getFollowerUsernameReducer.followerUsername.username,
+        // followerName: state.getFollowerUsernameReducer.followerUsername.name,
+        username: state.usernameReducer.username.username,
+        name: state.usernameReducer.username.name,
+        id: state.usernameReducer.username.id,
+        bio: state.usernameReducer.username.bio,
+        followerUsernameUsername: state.usernameReducer.username.followerusername,
+        followerUsernameID: state.usernameReducer.username.followerid,
+        followerUsernameName: state.usernameReducer.username.followername,
+        followerUsernameBio: state.usernameReducer.username.followerbio,
     }
 }
 
 export default connect(mapStateToProps, {
-    getUserStatsAction, getUserMediaAction,
+    getUserStatsAction,
+    getUserMediaAction,
+    singlePostInfoAction,
+    getFollowerUsernameAction,
+    getUsernameAction,
 })(withRouter(authHOC(Profile)));

@@ -5,6 +5,7 @@ import {getNotificationsAction} from "../../actions/getNotificationsAction";
 import ModalCommentList from './modalCommentList';
 import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import AuthHOC from '../../HOC/authHOC';
+import {createNotificationAction} from '../../actions/createNotificationAction';
 
 class PostModal extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class PostModal extends Component {
 
     createComment = () => {
         this.props.createCommentAction({userID: this.props.id, comment: this.myInput.current.value, mediaID: this.props.singlePostInfo.mediaID});
+        this.props.createNotificationAction(this.props.id, this.props.singlePostInfo.accountID, 'comment', this.props.singlePostInfo.mediaID);
         // this.props.getNotificationsAction()
     };
 
@@ -61,13 +63,14 @@ class PostModal extends Component {
         if(this.props.singlePostInfo != '') {
             commentsList = this.makeCommentsList();
         }
+
         return (
             <div onClick={this.closeModal} id="postModal" className="post-modal-overall-container hide"> {/*onClick={this.closeModal}*/}
                 <div className="post-modal-page-padding">
                     <div className="post-modal-gutter">
                         <div className="post-modal-content-grid">
                             <div className="post-modal-img-container">
-                                <img className="post-modal-img" src={this.props.singlePostInfo ? this.props.singlePostInfo.mediaFileName === 'default' ? this.props.generalImages['default.png'] : this.props.mediaImages[this.props.singlePostInfo.mediaFileName]  : this.props.generalImages['default.png']}  alt=""/>
+                                <img className="post-modal-img" src={this.props.singlePostInfo ? this.props.singlePostInfo.mediaFileName === 'default' || this.props.singlePostInfo.mediaFileName === '' ? this.props.generalImages['default.png'] : this.props.mediaImages[this.props.singlePostInfo.mediaFileName]  : this.props.generalImages['default.png']}  alt=""/>
                             </div>
                             <div className="post-modal-content-left-container">
                                 <div className="post-modal-content-header">
@@ -108,4 +111,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     createCommentAction,
     singlePostInfoAction,
+    createNotificationAction,
 })(AuthHOC(PostModal));
