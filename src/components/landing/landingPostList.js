@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react';
 export default props => {
     let [disabledVal, enableBtn] = useState(true);
-    let {comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername, userLiked} = props.media;
+    debugger;
+    let {mediaID, comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername, userLiked} = props.media;
     let {profileImages, generalImages, mediaImages} = props.images;
 
     function newCommentsArr(comments) {
@@ -18,7 +19,7 @@ export default props => {
 
 
     const createComment = (input) => {
-        props.commentFunction(input);
+        props.commentFunction(input, posterID, mediaID);
         enableBtn(() => {disabledVal = true})
     };
 
@@ -82,7 +83,7 @@ export default props => {
             </div>
 
             <div className="landing-media-add-comment">
-                <input data-media={comments[0].mediaID} ref={myInput} onChange={() => myInput.current.value !== '' ? enableBtn(disabledVal = false) : enableBtn(disabledVal = true)} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
+                <input data-media={mediaID} ref={myInput} onChange={() => myInput.current.value !== '' ? enableBtn(disabledVal = false) : enableBtn(disabledVal = true)} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
                 <button onClick={(e) => createComment(myInput.current)} disabled={disabledVal} className="add-comment-btn btn">Post</button>
             </div>
         </div>

@@ -2,7 +2,6 @@ module.exports = (app, db) => {
     app.post('/getUserStats', (req, res) => {
         let output = {};
         let {id} = req.headers;
-        console.log(id);
         db.connect(() => {
             const sql2 = "SELECT COUNT(*) AS `following` FROM `followers` AS fs WHERE `accountID` = ?";
             db.query(sql2, id, (err, data) => {

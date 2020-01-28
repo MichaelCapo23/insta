@@ -72,6 +72,7 @@ module.exports = (app, db) => {
                                                                         rowInfo.posterID = posterID;
                                                                         rowInfo.likes = likesData[0].likes;
                                                                         rowInfo.userLiked = likesData[0].userLiked;
+                                                                        rowInfo.mediaID = mediaData[index].ID;
                                                                         rowInfo.posterUsername = mediaData[index].username;
                                                                         rowInfo.fileName = mediaData[index].fileName;
                                                                         rowInfo.lastLikedUsername = lastLiked[0].username;

@@ -8,9 +8,7 @@ class CreatePostModal extends Component {
     };
 
     componentDidMount() {
-        var uploader = new qq.FineUploader({
-            element: document.getElementById("uploader")
-        })
+
     }
 
     hideModal = (e) => {
