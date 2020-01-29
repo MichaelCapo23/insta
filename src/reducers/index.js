@@ -21,6 +21,7 @@ import getFollowerUsernameReducer from './getFollowerUsernameReducer';
 import getSettingsUserDataReducer from './getSettingsUserDataReducer';
 import updateSettingsReducer from './updateSettingsReducer';
 import updatePasswordReducer from './updatePasswordReducer';
+import createFollowReducer from './createFollowReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
     getSettingsUserDataReducer,
     updateSettingsReducer,
     updatePasswordReducer,
+    createFollowReducer,
     form: formReducer,
 });
 
