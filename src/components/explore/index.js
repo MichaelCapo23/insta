@@ -7,7 +7,7 @@ import ExploreMediaList from './exploreMediaList';
 import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import PostModal from '../postModal/'
 import {connect} from 'react-redux';
-import singlePostInfoReducer from "../../reducers/singlePostInfoReducer";
+import {createFollowAction} from "../../actions/createFollowAction";
 
 class Explore extends Component {
 
@@ -51,7 +51,7 @@ class Explore extends Component {
     makeSuggestions = () => {
         let suggestions = this.state.suggestedList.map((item, index) => {
             return (
-                <FollowsYouList person={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+                <FollowsYouList followFns={this.followUser} person={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
             )
         });
         return suggestions;
@@ -85,6 +85,10 @@ class Explore extends Component {
     openPostModal = (postid) => {
         this.props.singlePostInfoAction(postid, this.props.id);
         document.getElementById("postModal").classList.remove("hide");
+    };
+
+    followUser = (followid) => {
+        this.props.createFollowAction(this.props.id, followid);
     };
 
     render() {
@@ -139,4 +143,5 @@ export default connect(mapStateToProps, {
     suggestedFollowsAction,
     exploreMediaAction,
     singlePostInfoAction,
+    createFollowAction,
 })(AuthHOC(Explore));

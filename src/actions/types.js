@@ -43,4 +43,6 @@ export default {
     UPDATE_SETTINGS_ERROR: 'update_settings_error',
     UPDATE_PASSWORD: 'update_password',
     UPDATE_PASSWORD_ERROR: 'update_password_error',
+    CREATE_FOLLOW_USER: 'create_follow_user',
+    CREATE_FOLLOW_USER_ERROR: 'create_follow_user_error',
 }

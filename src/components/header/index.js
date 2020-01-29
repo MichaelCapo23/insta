@@ -3,6 +3,7 @@ import AuthHOC from '../../HOC/authHOC'
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Notifications from '../notifications/';
+import {createFollowAction} from '../../actions/createFollowAction'
 
 class Header extends Component {
     constructor(props) {
@@ -30,9 +31,13 @@ class Header extends Component {
 
     makeNotificationsList = () => {
         let notificationsList = this.props.notification_list.map((item, index) => {
-            return <Notifications notifications={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+            return <Notifications followFns={this.followUser} notifications={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
         });
         return notificationsList
+    };
+
+    followUser = (followid) => {
+        this.props.createFollowAction(this.props.id, followid);
     };
 
     render() {
@@ -98,4 +103,6 @@ function mapStateToProps() {
     }
 }
 
-export default connect(mapStateToProps)(AuthHOC(Header));
+export default connect(mapStateToProps, {
+    createFollowAction,
+})(AuthHOC(Header));
