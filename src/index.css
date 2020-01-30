@@ -997,6 +997,7 @@ input:-webkit-autofill {
     font-size: 33px !important;
     font-weight: lighter !important;
     left: 20px;
+    cursor: pointer;
 }
 
 .last-liked-profile-container {
@@ -2391,3 +2392,53 @@ transform: scaleX(-1);
     opacity: .7;
     cursor: auto !important;
 }
+
+.profile-igtv-container-padding {
+    padding: 80px 100px;
+}
+
+.profile-igtv-img-container {
+    height: 62px;
+    width: 62px;
+    margin: auto;
+    display: block;
+}
+
+.profile-igtv-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    text-align: center;
+}
+
+.profile-igtv-upload-text {
+    margin-top: 25px;
+    color: #262626;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 32px;
+    text-align: center;
+    display: block;
+
+}
+
+.profile-igtv-details {
+    color: #262626;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.profile-igtv-btn {
+    padding-left: 16px;
+    padding-right: 16px;
+    display: block;
+    margin: auto;
+    margin-top: 25px;
+}
+
+
+
+

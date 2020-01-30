@@ -192,7 +192,18 @@ class Profile extends Component {
                         </div>
                         <div className="tab-content">
                             <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">{profileMediaList !== '' ? profileMediaList : <div className="center">You have no posted any media!</div>}</div>
-                            <div className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"} id="IGTV">IGTV</div>
+
+                            <div className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"} id="IGTV">
+                                <div className="profile-igtv-container-padding">
+                                    <div className="profile-igtv-img-container">
+                                        <img className="profile-igtv-img" src={this.props.generalImages['default.png']} alt=""/>
+                                    </div>
+                                    <div className="profile-igtv-upload-text">Upload a Video</div>
+                                    <div className="profile-igtv-details">Videos must be between 1 and 60 minutes long.</div>
+                                    <button className="notification-follow-btn profile-igtv-btn">Upload</button>
+                                </div>
+                            </div>
+
                             <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">SAVED</div>
                             <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
                         </div>
