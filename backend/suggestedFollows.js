@@ -29,7 +29,7 @@ module.exports = (app, db) => {
                     let suggestedValuesArr = followsUserArr.filter((value) => {
                         return userFollowsArr.indexOf(value) == -1;
                     });
-                    if(suggestedValuesArr.length === 0) {
+                    if(suggestedValuesArr.length === 0) { //maybe change this to less than 4?
                         //get random media
                         let sqlRandom = "SELECT `ID`, `username` FROM `accounts`  WHERE `ID` != ? LIMIT 50";
                         db.query(sqlRandom, [id], (err, randomSuggestedUsers) => {
@@ -41,7 +41,7 @@ module.exports = (app, db) => {
 
                             for(let i in randomSuggestedUsers) {
                                 let currentRandomUser = randomSuggestedUsers[i].ID;
-                                let sqlrandomProfile = "SELECT (IFNULL( (SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') ) AS `fileName`";
+                                let sqlrandomProfile = "SELECT (IFNULL((SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') ) AS `fileName`";
                                 db.query(sqlrandomProfile, [currentRandomUser], (err, randomSuggestedUsersFileName) => {
                                     if(err) {
                                         console.log(err);

@@ -9,11 +9,10 @@ module.exports = (app, db) => {
                     res.sendStatus(500);
                     return;
                 }
-
                 if(notificationsData.length == 0) {
                     res.send('');
+                    return;
                 }
-
                 for (let i in notificationsData) {
                     let notificationsFromID = notificationsData[i].notificationFromID;
                     let sql2 = "SELECT `username`, IFNULL((SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'), 'default') AS `profileFileName` FROM `accounts` WHERE `ID` = ?";
@@ -24,11 +23,20 @@ module.exports = (app, db) => {
                             return;
                         }
 
-                        notificationsData[i].username = notificationUserData[0].username;
-                        notificationsData[i].profileFileName = notificationUserData[0].profileFileName;
-                        if (i == (notificationsData.length - 1)) {
-                            res.send(notificationsData)
-                        }
+                        let sql3 = "SELECT COUNT(*) AS `doesFollow` FROM `followers` WHERE `accountID` = ? AND `followAccount` = ?";
+                        db.query(sql3, [id, notificationsFromID], (err, followNotificationData) => {
+                            if(err) {
+                                console.log(err);
+                                res.sendStatus(500);
+                                return;
+                            }
+                            notificationsData[i].doesFollow = followNotificationData[0].doesFollow;
+                            notificationsData[i].username = notificationUserData[0].username;
+                            notificationsData[i].profileFileName = notificationUserData[0].profileFileName;
+                            if (i == (notificationsData.length - 1)) {
+                                res.send(notificationsData)
+                            }
+                        });
                     })
                 }
             })
