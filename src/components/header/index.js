@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Notifications from '../notifications/';
 import {createFollowAction} from '../../actions/createFollowAction'
+import {createNotificationAction} from '../../actions/createNotificationAction';
 
 class Header extends Component {
     constructor(props) {
@@ -37,7 +38,9 @@ class Header extends Component {
     };
 
     followUser = (followid) => {
+        debugger;
         this.props.createFollowAction(this.props.id, followid);
+        this.props.createNotificationAction(this.props.id, followid, 'follow', '-1');
     };
 
     render() {
@@ -105,4 +108,5 @@ function mapStateToProps() {
 
 export default connect(mapStateToProps, {
     createFollowAction,
+    createNotificationAction,
 })(AuthHOC(Header));

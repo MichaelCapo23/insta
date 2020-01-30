@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import moment from "moment";
 
 export default props => {
-    let {notificationFromID, notificationType, username, profileFileName, created_at} = props.notifications;
+    let {notificationFromID, notificationType, username, profileFileName, created_at, doesFollow} = props.notifications;
     let {profileImages, generalImages, mediaImages} = props.images;
 
     let now  = moment();
@@ -17,9 +17,8 @@ export default props => {
     let minutes = d.minutes();
 
     function followUser() {
-        debugger;
         props.followFns(notificationFromID);
-        let buttonSelector =  document.querySelector(`#follow-btn-${notificationFromID}.notification-follow-btn`)
+        let buttonSelector =  document.querySelector(`#follow-btn-${notificationFromID}.notification-follow-btn`);
         buttonSelector.setAttribute('disabled', 'disabled');
         buttonSelector.classList.add('disable-follow-btn');
     }
@@ -36,7 +35,7 @@ export default props => {
                         <div className="notification-text">{notificationType === 'follow' ? 'Started following you.' : notificationType === 'like' ? 'Liked your photo.' : notificationType === 'tag' ? 'Tagged you in a photo.' : notificationType === 'comment' ? 'Commented on your photo.' : ''} <span className="notification-time">{days > 0 ? days + 'd' : hours > 0 ? hours + 'h' : minutes + 'm'}</span></div>
                     </div>
                 </Link>
-                <button onClick={followUser} id={'follow-btn-'+notificationFromID} type={"button"} className="notification-follow-btn">Follow</button>
+                <button onClick={followUser} id={'follow-btn-'+notificationFromID} disabled={doesFollow ? 'disabled' : ''} type={"button"} className={ doesFollow ? 'notification-follow-btn disable-follow-btn' : "notification-follow-btn"}>Follow</button>
             </div>
         </div>
     )
