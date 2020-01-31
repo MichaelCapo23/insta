@@ -22,6 +22,7 @@ import getSettingsUserDataReducer from './getSettingsUserDataReducer';
 import updateSettingsReducer from './updateSettingsReducer';
 import updatePasswordReducer from './updatePasswordReducer';
 import createFollowReducer from './createFollowReducer';
+import saveMediaReducer from './saveMediaReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
     updateSettingsReducer,
     updatePasswordReducer,
     createFollowReducer,
+    saveMediaReducer,
     form: formReducer,
 });
 

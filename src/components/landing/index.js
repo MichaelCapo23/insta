@@ -10,7 +10,8 @@ import {getStoriesProfileAction} from "../../actions/getStoriesProfileAction";
 import StoriesPostList from './storiesPostList'
 import OptionsModal from './postOptionsModal';
 import UnfollowModal from './confirmUnfollowModal';
-import {createNotificationAction} from '../../actions/createNotificationAction'
+import {createNotificationAction} from '../../actions/createNotificationAction';
+import {saveMediaAction} from '../../actions/saveMediaAction'
 
 import 'material-icons';
 
@@ -40,7 +41,7 @@ class Landing extends Component {
         if(this.props.landingMedia.length > 0) {
             PostList = this.props.landingMedia.map((item, index) => {
                 return (
-                    <LandingPostList likeFunction={this.calLikeAction} openModal={this.openOptionsModal}
+                    <LandingPostList saveMediaFns={this.callSaveMediaAction} likeFunction={this.calLikeAction} openModal={this.openOptionsModal}
                                      commentFunction={this.callCommentAction} key={index} images={{
                         mediaImages: this.props.mediaImages,
                         profileImages: this.props.profileImages,
@@ -63,7 +64,6 @@ class Landing extends Component {
 
     callCommentAction = (input, posterID, mediaID) => {
         debugger;
-        // let mediaID = input.attributes['data-media'].value;
         let comment = input.value;
         input.value = '';
         this.props.createCommentAction({userID:this.props.id, mediaID, comment});
@@ -109,6 +109,10 @@ class Landing extends Component {
             pathname: '/stories',
             data: { data: 'update' }
         });
+    };
+
+    callSaveMediaAction = (mediaid) => {
+        this.props.saveMediaAction(this.props.id, mediaid);
     };
 
     render() {
@@ -169,5 +173,6 @@ export default connect(mapStateToProps, {
     createCommentAction,
     likeMediaAction,
     getStoriesAction: getStoriesProfileAction,
-    createNotificationAction
+    createNotificationAction,
+    saveMediaAction,
 })(withRouter(AuthHOC(Landing)));

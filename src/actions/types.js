@@ -45,4 +45,6 @@ export default {
     UPDATE_PASSWORD_ERROR: 'update_password_error',
     CREATE_FOLLOW_USER: 'create_follow_user',
     CREATE_FOLLOW_USER_ERROR: 'create_follow_user_error',
+    SAVE_MEDIA: 'save_media',
+    SAVE_MEDIA_ERROR: 'save_media_error',
 }
