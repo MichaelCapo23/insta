@@ -47,4 +47,6 @@ export default {
     CREATE_FOLLOW_USER_ERROR: 'create_follow_user_error',
     SAVE_MEDIA: 'save_media',
     SAVE_MEDIA_ERROR: 'save_media_error',
+    SEARCH_BAR_RESULTS: 'search_bar_results',
+    SEARCH_BAR_RESULTS_ERROR: 'search_bar_results_error',
 }

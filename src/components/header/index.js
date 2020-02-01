@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import Notifications from '../notifications/';
 import {createFollowAction} from '../../actions/createFollowAction'
 import {createNotificationAction} from '../../actions/createNotificationAction';
+import {searchBarAction} from '../../actions/searchBarAction';
+import SearchBarModal from './searchBarModal'
 
 class Header extends Component {
     constructor(props) {
@@ -12,10 +14,33 @@ class Header extends Component {
         this.input = React.createRef();
     }
 
+    state = {
+        searchBarResults: '',
+    };
+
+    componentDidUpdate(prevProps) {
+        if(this.props != prevProps) {
+            if((this.props.searchBarResults && this.props.searchBarResults !== '') && this.props.searchBarResults != this.state.searchBarResults) {
+                this.setState({
+                    searchBarResults: this.props.searchBarResults
+                })
+                this.fillSearchBarModal();
+            }
+        }
+    }
+
+    fillSearchBarModal = () => {
+        this.props.fillSearchBarModal.map((item, index) => {
+            <SearchBarModal searchResult={item} key={index}/>
+        })
+    };
+
     searchInput = () => {
-        if(this.input.current.value === '') {
+        let searchVal = this.input.current.value;
+        if(searchVal === '') {
             // this.input.current.style.backgroundImage = "url('search3.png')";
         } else {
+            this.props.searchBarAction(this.props.id, searchVal);
             this.input.current.style.backgroundImage = "url('')";
         }
     };
@@ -100,13 +125,14 @@ class Header extends Component {
     }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
     return {
-
+        searchBarResults: state.searchBarReducer.searchBarResults,
     }
 }
 
 export default connect(mapStateToProps, {
     createFollowAction,
     createNotificationAction,
+    searchBarAction,
 })(AuthHOC(Header));
