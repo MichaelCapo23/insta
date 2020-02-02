@@ -108,7 +108,7 @@ class Profile extends Component {
             if(this.props.media) {
                 this.setState({
                     postMedia: postArr,
-                    profileMedia: profileArr[0].fileName,
+                    profileMedia: profileArr[0] ? profileArr[0].fileName : '',
                 })
             }
         } else {
@@ -148,6 +148,7 @@ class Profile extends Component {
             profileMediaList = this.makeMedia(this.state.postMedia);
         }
 
+        debugger;
         return (
             <Fragment>
                 <div className={"content-header"}>
@@ -158,7 +159,7 @@ class Profile extends Component {
                         <div className="user-info-container">
                             <div className="profile-pic-container">
                                 <div className="profile-pic-container-inner">
-                                    <img className="profilePic" src={this.state.profileMedia ? this.props.profileImages[this.state.profileMedia] : ''} alt=""/>
+                                    <img className="profilePic" src={this.state.profileMedia && this.state.profileMedia !== '' ? this.props.profileImages[this.state.profileMedia] : this.props.generalImages['default.png']} alt=""/>
                                 </div>
                             </div>
                             <div className="profile-info-container">

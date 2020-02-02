@@ -16,30 +16,35 @@ class Header extends Component {
 
     state = {
         searchBarResults: '',
+        searchBarStatus: false,
     };
 
     componentDidUpdate(prevProps) {
-        if(this.props != prevProps) {
-            if((this.props.searchBarResults && this.props.searchBarResults !== '') && this.props.searchBarResults != this.state.searchBarResults) {
-                this.setState({
-                    searchBarResults: this.props.searchBarResults
-                })
-                this.fillSearchBarModal();
-            }
-        }
+        // if(this.props != prevProps) {
+        //     if((this.props.searchBarResults && this.props.searchBarResults !== '') && this.props.searchBarResults != this.state.searchBarResults) {
+        //         this.setState({
+        //             searchBarResults: this.props.searchBarResults
+        //         });
+        //     }
+        // }
     }
 
     fillSearchBarModal = () => {
-        this.props.fillSearchBarModal.map((item, index) => {
-            <SearchBarModal searchResult={item} key={index}/>
-        })
+        let searchBarResultsList = this.props.searchBarResults.map((item, index) => {
+            return (
+                <SearchBarModal searchResult={item} key={index} images={{mediaImages:this.props.mediaImages,profileImages:this.props.profileImages,generalImages:this.props.generalImages}}/>
+            )
+        });
+        return searchBarResultsList;
     };
 
     searchInput = () => {
         let searchVal = this.input.current.value;
         if(searchVal === '') {
+            this.closeSearchBarModal();
             // this.input.current.style.backgroundImage = "url('search3.png')";
         } else {
+            this.openSearchBaModal();
             this.props.searchBarAction(this.props.id, searchVal);
             this.input.current.style.backgroundImage = "url('')";
         }
@@ -48,11 +53,32 @@ class Header extends Component {
     closeModal = (e) => {
         if(e.target.classList[0] === 'notifications-overall-container') {
             document.getElementById('notificationsModal').classList.add("hide");
+            this.setState({
+                searchBarStatus: false,
+            })
+        }
+    };
+
+    closeSearchBarModal = (e) => {
+        if(e && e.target.classList[0] === 'searchbar-modal-overall-container') {
+            this.setState({
+                searchBarStatus: false,
+            })
+        } else {
+            this.setState({
+                searchBarStatus: false,
+            })
         }
     };
 
     openNotifications = (e) => {
         document.getElementById('notificationsModal').classList.remove("hide");
+    };
+
+    openSearchBaModal = () => {
+        this.setState({
+            searchBarStatus: true,
+        })
     };
 
     makeNotificationsList = () => {
@@ -63,19 +89,25 @@ class Header extends Component {
     };
 
     followUser = (followid) => {
-        debugger;
         this.props.createFollowAction(this.props.id, followid);
         this.props.createNotificationAction(this.props.id, followid, 'follow', '-1');
     };
 
     render() {
         let notificationsList = '';
+        let searchBarResultsList = '';
         if(this.props.notification_list !== '') {
             notificationsList = this.makeNotificationsList();
         }
+
+        if(this.props.searchBarResults !== '' && this.input.current.value !== '' && this.state.searchBarStatus) {
+            searchBarResultsList = this.fillSearchBarModal();
+        }
+
+
         return (
             <Fragment>
-                <div className={'header-container'}>
+                <div onClick={this.closeModal} className={'header-container'}>
                     <div className="header-gutter">
                         <Link to='/' className="asset-container">
                             <div className="logo-container"></div>
@@ -112,7 +144,15 @@ class Header extends Component {
                         </div>
                     </div>
                 </div>
-                <div onClick={this.closeModal} id="notificationsModal" className="notifications-overall-container hide"> {/*onClick={this.closeModal}*/}
+                <div onClick={this.closeSearchBarModal} id="searchBarModal" className={this.state.searchBarStatus ? "searchbar-modal-overall-container" : "searchbar-modal-overall-container hide"}>
+                    <div className="searchbar-gutter">
+                        <div className="searchbar-point"/>
+                        <div className="searchbar-content">
+                            {searchBarResultsList}
+                        </div>
+                    </div>
+                </div>
+                <div onClick={this.closeModal} id="notificationsModal" className="notifications-overall-container hide">
                     <div className="notifications-gutter">
                         <div className="notification-point"></div>
                         <div className="notifications-content">
