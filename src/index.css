@@ -374,13 +374,13 @@ input:not(:placeholder-shown) ~ label {
 .searchbar-container {
     display: inline-block;
     height: 85%;
-    width: 200px;
+    width: 254px;
     cursor: text;
     background: #fafafa;
     border: var(--default-border);
     color: #999;
-    margin-left: 190px; /* might have to change this*/
-    margin-right: 250px;
+    margin-left: 164px;
+    margin-right: 228px;
     vertical-align: top;
     position: relative;
     top: 2px;
@@ -2019,7 +2019,7 @@ transform: scaleX(-1);
     display: none;
 }
 
-.notifications-overall-container {
+.notifications-overall-container, .searchbar-modal-overall-container {
     background: #fff;
     border-radius: 3px;
     -webkit-box-shadow: 0 0 5px rgba(0,0,0,.0975);
@@ -2030,16 +2030,18 @@ transform: scaleX(-1);
     position: absolute;
     white-space: normal;
     z-index: 11;
-    height: calc(100% - 75px);
+    height: calc(100%);
     width: 99vw;
     background-color: transparent;
+    top: 0;
 }
 
-.notifications-gutter {
+.notifications-gutter, .searchbar-gutter {
     width: 875px;
     margin: auto;
     height: 362px;
     position: relative;
+    top: 75px;
 }
 
 .notifications-content {
@@ -2050,6 +2052,16 @@ transform: scaleX(-1);
     right: 0;
     text-decoration: none !important;
     border: var(--default-border);
+}
+
+.searchbar-content {
+    max-height:100%;
+    background-color: #FFF;
+    margin: auto;
+    text-decoration: none !important;
+    border: var(--default-border);
+    width: 300px;
+    overflow-y: scroll;
 }
 
 .cell-padding {
@@ -2121,7 +2133,7 @@ transform: scaleX(-1);
     vertical-align: top;
 }
 
-.notification-point {
+.notification-point, .searchbar-point {
     border-color: transparent transparent #FFF;
     border-style: solid;
     border-width: 0 10px 10px;
@@ -2439,6 +2451,79 @@ transform: scaleX(-1);
     margin-top: 25px;
 }
 
+.searchbar-item-container {
+    height: 80px;
+    width: 100%;
+    padding: 10px;
+}
+
+.searchbar-item-img-container {
+    /*height: 100%;*/
+    /*width: 67px;*/
+    /*padding: 8px 15px 10px 10px;*/
+    /*display: inline-block;*/
+    /*vertical-align: top;*/
+    height: 92%;
+    width: 55px;
+    padding: 2px;
+    margin: 5px 15px 10px 10px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 100px;
+    background: linear-gradient(#F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);
+}
+
+.searchbar-item-img-inner {
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    border: 2px solid #FFF;
+    background: linear-gradient(#F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);
+}
+
+.searchbar-item-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+}
+
+.searchbar-item-info-container {
+    height: 100%;
+    width: calc(100% - 80px);
+    display: inline-block;
+}
+
+.searchbar-item-username {
+    height: 36%;
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    position: relative;
+    top: 5px;
+    line-height: 22px;
+    margin-bottom: -4px;
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    color: #262626;
+    text-align: left;
+}
+
+.searchbar-item-name {
+    height: 50%;
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    position: relative;
+    top: 5px;
+    font-weight: 300;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #999;
+    font-size: 14px;
+    text-align: left;
+}
 
 
 

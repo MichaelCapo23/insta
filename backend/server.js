@@ -51,3 +51,4 @@ require('./updateSettings')(app, db);
 require('./createNotification')(app, db);
 require('./createFollow')(app, db);
 require('./saveMedia')(app, db);
+require('./searchBar')(app, db);

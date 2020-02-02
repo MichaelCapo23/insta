@@ -23,6 +23,7 @@ import updateSettingsReducer from './updateSettingsReducer';
 import updatePasswordReducer from './updatePasswordReducer';
 import createFollowReducer from './createFollowReducer';
 import saveMediaReducer from './saveMediaReducer';
+import searchBarReducer from './searchBarReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
     updatePasswordReducer,
     createFollowReducer,
     saveMediaReducer,
+    searchBarReducer,
     form: formReducer,
 });
 
