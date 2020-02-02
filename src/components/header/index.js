@@ -20,13 +20,7 @@ class Header extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        // if(this.props != prevProps) {
-        //     if((this.props.searchBarResults && this.props.searchBarResults !== '') && this.props.searchBarResults != this.state.searchBarResults) {
-        //         this.setState({
-        //             searchBarResults: this.props.searchBarResults
-        //         });
-        //     }
-        // }
+
     }
 
     fillSearchBarModal = () => {
@@ -37,6 +31,11 @@ class Header extends Component {
         });
         return searchBarResultsList;
     };
+
+    createEmptySearchBar = () => {
+        let searchBarResultsList = <div className="emptySearchBar">No results found.</div>;
+        return searchBarResultsList;
+    }
 
     searchInput = () => {
         let searchVal = this.input.current.value;
@@ -102,6 +101,8 @@ class Header extends Component {
 
         if(this.props.searchBarResults !== '' && this.input.current.value !== '' && this.state.searchBarStatus) {
             searchBarResultsList = this.fillSearchBarModal();
+        } else {
+            searchBarResultsList = this.createEmptySearchBar();
         }
 
 

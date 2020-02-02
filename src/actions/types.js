@@ -49,4 +49,6 @@ export default {
     SAVE_MEDIA_ERROR: 'save_media_error',
     SEARCH_BAR_RESULTS: 'search_bar_results',
     SEARCH_BAR_RESULTS_ERROR: 'search_bar_results_error',
+    GET_SAVED_MEDIA: 'get_saved_media_error',
+    GET_SAVED_MEDIA_ERROR: 'get_saved_media_error',
 }

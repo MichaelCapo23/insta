@@ -11,6 +11,7 @@ import PostModal from '../postModal'
 import {singlePostInfoAction} from "../../actions/singlePostInfoAction";
 import {getFollowerUsernameAction} from "../../actions/getFollowerUsernameAction";
 import {getUsernameAction} from "../../actions/getUsernameAction";
+import {getSavedMediaAction} from '../../actions/getSavedMediaAction'
 
 class Profile extends Component {
 
@@ -56,6 +57,7 @@ class Profile extends Component {
                 this.props.getUserStatsAction(this.props.id);
                 this.props.getUserMediaAction(this.props.id);
                 this.props.getUsernameAction();
+                this.props.getSavedMediaAction(this.props.id);
             }
             this.setState({
                 waiting: true,
@@ -72,7 +74,6 @@ class Profile extends Component {
             });
             this.props.getUserStatsAction(this.props.followerUsernameID);
             this.props.getUserMediaAction(this.props.followerUsernameID);
-            // this.props.getUsernameAction(this.props.followerUsernameUsername);
         }
 
         //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
@@ -142,13 +143,26 @@ class Profile extends Component {
         document.getElementById("postModal").classList.remove("hide");
     };
 
+    makeSavedMedia = () => {
+        debugger;
+        let savedMediaList = this.props.savedMedia.map((item, index) => {
+            return (
+                <UserMediaList postFns={this.openPostModal} mediaImages={this.props.mediaImages} key={index} media={item}/>
+            )
+        })
+        return savedMediaList;
+    };
+
     render() {
         let profileMediaList = '';
+        let savedMediaList = '';
         if(this.props.media !== '' && this.state.postMedia) {
             profileMediaList = this.makeMedia(this.state.postMedia);
         }
+        if(this.props.savedMedia !== '') {
+            savedMediaList = this.makeSavedMedia(this.state.savedMedia);
+        }
 
-        debugger;
         return (
             <Fragment>
                 <div className={"content-header"}>
@@ -205,7 +219,7 @@ class Profile extends Component {
                                 </div>
                             </div>
 
-                            <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">SAVED</div>
+                            <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">{savedMediaList !== '' ? savedMediaList : <div className="center">You have no posted any media!</div>}</div>
                             <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
                         </div>
                     </div>
@@ -230,6 +244,7 @@ function mapStateToProps(state) {
         followerUsernameID: state.usernameReducer.username.followerid,
         followerUsernameName: state.usernameReducer.username.followername,
         followerUsernameBio: state.usernameReducer.username.followerbio,
+        savedMedia: state.getSavedMediaReducer.savedMedia,
     }
 }
 
@@ -239,4 +254,5 @@ export default connect(mapStateToProps, {
     singlePostInfoAction,
     getFollowerUsernameAction,
     getUsernameAction,
+    getSavedMediaAction,
 })(withRouter(authHOC(Profile)));

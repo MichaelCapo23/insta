@@ -2061,7 +2061,12 @@ transform: scaleX(-1);
     text-decoration: none !important;
     border: var(--default-border);
     width: 300px;
-    overflow-y: scroll;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+.searchbar-content::-webkit-scrollbar {
+    display: none;
 }
 
 .cell-padding {
@@ -2295,7 +2300,6 @@ transform: scaleX(-1);
 .settings-label {
     display: inline-block;
     padding-right: 32px;
-    text-align: right;
     margin-top: 6px;
     box-sizing: border-box;
     color: #262626;
@@ -2455,6 +2459,7 @@ transform: scaleX(-1);
     height: 80px;
     width: 100%;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .searchbar-item-img-container {
@@ -2525,5 +2530,13 @@ transform: scaleX(-1);
     text-align: left;
 }
 
-
-
+.emptySearchBar {
+    height: 50px;
+    width: 100%;
+    color: #999;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    font-size: 15px;
+    font-weight: 500;
+}
