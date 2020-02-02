@@ -132,37 +132,3 @@ module.exports = (app, db) => {
         })
     })
 };
-
-//let sql7 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
-//                                                         db.query(sql7, lastLikedID, (err, lastLikedProfilePic) => {
-//                                                             if(!err) {
-//                                                                 if(lastLikedProfilePic.length > 0) {
-//                                                                     rowInfo.lastLikedFileName = lastLikedProfilePic[0].fileName;
-//                                                                 }
-//                                                                 let posterID = mediaData[index].accountID;
-//                                                                 let sql8 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
-//                                                                 db.query(sql8, posterID, (err, posterFileName) => {
-//                                                                     if(!err) {
-//                                                                         if(posterFileName.length > 0) {
-//                                                                             rowInfo.posterFileName = posterFileName[0].fileName;
-//                                                                         }
-//                                                                         rowInfo.posterID = posterID;
-//                                                                         rowInfo.likes = likesData[0].likes;
-//                                                                         rowInfo.userLiked = likesData[0].userLiked;
-//                                                                         rowInfo.mediaID = mediaData[index].ID;
-//                                                                         rowInfo.posterUsername = mediaData[index].username;
-//                                                                         rowInfo.fileName = mediaData[index].fileName;
-//                                                                         rowInfo.lastLikedUsername = lastLiked[0].username;
-//                                                                         output.push(rowInfo);
-//                                                                         if(index == (mediaData.length -1)) {
-//                                                                             res.send(output);
-//                                                                             return;
-//                                                                         }
-//                                                                     }
-//                                                                 });
-//                                                             } else {
-//                                                                 console.log(err);
-//                                                                 res.sendStatus(500);
-//                                                                 return;
-//                                                             }
-//                                                         })
