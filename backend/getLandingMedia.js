@@ -28,7 +28,6 @@ module.exports = (app, db) => {
                         return;
                     }
 
-
                     followerIDString = [followerIDArr];
                     let sql3 = "SELECT `m`.`ID`,`m`.`fileName`,`m`.`accountID`, `a`.`username`  FROM `media` AS m JOIN `accounts` AS a ON(`m`.`accountID` = `a`.`ID`) WHERE `m`.`accountID` in (?) and `m`.`mediaType` = 'post'";
                     db.query(sql3, followerIDString, (err, mediaData) => {
@@ -56,38 +55,48 @@ module.exports = (app, db) => {
                                                 db.query(sql6, currentMediaID, (err, lastLiked) => {
                                                     if(!err) {
                                                         let lastLikedID = lastLiked[0].accountID;
-                                                        let sql7 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
-                                                        db.query(sql7, lastLikedID, (err, lastLikedProfilePic) => {
-                                                            if(!err) {
-                                                                if(lastLikedProfilePic.length > 0) {
-                                                                    rowInfo.lastLikedFileName = lastLikedProfilePic[0].fileName;
-                                                                }
-                                                                let posterID = mediaData[index].accountID;
-                                                                let sql8 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
-                                                                db.query(sql8, posterID, (err, posterFileName) => {
-                                                                    if(!err) {
-                                                                        if(posterFileName.length > 0) {
-                                                                            rowInfo.posterFileName = posterFileName[0].fileName;
-                                                                        }
-                                                                        rowInfo.posterID = posterID;
-                                                                        rowInfo.likes = likesData[0].likes;
-                                                                        rowInfo.userLiked = likesData[0].userLiked;
-                                                                        rowInfo.mediaID = mediaData[index].ID;
-                                                                        rowInfo.posterUsername = mediaData[index].username;
-                                                                        rowInfo.fileName = mediaData[index].fileName;
-                                                                        rowInfo.lastLikedUsername = lastLiked[0].username;
-                                                                        output.push(rowInfo);
-                                                                        if(index == (mediaData.length -1)) {
-                                                                            res.send(output);
-                                                                            return;
-                                                                        }
-                                                                    }
-                                                                });
-                                                            } else {
+                                                        let sqlSaved = "SELECT COUNT(*) AS `saved` FROM `saved_media` WHERE `accountID` = ? AND `mediaID` = ?"
+                                                        db.query(sqlSaved, [id, currentMediaID], (err, savedData) => {
+                                                            if(err) {
                                                                 console.log(err);
                                                                 res.sendStatus(500);
                                                                 return;
                                                             }
+                                                            let userSaved = savedData[0].saved;
+                                                            let sql7 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
+                                                            db.query(sql7, lastLikedID, (err, lastLikedProfilePic) => {
+                                                                if(!err) {
+                                                                    if(lastLikedProfilePic.length > 0) {
+                                                                        rowInfo.lastLikedFileName = lastLikedProfilePic[0].fileName;
+                                                                    }
+                                                                    let posterID = mediaData[index].accountID;
+                                                                    let sql8 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";
+                                                                    db.query(sql8, posterID, (err, posterFileName) => {
+                                                                        if(!err) {
+                                                                            if(posterFileName.length > 0) {
+                                                                                rowInfo.posterFileName = posterFileName[0].fileName;
+                                                                            }
+                                                                            rowInfo.posterID = posterID;
+                                                                            rowInfo.likes = likesData[0].likes;
+                                                                            rowInfo.userLiked = likesData[0].userLiked;
+                                                                            rowInfo.mediaID = mediaData[index].ID;
+                                                                            rowInfo.posterUsername = mediaData[index].username;
+                                                                            rowInfo.fileName = mediaData[index].fileName;
+                                                                            rowInfo.lastLikedUsername = lastLiked[0].username;
+                                                                            rowInfo.userSaved = userSaved;
+                                                                            output.push(rowInfo);
+                                                                            if(index == (mediaData.length -1)) {
+                                                                                res.send(output);
+                                                                                return;
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                } else {
+                                                                    console.log(err);
+                                                                    res.sendStatus(500);
+                                                                    return;
+                                                                }
+                                                            })
                                                         })
                                                     } else {
                                                         console.log(err);

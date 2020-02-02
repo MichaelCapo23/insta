@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 export default props => {
     let [disabledVal, enableBtn] = useState(true);
-    let {mediaID, comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername, userLiked} = props.media;
+    let {mediaID, comments, likes, fileName, posterID, lastLikedFileName, lastLikedUsername, posterFileName, posterUsername, userLiked, userSaved} = props.media;
     let {profileImages, generalImages, mediaImages} = props.images;
 
     function newCommentsArr(comments) {
@@ -66,7 +66,7 @@ export default props => {
                         <img className="comment-img-landing" src={generalImages['comment.png']} alt=""/>
                     </div>
                     {/*<div className="material-icons like-comment landing-comments">mode_comment</div>*/}
-                    <div ref={saveBtn} onClick={saveMedia} className="material-icons landing-bookmark">bookmark_border</div> {/* bookmark <-- this is for when they click it, change to this to show media has been saved*/}
+                    <div ref={saveBtn} onClick={saveMedia} className="material-icons landing-bookmark">{userSaved == '0' ? 'bookmark_border' : 'bookmark'}</div> {/* bookmark <-- this is for when they click it, change to this to show media has been saved*/}
                 </div>
                 <div className="liked-container">
                     <div className="last-liked-profile-container">
