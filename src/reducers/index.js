@@ -25,6 +25,7 @@ import createFollowReducer from './createFollowReducer';
 import saveMediaReducer from './saveMediaReducer';
 import searchBarReducer from './searchBarReducer';
 import getSavedMediaReducer from './getSavedMediaReducer';
+import addMediaReducer from './addMediaReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -52,6 +53,7 @@ const rootReducer = combineReducers({
     saveMediaReducer,
     searchBarReducer,
     getSavedMediaReducer,
+    addMediaReducer,
     form: formReducer,
 });
 

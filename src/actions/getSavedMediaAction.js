@@ -2,7 +2,6 @@ import axios from 'axios';
 import types from './types';
 
 export const getSavedMediaAction = (id) => async dispatch => {
-    debugger;
     try {
         axios({
             method: "POST",
