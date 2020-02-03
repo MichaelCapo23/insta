@@ -12,6 +12,7 @@ import {singlePostInfoAction} from "../../actions/singlePostInfoAction";
 import {getFollowerUsernameAction} from "../../actions/getFollowerUsernameAction";
 import {getUsernameAction} from "../../actions/getUsernameAction";
 import {getSavedMediaAction} from '../../actions/getSavedMediaAction'
+import {addMediaAction} from '../../actions/addMediaAction';
 
 class Profile extends Component {
 
@@ -94,6 +95,10 @@ class Profile extends Component {
                 })
             }
         }
+
+        // if(this.props.newMediaID !== '' && this.props.newMediaID) {
+        //
+        // }
     }
 
     separatePropsInState = () => {
@@ -144,12 +149,11 @@ class Profile extends Component {
     };
 
     makeSavedMedia = () => {
-        debugger;
         let savedMediaList = this.props.savedMedia.map((item, index) => {
             return (
                 <UserMediaList postFns={this.openPostModal} mediaImages={this.props.mediaImages} key={index} media={item}/>
             )
-        })
+        });
         return savedMediaList;
     };
 
@@ -245,6 +249,7 @@ function mapStateToProps(state) {
         followerUsernameName: state.usernameReducer.username.followername,
         followerUsernameBio: state.usernameReducer.username.followerbio,
         savedMedia: state.getSavedMediaReducer.savedMedia,
+        newMediaID: state.addMediaReducer.newMediaID,
     }
 }
 
@@ -255,4 +260,5 @@ export default connect(mapStateToProps, {
     getFollowerUsernameAction,
     getUsernameAction,
     getSavedMediaAction,
+    addMediaAction,
 })(withRouter(authHOC(Profile)));
