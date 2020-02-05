@@ -158,7 +158,6 @@ class Profile extends Component {
     };
 
     callAddMediaAction = (file, desc) => {
-        debugger;
         this.props.addMediaAction(file, desc, this.props.id)};
 
     render() {
@@ -187,7 +186,7 @@ class Profile extends Component {
                             <div className="profile-info-container">
                                 <div className="profile-info-content-container">
                                     <div className="information-container-top">
-                                        <div className="profile-username">{this.props.followerUsernameName ? this.props.followerUsernameName : this.props.username ? this.props.username : ''}</div>
+                                        <div className="profile-username">{this.props.followerUsernameUsername ? this.props.followerUsernameUsername : this.props.username ? this.props.username : ''}</div>
                                         <div className="profile-edit">
                                             <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
                                             <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
@@ -208,8 +207,8 @@ class Profile extends Component {
                         <div className="content-body-tabs">
                             <ul className="nav nav-tabs tabs-center profile-nav-tabs" data-toggle="tabs">
                                 <li className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} ref={this.posts} id="posts" className={"nav-tabs-font"} href="#POSTS">POSTS</a></li>
-                                <li className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} id="igtv" className={"nav-tabs-font"} href="#IGTV">IGTV</a></li>
-                                <li className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} id="saved" className={"nav-tabs-font"} href="#SAVED">SAVED</a></li>
+                                <li className={this.state.profileTracker == 'profile' ? this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane" : 'hide'}><a onClick={this.changeTabs} id="igtv" className={"nav-tabs-font"} href="#IGTV">IGTV</a></li>
+                                <li className={this.state.profileTracker == 'profile' ? this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane" : 'hide'}><a onClick={this.changeTabs} id="saved" className={"nav-tabs-font"} href="#SAVED">SAVED</a></li>
                                 <li className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} id="tagged" className={"nav-tabs-font"} href="#TAGGED">TAGGED</a></li>
                             </ul>
                         </div>

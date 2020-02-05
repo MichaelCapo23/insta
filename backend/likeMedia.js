@@ -3,21 +3,35 @@ module.exports = (app, db) => {
         let {id} = req.headers;
         let {mediaID} = req.body;
         let output = {status: 'NO'};
-        let sql = "INSERT INTO `likes` (`accountID`, `mediaID`) VALUES (?,?)";
+        let sql = "SELECT COUNT(*) AS `count` FROM `likes` WHERE `accountID` = ? AND  `mediaID` = ?";
         db.connect(() => {
-            db.query(sql, [id, mediaID], (err, data) => {
-                if(!err) {
-                    let insertID = data.insertId;
-                    output = {
-                        status: 'OK',
-                        likedID: insertID
-                    };
-                    res.send(output);
+            db.query(sql, [id, mediaID], (err, countData) => {
+                if(err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                    return;
+                }
+                if(countData[0].count == 0) {
+                    let sql2 = "INSERT INTO `likes` (`accountID`, `mediaID`) VALUES (?,?)";
+                    db.query(sql2, [id, mediaID], (err, data) => {
+                        if (err) {
+                            console.log(err);
+                            res.sendStatus(500);
+                            return;
+                        }
+                        let insertID = data.insertId;
+                        output = {
+                            status: 'OK',
+                            likedID: insertID
+                        };
+                        res.send(output);
+                    });
                 } else {
-                    output.error = 'error (1) --like media service';
-                    res.send(output);
+                    res.send('already liked');
                 }
             })
         })
     })
 };
+
+
