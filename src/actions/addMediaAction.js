@@ -1,14 +1,17 @@
 import axios from 'axios';
 import types from './types'
 
-export const addMediaAction = (file, desc) => async dispatch => {
+export const addMediaAction = (file, desc, id) => async dispatch => {
     try {
         axios({
             method: "POST",
             url: '/addMedia',
             headers: {
-                file: file,
                 desc: desc,
+                id: id,
+            },
+            data: {
+                file: file,
             }
         }).then(response => {
             dispatch({

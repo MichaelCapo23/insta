@@ -10,7 +10,7 @@ export default props => {
         let postid = profilePost.current.attributes['data-id'].value;
         props.postFns(postid);
     }
-
+    debugger;
     return (
         <div ref={profilePost} onClick={(e) => openPostModalMedia(profilePost)} data-id={mediaID} className="overall-container">
             <img className={"media-post-profile"} src={props.mediaImages[fileName]} alt="instagram media post"/>
