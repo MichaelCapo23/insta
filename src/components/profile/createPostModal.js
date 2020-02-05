@@ -21,7 +21,8 @@ class CreatePostModal extends Component {
     };
 
     submitMedia = () => {
-        this.props.addMediaAction(this.state.file, this.state.description)
+        debugger;
+        this.props.createdMediaFns(this.state.file[0], this.state.description)
     };
 
     handleFiles = files => {

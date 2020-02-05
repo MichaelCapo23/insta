@@ -157,6 +157,10 @@ class Profile extends Component {
         return savedMediaList;
     };
 
+    callAddMediaAction = (file, desc) => {
+        debugger;
+        this.props.addMediaAction(file, desc, this.props.id)};
+
     render() {
         let profileMediaList = '';
         let savedMediaList = '';
@@ -171,7 +175,7 @@ class Profile extends Component {
             <Fragment>
                 <div className={"content-header"}>
                     <ProfileOptionsModal/>
-                    <CreatePostModal/>
+                    <CreatePostModal createdMediaFns={this.callAddMediaAction}/>
                     <PostModal/>
                     <div className="profile-gutter">
                         <div className="user-info-container">
