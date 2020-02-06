@@ -7,7 +7,7 @@ class CreatePostModal extends Component {
     state = {
         isOpen: false,
         file : "",
-        description: ''
+        description: '',
     };
 
     hideModal = (e) => {
@@ -21,8 +21,12 @@ class CreatePostModal extends Component {
     };
 
     submitMedia = () => {
-        debugger;
-        this.props.createdMediaFns(this.state.file[0], this.state.description)
+        this.props.createdMediaFns(this.state.file[0], this.state.description);
+        this.setState({
+            file: '',
+            description: '',
+        });
+        document.getElementById("createPostModal").classList.add("hide");
     };
 
     handleFiles = files => {

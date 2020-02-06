@@ -14,28 +14,32 @@ module.exports = (app, db) => {
                         let currentMediaID = savedData[i].mediaID;
                         let sql2 = "SELECT `accountID`, `fileName` FROM `media` WHERE `ID` = ?";
                         db.query(sql2, [currentMediaID], (err, mediaData) => {
-                            if(err) {
+                            if (err) {
                                 console.log(err);
                                 res.sendStatus(500);
                                 return;
                             }
 
-                            let sql3 = "SELECT count(*) as likes, (SELECT count(*) FROM `comments` WHERE mediaID = ?) AS comments FROM `likes` WHERE mediaID = ?";
-                            db.query(sql3, [currentMediaID, currentMediaID], (err, mediaInfoData) => {
-                                if(err) {
-                                    console.log(err);
-                                    res.sendStatus(500);
-                                    return;
-                                }
+                            if(mediaData.length > 0) {
+                                let sql3 = "SELECT count(*) as likes, (SELECT count(*) FROM `comments` WHERE mediaID = ?) AS comments FROM `likes` WHERE mediaID = ?";
+                                db.query(sql3, [currentMediaID, currentMediaID], (err, mediaInfoData) => {
+                                    if (err) {
+                                        console.log(err);
+                                        res.sendStatus(500);
+                                        return;
+                                    }
 
-                                savedData[i].posterID = mediaData[0].accountID;
-                                savedData[i].fileName = mediaData[0].fileName;
-                                savedData[i].likes = mediaInfoData[0].likes;
-                                savedData[i].comments = mediaInfoData[0].comments;
-                                if(i == (savedData.length - 1)) {
-                                    res.send(savedData)
-                                }
-                            })
+                                    savedData[i].posterID = mediaData[0].accountID;
+                                    savedData[i].fileName = mediaData[0].fileName;
+                                    savedData[i].likes = mediaInfoData[0].likes;
+                                    savedData[i].comments = mediaInfoData[0].comments;
+                                    if (i == (savedData.length - 1)) {
+                                        res.send(savedData)
+                                    }
+                                })
+                            } else {
+                                savedData[i] = '';
+                            }
                         })
                     }
                 } else {
