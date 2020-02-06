@@ -473,6 +473,7 @@ input:not(:placeholder-shown) ~ label {
     height: 85%;
     border: var(--default-border);
     border-radius: 156px;
+    position: relative;
 }
 
 .profile-info-container {
@@ -1199,7 +1200,7 @@ input:-webkit-autofill {
     display: none !important;
 }
 
-.optionsModal, .unfollowModal, .profileOptionsModal, .createPostModal  {
+.optionsModal, .unfollowModal, .profileOptionsModal, .createPostModal, .profilePicModal  {
     position: absolute;
     z-index: 1;
     width: 100vw;
@@ -2631,3 +2632,17 @@ transform: scaleX(-1);
     background-color: green;
 }
 
+.change-profile-pic {
+    position: absolute;
+    height: 45%;
+    width: 100%;
+    /* left: 7%; */
+    top: 55%;
+    border-radius: 0 0 100px 100px;
+    border: var(--default-border);
+    background-color: white;
+    opacity: .4;
+    text-align: center;
+    padding-top: 22px;
+    cursor: pointer;
+}

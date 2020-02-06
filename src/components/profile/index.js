@@ -13,6 +13,9 @@ import {getFollowerUsernameAction} from "../../actions/getFollowerUsernameAction
 import {getUsernameAction} from "../../actions/getUsernameAction";
 import {getSavedMediaAction} from '../../actions/getSavedMediaAction'
 import {addMediaAction} from '../../actions/addMediaAction';
+import ProfilePicModal from './profilePicModal';
+import {removeProfilePicAction} from '../../actions/removeProfilePicAction';
+import ChangeProfileModal from './changeProfileModal'
 
 class Profile extends Component {
 
@@ -150,15 +153,34 @@ class Profile extends Component {
 
     makeSavedMedia = () => {
         let savedMediaList = this.props.savedMedia.map((item, index) => {
-            return (
-                <UserMediaList postFns={this.openPostModal} mediaImages={this.props.mediaImages} key={index} media={item}/>
-            )
+            if(item !== '') {
+                return (
+                    <UserMediaList postFns={this.openPostModal} mediaImages={this.props.mediaImages} key={index}
+                                   media={item}/>
+                )
+            }
         });
         return savedMediaList;
     };
 
     callAddMediaAction = (file, desc) => {
-        this.props.addMediaAction(file, desc, this.props.id)};
+        this.props.addMediaAction(file, desc, this.props.id)
+    };
+
+    openProfilePicModal = () => {
+        document.getElementById("profilePicModal").classList.remove("hide");
+    };
+
+    removeProfilePic = () => {
+        this.props.removeProfilePicAction(this.props.id);
+        document.getElementsByClassName("profilePic")[0].setAttribute('src', this.props.generalImages['default.png']);
+    };
+
+    changeProflePic = (file) => {
+        debugger;
+        document.getElementById("changeProfileModal").classList.remove("hide");
+        // this.props.addProfilePic(file, this.props.id);
+    };
 
     render() {
         let profileMediaList = '';
@@ -171,67 +193,68 @@ class Profile extends Component {
         }
 
         return (
-            <Fragment>
-                <div className={"content-header"}>
-                    <ProfileOptionsModal/>
-                    <CreatePostModal createdMediaFns={this.callAddMediaAction}/>
-                    <PostModal/>
-                    <div className="profile-gutter">
-                        <div className="user-info-container">
-                            <div className="profile-pic-container">
-                                <div className="profile-pic-container-inner">
-                                    <img className="profilePic" src={this.state.profileMedia && this.state.profileMedia !== '' ? this.props.profileImages[this.state.profileMedia] : this.props.generalImages['default.png']} alt=""/>
-                                </div>
-                            </div>
-                            <div className="profile-info-container">
-                                <div className="profile-info-content-container">
-                                    <div className="information-container-top">
-                                        <div className="profile-username">{this.props.followerUsernameUsername ? this.props.followerUsernameUsername : this.props.username ? this.props.username : ''}</div>
-                                        <div className="profile-edit">
-                                            <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
-                                            <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
-                                        </div>
-                                    </div>
-                                    <div className="information-container-middle">
-                                        <div className="posts">{this.state.numberPosts} posts</div>
-                                        <div className="followers">{this.state.numberFollower} followers</div>
-                                        <div className="following">{this.state.numberFollowing} following</div>
-                                    </div>
-                                    <div className="information-container-bottom">
-                                        <div className="first-last-name">{this.props.followerUsernameName ? this.props.followerUsernameName : this.props.name ? this.props.name : ''}</div>
-                                        <div className="bio">{this.props.followerUsernameBio === 'none' ? this.props.bio ? this.props.bio : '' : this.props.followerUsernameBio ? this.props.followerUsernameBio : ''}</div>
-                                    </div>
-                                </div>
+            <div className="content-header">
+                <ProfileOptionsModal/>
+                <CreatePostModal createdMediaFns={this.callAddMediaAction}/>
+                <PostModal/>
+                <ProfilePicModal removeProfilePicFns={this.removeProfilePic} changeProfilePicFns={this.changeProflePic}/>
+                <ChangeProfileModal chnageProfileFns={this.changeProflePic}/>
+                <div className="profile-gutter">
+                    <div className="user-info-container">
+                        <div className="profile-pic-container">
+                            <div className="profile-pic-container-inner">
+                                <div onClick={this.openProfilePicModal} className="change-profile-pic material-icons">add_a_photo</div>
+                                <img className="profilePic" src={this.state.profileMedia && this.state.profileMedia !== '' ? this.props.profileImages[this.state.profileMedia] : this.props.generalImages['default.png']} alt=""/>
                             </div>
                         </div>
-                        <div className="content-body-tabs">
-                            <ul className="nav nav-tabs tabs-center profile-nav-tabs" data-toggle="tabs">
-                                <li className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} ref={this.posts} id="posts" className={"nav-tabs-font"} href="#POSTS">POSTS</a></li>
-                                <li className={this.state.profileTracker == 'profile' ? this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane" : 'hide'}><a onClick={this.changeTabs} id="igtv" className={"nav-tabs-font"} href="#IGTV">IGTV</a></li>
-                                <li className={this.state.profileTracker == 'profile' ? this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane" : 'hide'}><a onClick={this.changeTabs} id="saved" className={"nav-tabs-font"} href="#SAVED">SAVED</a></li>
-                                <li className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} id="tagged" className={"nav-tabs-font"} href="#TAGGED">TAGGED</a></li>
-                            </ul>
-                        </div>
-                        <div className="tab-content">
-                            <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">{profileMediaList !== '' ? profileMediaList : <div className="center">You have no posted any media!</div>}</div>
-
-                            <div className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"} id="IGTV">
-                                <div className="profile-igtv-container-padding">
-                                    <div className="profile-igtv-img-container">
-                                        <img className="profile-igtv-img" src={this.props.generalImages['default.png']} alt=""/>
+                        <div className="profile-info-container">
+                            <div className="profile-info-content-container">
+                                <div className="information-container-top">
+                                    <div className="profile-username">{this.props.followerUsernameUsername ? this.props.followerUsernameUsername : this.props.username ? this.props.username : ''}</div>
+                                    <div className="profile-edit">
+                                        <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
+                                        <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
                                     </div>
-                                    <div className="profile-igtv-upload-text">Upload a Video</div>
-                                    <div className="profile-igtv-details">Videos must be between 1 and 60 minutes long.</div>
-                                    <button className="notification-follow-btn profile-igtv-btn">Upload</button>
+                                </div>
+                                <div className="information-container-middle">
+                                    <div className="posts">{this.state.numberPosts} posts</div>
+                                    <div className="followers">{this.state.numberFollower} followers</div>
+                                    <div className="following">{this.state.numberFollowing} following</div>
+                                </div>
+                                <div className="information-container-bottom">
+                                    <div className="first-last-name">{this.props.followerUsernameName ? this.props.followerUsernameName : this.props.name ? this.props.name : ''}</div>
+                                    <div className="bio">{this.props.followerUsernameBio === 'none' ? this.props.bio ? this.props.bio : '' : this.props.followerUsernameBio ? this.props.followerUsernameBio : ''}</div>
                                 </div>
                             </div>
-
-                            <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">{savedMediaList !== '' ? savedMediaList : <div className="center">You have no posted any media!</div>}</div>
-                            <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
                         </div>
                     </div>
+                    <div className="content-body-tabs">
+                        <ul className="nav nav-tabs tabs-center profile-nav-tabs" data-toggle="tabs">
+                            <li className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} ref={this.posts} id="posts" className={"nav-tabs-font"} href="#POSTS">POSTS</a></li>
+                            <li className={this.state.profileTracker == 'profile' ? this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane" : 'hide'}><a onClick={this.changeTabs} id="igtv" className={"nav-tabs-font"} href="#IGTV">IGTV</a></li>
+                            <li className={this.state.profileTracker == 'profile' ? this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane" : 'hide'}><a onClick={this.changeTabs} id="saved" className={"nav-tabs-font"} href="#SAVED">SAVED</a></li>
+                            <li className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"}><a onClick={this.changeTabs} id="tagged" className={"nav-tabs-font"} href="#TAGGED">TAGGED</a></li>
+                        </ul>
+                    </div>
+                    <div className="tab-content">
+                        <div className={this.state.activeTab === 'posts' ? 'active tab-pane' :"tab-pane"} id="POSTS">{profileMediaList !== '' ? profileMediaList : <div className="center">You have no posted any media!</div>}</div>
+
+                        <div className={this.state.activeTab === 'igtv' ? 'active tab-pane' :"tab-pane"} id="IGTV">
+                            <div className="profile-igtv-container-padding">
+                                <div className="profile-igtv-img-container">
+                                    <img className="profile-igtv-img" src={this.props.generalImages['default.png']} alt=""/>
+                                </div>
+                                <div className="profile-igtv-upload-text">Upload a Video</div>
+                                <div className="profile-igtv-details">Videos must be between 1 and 60 minutes long.</div>
+                                <button className="notification-follow-btn profile-igtv-btn">Upload</button>
+                            </div>
+                        </div>
+
+                        <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">{savedMediaList !== '' ? savedMediaList : <div className="center">You have no posted any media!</div>}</div>
+                        <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
+                    </div>
                 </div>
-            </Fragment>
+            </div>
         )
     }
 }
@@ -264,4 +287,5 @@ export default connect(mapStateToProps, {
     getUsernameAction,
     getSavedMediaAction,
     addMediaAction,
+    removeProfilePicAction,
 })(withRouter(authHOC(Profile)));
