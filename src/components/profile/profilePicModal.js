@@ -10,7 +10,6 @@ class profilePicModal extends Component {
     };
 
     hideModal = (e) => {
-        debugger;
         if(e.target.classList[0] === 'profilePicModal' || e.target.classList[0] === 'cancel-upload-profile-pic') {
             document.getElementById("profilePicModal").classList.add("hide");
         }

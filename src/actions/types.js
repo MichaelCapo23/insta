@@ -55,4 +55,6 @@ export default {
     ADD_MEDIA_ERROR: 'add_media_error',
     REMOVE_PROFILE_PIC: 'remove_profile_pic',
     REMOVE_PROFILE_PIC_ERROR: 'remove_profile_pic_error',
+    CHANGE_PROFILE_PIC: 'change_profile_pic',
+    CHANGE_PROFILE_PIC_ERROR: 'change_profile_pic_error',
 }

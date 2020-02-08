@@ -15,7 +15,8 @@ import {getSavedMediaAction} from '../../actions/getSavedMediaAction'
 import {addMediaAction} from '../../actions/addMediaAction';
 import ProfilePicModal from './profilePicModal';
 import {removeProfilePicAction} from '../../actions/removeProfilePicAction';
-import ChangeProfileModal from './changeProfileModal'
+import ChangeProfileModal from './changeProfileModal';
+import {changeProfilePicAction} from '../../actions/changeProfilePicAction';
 
 class Profile extends Component {
 
@@ -176,10 +177,10 @@ class Profile extends Component {
         document.getElementsByClassName("profilePic")[0].setAttribute('src', this.props.generalImages['default.png']);
     };
 
-    changeProflePic = (file) => {
+    changeProflePic = (file) => { //make this action and service, change profile should work, maybe pass back the route to img and change it here when component updates
         debugger;
-        document.getElementById("changeProfileModal").classList.remove("hide");
-        // this.props.addProfilePic(file, this.props.id);
+        document.getElementById("changeProfileModal").classList.add("hide");
+        this.props.changeProfilePicAction(file, this.props.id);
     };
 
     render() {
@@ -198,7 +199,7 @@ class Profile extends Component {
                 <CreatePostModal createdMediaFns={this.callAddMediaAction}/>
                 <PostModal/>
                 <ProfilePicModal removeProfilePicFns={this.removeProfilePic} changeProfilePicFns={this.changeProflePic}/>
-                <ChangeProfileModal chnageProfileFns={this.changeProflePic}/>
+                <ChangeProfileModal changeProfileFns={this.changeProflePic}/>
                 <div className="profile-gutter">
                     <div className="user-info-container">
                         <div className="profile-pic-container">
@@ -288,4 +289,5 @@ export default connect(mapStateToProps, {
     getSavedMediaAction,
     addMediaAction,
     removeProfilePicAction,
+    changeProfilePicAction,
 })(withRouter(authHOC(Profile)));

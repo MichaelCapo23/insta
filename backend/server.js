@@ -55,3 +55,4 @@ require('./searchBar')(app, db);
 require('./getSavedMedia')(app, db);
 require('./addUserMedia')(app, db);
 require('./removeProfilePic')(app, db);
+require('./changeProfilePic')(app, db);

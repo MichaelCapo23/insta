@@ -6,7 +6,7 @@ import UploadProfilePicComponent from "./fineUploaderProfile";
 class changeProfileModal extends Component {
     state = {
         isOpen: false,
-        file : "",
+        profileFile : "",
         description: '',
     };
 
@@ -22,7 +22,7 @@ class changeProfileModal extends Component {
 
     submitMedia = () => {
         debugger;
-        this.props.chnageProfileFns(this.state.file[0])
+        this.props.changeProfileFns(this.state.profileFile[0])
     };
 
     handleFiles = files => {
