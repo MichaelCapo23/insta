@@ -26,7 +26,8 @@ import saveMediaReducer from './saveMediaReducer';
 import searchBarReducer from './searchBarReducer';
 import getSavedMediaReducer from './getSavedMediaReducer';
 import addMediaReducer from './addMediaReducer';
-import removeProfilePicReducer from './removeProfilePicReducer'
+import removeProfilePicReducer from './removeProfilePicReducer';
+import changeProfilePicReducer from './changeProfilePicReducer';
 
 const rootReducer = combineReducers({
     usernameReducer,
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
     getSavedMediaReducer,
     addMediaReducer,
     removeProfilePicReducer,
+    changeProfilePicReducer,
     form: formReducer,
 });
 
