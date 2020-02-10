@@ -18,20 +18,33 @@ module.exports = (app, db) => {
                                 res.sendStatus(500);
                                 return;
                             }
-                            if (follower.length > 0) {
-                                let output = {
-                                    status: "OK",
-                                    username: data[0].username,
-                                    id: data[0].ID,
-                                    name: data[0].name,
-                                    bio: data[0].bio,
-                                    followerusername: follower[0].username,
-                                    followerid: follower[0].ID,
-                                    followername: follower[0].name,
-                                    followerbio: follower[0].bio,
-                                };
-                                res.send(output)
-                            }
+                            let id = data[0].ID;
+                            let followerid = follower[0].ID;
+
+                            let sql = "SELECT COUNT(*) AS `count` FROM `followers` WHERE `accountID` = ? AND `followAccount` = ?";
+                            db.query(sql, [id, followerid], (err, followsUserData) => {
+                                if (err) {
+                                    console.log(err);
+                                    res.sendStatus(500);
+                                    return;
+                                }
+
+                                if (follower.length > 0) {
+                                    let output = {
+                                        status: "OK",
+                                        username: data[0].username,
+                                        id: id,
+                                        name: data[0].name,
+                                        bio: data[0].bio,
+                                        followerusername: follower[0].username,
+                                        followerid: followerid,
+                                        followername: follower[0].name,
+                                        followerbio: follower[0].bio,
+                                        followsUser: followsUserData[0].count,
+                                    };
+                                    res.send(output)
+                                }
+                            })
                         })
                     } else {
                         let output = {
@@ -52,3 +65,4 @@ module.exports = (app, db) => {
         })
     });
 };
+

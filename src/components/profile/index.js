@@ -192,6 +192,7 @@ class Profile extends Component {
         if(this.props.savedMedia !== '') {
             savedMediaList = this.makeSavedMedia(this.state.savedMedia);
         }
+        debugger;
 
         return (
             <div className="content-header">
@@ -213,7 +214,8 @@ class Profile extends Component {
                                 <div className="information-container-top">
                                     <div className="profile-username">{this.props.followerUsernameUsername ? this.props.followerUsernameUsername : this.props.username ? this.props.username : ''}</div>
                                     <div className="profile-edit">
-                                        <button onClick={this.toSettings} className={'btn-edit'} type={'button'}>Edit Profile</button>
+                                        <button onClick={this.toSettings} className={this.state.profileTracker == 'profile' ? 'btn-edit' : 'hide'} type={'button'}>Edit Profile</button>
+                                        {this.state.profileTracker == 'profile' ? '' : this.props.followerUsernameFollowsUser == 0 ? <button className={this.state.profileTracker == 'profile' ? "hide" : 'follow-back-btn'}>Follow Back</button> : <button className={this.state.profileTracker == 'profile' ? "hide" : 'following-btn'}>Following</button>}
                                         <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
                                     </div>
                                 </div>
@@ -275,6 +277,7 @@ function mapStateToProps(state) {
         followerUsernameID: state.usernameReducer.username.followerid,
         followerUsernameName: state.usernameReducer.username.followername,
         followerUsernameBio: state.usernameReducer.username.followerbio,
+        followerUsernameFollowsUser: state.usernameReducer.username.followsUser,
         savedMedia: state.getSavedMediaReducer.savedMedia,
         newMediaID: state.addMediaReducer.newMediaID,
     }
