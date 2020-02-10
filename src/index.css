@@ -4,6 +4,10 @@
     --defualt-white: #FFFFFF;
 }
 
+.App {
+    overflow-x: hidden;
+}
+
 
 body {
     margin: 0;
@@ -340,6 +344,7 @@ input:not(:placeholder-shown) ~ label {
     height: 100%;
     padding: 20px 0;
     margin: auto;
+    position: relative;
 }
 
 .logo-container, .logo-divider, .logo-text-container, .asset-container, .header-link-container, .media-container, .information-container {
@@ -371,36 +376,38 @@ input:not(:placeholder-shown) ~ label {
     background-position: 18px;
 }
 
+.searchbar-overall-input-container {
+    width: calc(100% - 354px);
+    margin: auto;
+    display: inline-block;
+    vertical-align: top;
+
+}
+
 .searchbar-container {
     display: inline-block;
-    height: 85%;
-    width: 254px;
+    width: 100%;
     cursor: text;
-    background: #fafafa;
-    border: var(--default-border);
     color: #999;
-    margin-left: 164px;
-    margin-right: 228px;
-    vertical-align: top;
-    position: relative;
-    top: 2px;
     border-radius: 3px;
+    margin: auto;
 }
 
 .searchbar-input {
     background: #fafafa;
-    border: none !important;
     background-image: url("assets/search3.png");
     background-repeat: no-repeat;
     background-size: 8% 36%;
     background-position: 57px 9.3px;
-    width: 94%;
+    width: 100%;
+    max-width: 254px;
+    border: var(--default-border);
+    display: block;
+    margin: auto;
 }
 
 .searchbar-input:focus {
     outline: none !important;
-    display: inline-block;
-    /*background-image: none;*/
 }
 
 .searchbar-input::placeholder {
@@ -502,8 +509,12 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .profile-username {
-    font-size: 25px;
-    font-weight: lighter;
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 300;
+    color: #262626;
+    position: relative;
+    top:  -4px;
 }
 
 .btn-edit {
@@ -519,11 +530,11 @@ input:not(:placeholder-shown) ~ label {
 .cog-icon {
     background-image: url('./assets/cog.png');
     display: inline-block;
-    width: 30px;
+    width: 29px;
     height: 30px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    margin-left: 15px;
+    margin-left: 5px;
     cursor: pointer;
 }
 
@@ -579,13 +590,6 @@ input:not(:placeholder-shown) ~ label {
     margin-right: 35px !important;
 }
 
-.overall-container {
-    height: 293px;
-    width: 293px;
-    display: inline-block;
-    margin: 0 28px 28px 0;
-}
-
 .media-post-profile {
     height: 100%;
     width: 100%;
@@ -593,8 +597,6 @@ input:not(:placeholder-shown) ~ label {
 
 .overall-container {
     position: relative;
-    width: 50%;
-    max-width: 300px;
 }
 
 .overlay {
@@ -607,7 +609,8 @@ input:not(:placeholder-shown) ~ label {
     opacity:0;
     color: black;
     font-size: 20px;
-    padding: 147px !important;
+    /*padding: 147px !important;*/
+    height: 100%;
     text-align: center;
 }
 
@@ -1530,11 +1533,14 @@ input:-webkit-autofill {
 }
 
 .header-icons-container {
-    height: 100%;
+    /*height: 100%;*/
     width: 154px;
     vertical-align: top;
-    position: relative;
-    top: 5px;
+    /*position: relative;*/
+    /*top: 5px;*/
+    position: absolute;
+    /*top: 25px;*/
+    right: 0;
 }
 
 .header-heart-container, .header-profile-container {
@@ -1719,11 +1725,13 @@ transform: scaleX(-1);
     width: 100%;
 }
 
-.explore-media-list-overall {
+.explore-media-list-overall, .overall-container {
     display: inline-block;
     height: 293px;
-    width: 293px;
-    margin: 0 28px 28px 0;
+    /*width: 293px;*/
+    /*margin: 0 28px 28px 0;*/
+    width: 32%;
+    margin: .5%;
     position: relative;
 }
 
@@ -1848,7 +1856,7 @@ transform: scaleX(-1);
 .post-modal-content-left-top-container {
     display: inline-block;
     vertical-align: sub;
-    vertical-align: -webkit-baseline-middle;
+    /*vertical-align: -webkit-baseline-middle;*/
     max-width: 333px;
 }
 
@@ -2038,11 +2046,16 @@ transform: scaleX(-1);
 }
 
 .notifications-gutter, .searchbar-gutter {
-    width: 875px;
+    /*width: 875px;*/
+    width: 100vw;
     margin: auto;
     height: 362px;
     position: relative;
     top: 75px;
+}
+
+.notifications-gutter {
+    width: 875px;
 }
 
 .notifications-content {
@@ -2064,6 +2077,8 @@ transform: scaleX(-1);
     width: 300px;
     overflow: auto;
     border-radius: 5px;
+    position: relative;
+    left: 22px;
 }
 
 .searchbar-content::-webkit-scrollbar {
@@ -2645,4 +2660,93 @@ transform: scaleX(-1);
     text-align: center;
     padding-top: 22px;
     cursor: pointer;
+}
+
+.follow-back-btn {
+    background: #3897f0;
+    border-color: #3897f0;
+    color: #fff;
+    cursor: pointer;
+    padding: 0 24px;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 26px;
+    outline: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+
+.following-btn {
+    background: 0 0;
+    border-color: #dbdbdb;
+    color: #262626;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 26px;
+    outline: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 1000px) {
+    .profile-info-container {
+        width: calc(100vw - var(--pic-container-width));
+        min-width: 293px;
+    }
+    .profile-info-content-container {
+        max-width: 340px;
+        width: auto;
+        margin: auto;
+    }
+    .profile-username {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .explore-media-list-overall, .overall-container {
+        height: 30vw;
+    }
+
+    .explore-media-list-overall:hover .inline-likes, .overall-container:hover .inline-likes {
+        left: 42%;
+        top: 63%;
+    }
+
+    .explore-media-list-overall:hover .inline-comments, .overall-container:hover .inline-comments {
+        left: 42%;
+        top: 40%;
+    }
+
+    .notifications-gutter {
+        width: 100vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .logo-text-container, .logo-divider {
+        display: none;
+    }
+
+    .searchbar-overall-input-container {
+        width: calc(100% - 218px);
+    }
+
+    .searchbar-content {
+        left: -63px;
+    }
+
 }

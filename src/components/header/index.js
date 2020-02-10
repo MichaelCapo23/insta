@@ -115,8 +115,10 @@ class Header extends Component {
                             <div className="logo-divider"></div>
                             <div className="logo-text-container"></div>
                         </Link>
-                        <div className="searchbar-container">
-                            <input ref={this.input} onChange={this.searchInput} placeholder={'Search'} type="text" className="searchbar-input"/>
+                        <div className="searchbar-overall-input-container">
+                            <div className="searchbar-container">
+                                <input ref={this.input} onChange={this.searchInput} placeholder={'Search'} type="text" className="searchbar-input"/>
+                            </div>
                         </div>
                         <div className="header-icons-container">
                             <Link to={{pathname: '/explore', state: {id: this.props.id}}} className="header-compass-container">
