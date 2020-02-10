@@ -453,6 +453,7 @@ input:not(:placeholder-shown) ~ label {
 
 .information-container {
     width: calc(100% - 666px);
+    min-width: 150px;
     vertical-align: top;
 }
 
@@ -891,6 +892,7 @@ input:-webkit-autofill {
 
 .stories-container {
     height: 215px;
+    min-width: 150px;
     background-color: #fff;
 }
 
@@ -1441,6 +1443,8 @@ input:-webkit-autofill {
     width: 100%;
     border-radius: 100px;
     vertical-align: inherit;
+    border: 2px solid white;
+    background: linear-gradient(#F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);
 }
 
 .list-stories-username-time-container {
