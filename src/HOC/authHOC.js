@@ -83,6 +83,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
             id: state.usernameReducer.username.id,
             bio: state.usernameReducer.username.bio,
             notification_list: state.getNotificationsReducer.notification_list,
+            profileFileName: state.usernameReducer.profileFileName,
         }
 
     }

@@ -453,6 +453,7 @@ input:not(:placeholder-shown) ~ label {
 
 .information-container {
     width: calc(100% - 666px);
+    min-width: 150px;
     vertical-align: top;
 }
 
@@ -891,6 +892,7 @@ input:-webkit-autofill {
 
 .stories-container {
     height: 215px;
+    min-width: 150px;
     background-color: #fff;
 }
 
@@ -1441,6 +1443,8 @@ input:-webkit-autofill {
     width: 100%;
     border-radius: 100px;
     vertical-align: inherit;
+    border: 2px solid white;
+    background: linear-gradient(#F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);
 }
 
 .list-stories-username-time-container {
@@ -2562,7 +2566,6 @@ transform: scaleX(-1);
 }
 
 .create-post-field-name {
-    display: inline-block;
     margin-top: 6px;
     box-sizing: border-box;
     color: #262626;
@@ -2571,16 +2574,20 @@ transform: scaleX(-1);
     font-weight: 600;
     line-height: 18px;
     margin-right: 5px;
+    margin-bottom: .5rem;
 }
 
 .create-post-field-input {
-    min-width: 200px;
     border: 1px solid #efefef !important;
     border-radius: 3px;
     font-size: 16px;
     height: 32px;
     padding: 0 10px;
     vertical-align: top;
+    width: 100% !important;
+    min-height: 50px;
+    max-height: 100px;
+    margin-bottom: 15px;
 }
 
 .button-submit-container {
@@ -2700,6 +2707,28 @@ transform: scaleX(-1);
     vertical-align: top;
     margin-left: 10px;
     display: inline-block;
+}
+
+.select-label {
+    display: inline-block;
+    color: #262626;
+    -webkit-box-flex: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    width: 90px;
+}
+
+.no-img-selected-text {
+    font-size: 30px;
+    padding: 20px;
+    text-align: center;
+}
+
+.error-text {
+    color: red;
+    font-size: 15px;
+    text-align: center;
 }
 
 @media only screen and (max-width: 1000px) {

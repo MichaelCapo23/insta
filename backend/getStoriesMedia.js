@@ -4,8 +4,9 @@ module.exports = (app, db) => {
         let output = {status: 'NO'};
         let followIDs = [];
         let userStories = [];
-        let userStoriesIndex = 0;
+        let currentUserStories = [];
         let allMediaData = [];
+        let allMediaFinalArr = [];
 
         let sql = "SELECT `followAccount` FROM `followers` WHERE `accountID` = ?";
         db.connect(() => {
@@ -32,49 +33,44 @@ module.exports = (app, db) => {
                                 return;
                             }
                             for (let i in mediaData) {
-                                console.log(mediaData[i]);
                                 allMediaData.push(mediaData[i]);
                             }
                             if(followerID == (followIDs.length - 1)) {
-                                let removeIDs = [];
                                 for (let index in allMediaData) {
                                     let currentStory = allMediaData[index];
                                     let currentMediaID = currentStory.mediaID;
                                     let sql3 = "SELECT COUNT(*) AS `hasIndex` FROM `viewed_stories` WHERE `mediaID` = ?";
                                     db.query(sql3, currentMediaID, (err, viewedData) => {
-                                        console.log(sql3);
                                         if (err) {
                                             console.log(err);
                                             res.sendStatus(500);
                                             return;
                                         }
 
-
-                                        if (viewedData[0]['hasIndex'] != 0) {
-                                            removeIDs.push(index);
+                                        if (viewedData[0]['hasIndex'] == 0) { //this would be where it messes up check here
+                                            currentUserStories.push(allMediaData[index]);
+                                            userStories.push(allMediaData[index]);
                                         }
 
-                                        if (index == (allMediaData.length - 1)) {
-                                            for (let i = removeIDs.length - 1; i >= 0; i--) {
-                                                allMediaData.splice(removeIDs[i], 1);
-                                            }
-
-                                            if (allMediaData.length != 0 && mediaData != null) {
-                                                userStories[userStoriesIndex] = allMediaData.length;
-                                                ++userStoriesIndex;
-                                            }
-                                        }
-
-                                        console.log('followerID: '+followerID);
-                                        console.log('(followIDs.length - 1): '+(followIDs.length - 1));
-                                        console.log('index: '+index);
-                                        console.log('(dataLength - 1): '+(allMediaData.length - 1));
                                         if (followerID == (followIDs.length - 1) && index == (allMediaData.length - 1)) {
+                                            let sorted = {};
+                                            for(let i = 0; i < userStories.length; i++ ){
+                                                if( sorted[userStories[i].ID] == undefined ){
+                                                    sorted[userStories[i].ID] = [];
+                                                }
+                                                sorted[userStories[i].ID].push(userStories[i]);
+                                            }
+
+                                            Object.entries(sorted).forEach(([key, value]) => {
+                                                allMediaFinalArr.push(sorted[key]);
+                                            });
+
                                             output = {
                                                 status: 'OK',
-                                                stories: userStories,
+                                                stories: allMediaFinalArr,
                                             };
                                             res.send(output);
+                                            return;
                                         }
                                     })
                                 }
@@ -92,47 +88,3 @@ module.exports = (app, db) => {
         })
     })
 };
-
-
-//let removeIDs = [];
-//                             for (let index in mediaData) {
-//                                 let currentStory = mediaData[index];
-//                                 let currentMediaID = currentStory.mediaID;
-//                                 let sql3 = "SELECT COUNT(*) AS `hasIndex` FROM `viewed_stories` WHERE `mediaID` = ?";
-//                                 db.query(sql3, currentMediaID, (err, viewedData) => {
-//                                     console.log(sql3);
-//                                     if (err) {
-//                                         console.log(err);
-//                                         res.sendStatus(500);
-//                                         return;
-//                                     }
-//
-//
-//                                     if (viewedData[0]['hasIndex'] != 0) {
-//                                         removeIDs.push(index);
-//                                     }
-//
-//                                     if (index == (mediaData.length - 1)) {
-//                                         for (let i = removeIDs.length - 1; i >= 0; i--) {
-//                                             data.splice(removeIDs[i], 1);
-//                                         }
-//
-//                                         if (mediaData.length != 0 && mediaData != null) {
-//                                             userStories[userStoriesIndex] = mediaData.length;
-//                                             ++userStoriesIndex;
-//                                         }
-//                                     }
-//
-//                                     console.log('followerID: '+followerID);
-//                                     console.log('(followIDs.length - 1): '+(followIDs.length - 1));
-//                                     console.log('index: '+index);
-//                                     console.log('(dataLength - 1): '+(mediaData.length - 1));
-//                                     if (followerID == (followIDs.length - 1) && index == (mediaData.length - 1)) {
-//                                         output = {
-//                                             status: 'OK',
-//                                             stories: userStories,
-//                                         };
-//                                         res.send(output);
-//                                     }
-//                                 })
-//                             }

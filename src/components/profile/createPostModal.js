@@ -21,12 +21,17 @@ class CreatePostModal extends Component {
     };
 
     submitMedia = () => {
-        this.props.createdMediaFns(this.state.file[0], this.state.description);
-        this.setState({
-            file: '',
-            description: '',
-        });
-        document.getElementById("createPostModal").classList.add("hide");
+        if(this.state.file[0] && this.state.file != '') {
+            this.props.createdMediaFns(this.state.file[0], this.state.description);
+            this.setState({
+                file: '',
+                description: '',
+            });
+            document.getElementById("createPostModal").classList.add("hide");
+        } else {
+            document.getElementsByClassName("error-text")[0].textContent = 'You must select a file to submit!'
+
+        }
     };
 
     handleFiles = files => {

@@ -143,15 +143,16 @@ class Stories extends Component {
     };
 
     render() {
+        debugger;
         return (
             <div className="stories-container-stories">
                 <div className="stories-gutter">
                     <div className="stories-header-container">
                         <div className="profile-info">
                             <div className="stories-profile-img-container">
-                                <img className="stories-profile-img" src={this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.props.profileImages[this.state.storiesMedia[this.state.currentStoryIndex][0].profileFileName] : ''} alt="profile"/>
+                                <img className="stories-profile-img" src={this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.props.profileImages[this.state.storiesMedia[this.state.currentStoryIndex].profileFileName] : ''} alt="profile"/>
                             </div>
-                            <div className="stories-username">{this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.state.storiesMedia[this.state.currentStoryIndex][0].username : ''}</div>
+                            <div className="stories-username">{this.state.storiesMedia[this.state.currentStoryIndex] !== '' && this.state.storiesMedia[this.state.currentStoryIndex] !== undefined ? this.state.storiesMedia[this.state.currentStoryIndex].username : ''}</div>
                             <div className="stories-posted-at">1h</div>
                         </div>
                         <div className="stories-paused">Paused</div>
