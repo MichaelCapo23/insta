@@ -164,8 +164,8 @@ class Profile extends Component {
         return savedMediaList;
     };
 
-    callAddMediaAction = (file, desc) => {
-        this.props.addMediaAction(file, desc, this.props.id)
+    callAddMediaAction = (file, desc, tags) => {
+        this.props.addMediaAction(file, desc, this.props.id, tags)
     };
 
     openProfilePicModal = () => {
@@ -192,7 +192,6 @@ class Profile extends Component {
         if(this.props.savedMedia !== '') {
             savedMediaList = this.makeSavedMedia(this.state.savedMedia);
         }
-        debugger;
 
         return (
             <div className="content-header">
