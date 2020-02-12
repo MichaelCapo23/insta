@@ -2,7 +2,10 @@ const fs = require('fs');
 module.exports = (app, db) => {
     app.post('/addMedia', (req, res) => {
         let {desc, id} = req.headers;
-        let {file} = req.body;
+        let {file, tags} = req.body;
+        let commentsID = '';
+        let tagsInsertIDs = '';
+        tags = JSON.parse(tags); //add in the tags to the tags table.
         db.connect(() => {
             let sql = "SELECT COUNT(*) AS `count` FROM `media` WHERE `accountID` = ?";
             db.query(sql, [id], (err, countData) => {
@@ -44,12 +47,40 @@ module.exports = (app, db) => {
                                 res.sendStatus(500);
                                 return;
                             }
-                            let output = {
-                                'mediaID': mediaID,
-                                'commentsID': JSON.stringify(commentsData.insertId),
-                            };
-                            res.send(output);
+
+                            if(tags.length == 0) {
+                                commentsID = JSON.stringify(commentsData.insertId);
+                                let output = {
+                                    'mediaID': mediaID,
+                                    'commentsID': commentsID,
+                                };
+                                res.send(output);
+                            }
                         })
+                    }
+
+                    if(tags.length > 0) {
+                      tags.forEach((tagObj, index)=> {
+                          let sql4 = "INSERT INTO `tags` SET `mediaID` = ?, `taggedID` = ?";
+                          db.query(sql4, [mediaID, tagObj.value], (err, tagsInsertData) => {
+                              if (err) {
+                                  console.log(err);
+                                  res.sendStatus(500);
+                                  return;
+                              }
+
+                              tagsInsertIDs = JSON.stringify(tagsInsertData.insertId);
+
+                              if(index == tags.length - 1) {
+                                  let output = {
+                                      'mediaID': mediaID,
+                                      'commentsID': commentsID,
+                                      'tagsInsertsIDs': tagsInsertIDs
+                                  };
+                                  res.send(output);
+                              }
+                          })
+                      })
                     } else {
                         let output = {
                             'mediaID': mediaID,
@@ -61,3 +92,10 @@ module.exports = (app, db) => {
         })
     })
 };
+
+//else {
+//                         let output = {
+//                             'mediaID': mediaID,
+//                         };
+//                         res.send(output);
+//                     }

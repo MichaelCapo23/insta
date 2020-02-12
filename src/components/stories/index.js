@@ -143,7 +143,6 @@ class Stories extends Component {
     };
 
     render() {
-        debugger;
         return (
             <div className="stories-container-stories">
                 <div className="stories-gutter">

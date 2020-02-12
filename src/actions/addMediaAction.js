@@ -1,7 +1,8 @@
 import axios from 'axios';
 import types from './types'
 
-export const addMediaAction = (file, desc, id) => async dispatch => {
+export const addMediaAction = (file, desc, id, tags) => async dispatch => {
+    debugger;
     try {
         axios({
             method: "POST",
@@ -12,6 +13,7 @@ export const addMediaAction = (file, desc, id) => async dispatch => {
             },
             data: {
                 file: file,
+                tags: JSON.stringify(tags),
             }
         }).then(response => {
             dispatch({
@@ -20,6 +22,7 @@ export const addMediaAction = (file, desc, id) => async dispatch => {
             })
         })
     } catch {
+        debugger;
         dispatch({
             type: types.ADD_MEDIA_ERROR,
             error: 'Unable to add Media',
