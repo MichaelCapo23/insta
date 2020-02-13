@@ -5,7 +5,7 @@ module.exports = (app, db) => {
         let likes = [];
         let tagsArr = [];
         db.connect(() => {
-            let sql = "SELECT `ID`, `accountID`, `fileName`  FROM `media` WHERE `ID` = ?";
+            let sql = "SELECT `ID`, `accountID`, `fileName`, `created_at`  FROM `media` WHERE `ID` = ?";
             db.query(sql, [postid,postid], (err, mediaData) => {
                 if(err) {
                     console.log(err);
@@ -78,7 +78,7 @@ module.exports = (app, db) => {
                                         accountID: userID,
                                         mediaID: mediaData[0].ID,
                                         mediaFileName: mediaData[0].fileName,
-                                        mediaCreatedAt: mediaData[0].mediaCreatedAt,
+                                        mediaCreatedAt: mediaData[0].created_at,
                                         profileFileName: accountData[0].profileFileName,
                                         username: accountData[0].username,
                                         name: accountData[0].name,

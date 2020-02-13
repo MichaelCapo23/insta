@@ -6,6 +6,7 @@ import ModalCommentList from './modalCommentList';
 import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import AuthHOC from '../../HOC/authHOC';
 import {createNotificationAction} from '../../actions/createNotificationAction';
+import moment from "moment";
 
 class PostModal extends Component {
     constructor(props) {
@@ -60,8 +61,20 @@ class PostModal extends Component {
 
     render () {
         let commentsList = '';
+        let minutes = '';
+        let hours = '';
+        let days = '';
         if(this.props.singlePostInfo != '') {
             commentsList = this.makeCommentsList();
+            let now  = moment();
+            let then = moment(this.props.singlePostInfo.mediaCreatedAt);
+
+            let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
+            let d = moment.duration(ms);
+
+            days = d.days();
+            hours = d.hours();
+            minutes = d.minutes();
         }
 
         return (
@@ -87,7 +100,26 @@ class PostModal extends Component {
                                     </div>
                                 </div>
                                 <div className="post-modal-comments-container">{commentsList}</div>
-                                <div className="post-modal-likes-media-container"></div>
+                                <div className="post-modal-likes-media-container">
+                                    <div className="top-icon-container">
+                                        <div className="heart-container">
+                                            <img data-media="4" className="heart-img-landing" src={this.props.singlePostInfo ? this.props.singlePostInfo.userLiked == 0 ? this.props.generalImages['heartClear.jpg'] :  this.props.generalImages['heartRed.png'] : this.props.generalImages['heartClear.jpg']} alt=""/>
+                                        </div>
+                                        <div className="comment-container">
+                                            <img className="comment-img-landing" src={this.props.generalImages['comment.png']} alt=""/>
+                                        </div>
+                                        <div className="material-icons landing-bookmark">bookmark_border</div>
+                                    </div>
+                                    <div className="post-modal-data-container">
+                                        <div className="post-modal-data-img-container">
+                                            <img data-media="4" className="profile-media-img" src={this.props.singlePostInfo ? this.props.singlePostInfo == 'default' ? this.props.generalImages['default.png'] : this.props.profileImages[this.props.singlePostInfo.profileFileName] : ''} alt=""/>
+                                        </div>
+                                        <div className="post-modal-data-likes-info-container">{this.props.singlePostInfo ? this.props.singlePostInfo.likes.length == 0 ? '' :  this.props.singlePostInfo.likes.length == 1 ? `Liked by ${this.props.singlePostInfo.likes[0].username}` : `Liked by ${this.props.singlePostInfo.likes[0].username} and ${this.props.singlePostInfo.likes.length - 1} others` : ''}</div>
+                                        <div className="post-modal-created-at-container">
+                                            <div className="post-modal-time">{this.props.singlePostInfo ? days > 0 ? days + ' DAYS AGO' : hours > 0 ? hours + ' HOURS AGO' : minutes + ' MINUTES AGO' : ''}</div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="post-modal-add-comment">
                                     <input ref={this.myInput} onChange={this.enableBtnVal} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
                                     <button onClick={this.createComment} disabled={this.state.enableBtn} className="post-media-add-comment-btn btn">Post</button>
