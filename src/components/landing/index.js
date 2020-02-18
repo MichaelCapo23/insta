@@ -63,17 +63,24 @@ class Landing extends Component {
     };
 
     callCommentAction = (input, posterID, mediaID) => {
-        debugger;
         let comment = input.value;
         input.value = '';
         this.props.createCommentAction({userID:this.props.id, mediaID, comment});
         this.props.createNotificationAction(this.props.id, posterID, 'comment', mediaID);
     };
 
-    calLikeAction = (likeBtn) => {
+    calLikeAction = (likeBtn, posterID) => {
         let mediaID = likeBtn.attributes['data-media'].value;
         let userID = this.props.id;
         this.props.likeMediaAction({userID, mediaID});
+        debugger;
+
+        if(likeBtn.attributes.src.value === this.props.generalImages['heartRed.png']) {
+            likeBtn.setAttribute('src',this.props.generalImages['heartClear.jpg']);
+        } else {
+            likeBtn.setAttribute('src',this.props.generalImages['heartRed.png']);
+            this.props.createNotificationAction(this.props.id, posterID, 'like', mediaID);
+        }
     };
 
     openOptionsModal = (userValues) => {
@@ -114,6 +121,7 @@ class Landing extends Component {
     callSaveMediaAction = (mediaid) => {
         this.props.saveMediaAction(this.props.id, mediaid);
     };
+
 
     render() {
         let landingPostList = '';

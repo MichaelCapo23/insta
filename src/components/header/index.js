@@ -41,7 +41,7 @@ class Header extends Component {
         let searchVal = this.input.current.value;
         if(searchVal === '') {
             this.closeSearchBarModal();
-            // this.input.current.style.backgroundImage = "url('search3.png')";
+            this.input.current.style.backgroundImage = `url(${this.props.generalImages['search3.png']})`;
         } else {
             this.openSearchBaModal();
             this.props.searchBarAction(this.props.id, searchVal);

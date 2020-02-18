@@ -57,4 +57,8 @@ export default {
     REMOVE_PROFILE_PIC_ERROR: 'remove_profile_pic_error',
     CHANGE_PROFILE_PIC: 'change_profile_pic',
     CHANGE_PROFILE_PIC_ERROR: 'change_profile_pic_error',
+    GET_TAGGED_MEDIA: 'get_tagged_media',
+    GET_TAGGED_MEDIA_ERROR: 'get_tagged_media_error',
+    GET_TAGS_OPTIONS: 'get_tag_options',
+    GET_TAGS_OPTIONS_ERROR: 'get_tag_options_error',
 }

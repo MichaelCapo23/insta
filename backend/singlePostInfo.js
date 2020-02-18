@@ -62,32 +62,43 @@ module.exports = (app, db) => {
                                     return;
                                 }
 
-                                let sql6 = "SELECT `taggedID` FROM `tags` WHERE `mediaID` = ?";
-                                db.query(sql6, [postid], (err, tagsData) => {
-                                    if(err) {
+                                let sql6 = "SELECT COUNT(*) AS `saved` FROM `saved_media` WHERE `accountID` = ? AND `mediaID` = ?";
+                                db.query(sql6, [id,postid], (err, savedMediaData) => {
+                                    if (err) {
                                         console.log(err);
                                         res.sendStatus(500);
                                         return;
                                     }
 
-                                    for(let tag in tagsData) {
-                                        tagsArr.push(tagsData[tag].taggedID);
-                                    }
+                                    let sql7 = "SELECT `taggedID` FROM `tags` WHERE `mediaID` = ?";
+                                    db.query(sql7, [postid], (err, tagsData) => {
+                                        if(err) {
+                                            console.log(err);
+                                            res.sendStatus(500);
+                                            return;
+                                        }
 
-                                    let outputObj = {
-                                        accountID: userID,
-                                        mediaID: mediaData[0].ID,
-                                        mediaFileName: mediaData[0].fileName,
-                                        mediaCreatedAt: mediaData[0].created_at,
-                                        profileFileName: accountData[0].profileFileName,
-                                        username: accountData[0].username,
-                                        name: accountData[0].name,
-                                        userLiked: userlikedData[0].userLiked,
-                                        comments: comments,
-                                        tags: tagsArr,
-                                        likes: likes,
-                                    };
-                                    res.send(outputObj);
+                                        for(let tag in tagsData) {
+                                            tagsArr.push(tagsData[tag].taggedID);
+                                        }
+
+                                        let outputObj = {
+                                            accountID: userID,
+                                            mediaID: mediaData[0].ID,
+                                            mediaFileName: mediaData[0].fileName,
+                                            mediaCreatedAt: mediaData[0].created_at,
+                                            profileFileName: accountData[0].profileFileName,
+                                            username: accountData[0].username,
+                                            name: accountData[0].name,
+                                            userLiked: userlikedData[0].userLiked,
+                                            userSaved: savedMediaData[0].saved,
+                                            comments: comments,
+                                            tags: tagsArr,
+                                            likes: likes,
+                                        };
+                                        res.send(outputObj);
+                                    })
+
                                 })
                             })
                         })

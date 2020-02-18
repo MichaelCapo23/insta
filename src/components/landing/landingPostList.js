@@ -24,8 +24,8 @@ export default props => {
     };
 
     const likeMedia = (likeBtn) => {
-        props.likeFunction(likeBtn);
-        likeBtn.setAttribute('src',generalImages['heartRed.png']);
+        props.likeFunction(likeBtn, posterID);
+        // likeBtn.setAttribute('src',generalImages['heartRed.png']);
     };
 
     const openModalFns = () => {
@@ -37,9 +37,14 @@ export default props => {
     };
 
     function saveMedia() {
-        props.saveMediaFns(mediaID);
+        props.saveMediaFns(mediaID, posterID);
         saveBtn.current.textContent = "bookmark";
     }
+
+    function callCommentIcon() {
+        myInput.current.focus();
+        myInput.current.select();
+    };
 
     return (
         <div className="landing-media-container">
@@ -63,7 +68,7 @@ export default props => {
                         <img onClick={(e) => likeMedia(likeBtn.current)} data-media={comments[0].mediaID} ref={likeBtn} className="heart-img-landing" src={userLiked === 1 ? generalImages['heartRed.png'] : generalImages['heartClear.jpg']} alt=""/>{/*generalImages['heartRed.png']*/}
                     </div>
                     <div className="comment-container">
-                        <img className="comment-img-landing" src={generalImages['comment.png']} alt=""/>
+                        <img onClick={callCommentIcon} className="comment-img-landing" src={generalImages['comment.png']} alt=""/>
                     </div>
                     {/*<div className="material-icons like-comment landing-comments">mode_comment</div>*/}
                     <div ref={saveBtn} onClick={saveMedia} className="material-icons landing-bookmark">{userSaved == '0' ? 'bookmark_border' : 'bookmark'}</div> {/* bookmark <-- this is for when they click it, change to this to show media has been saved*/}

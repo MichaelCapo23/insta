@@ -17,6 +17,8 @@ import ProfilePicModal from './profilePicModal';
 import {removeProfilePicAction} from '../../actions/removeProfilePicAction';
 import ChangeProfileModal from './changeProfileModal';
 import {changeProfilePicAction} from '../../actions/changeProfilePicAction';
+import {getTagMediaAction} from '../../actions/getTagMediaAction';
+import getTagMediaReducers from "../../reducers/getTagMediaReducers";
 
 class Profile extends Component {
 
@@ -63,6 +65,7 @@ class Profile extends Component {
                 this.props.getUserMediaAction(this.props.id);
                 this.props.getUsernameAction();
                 this.props.getSavedMediaAction(this.props.id);
+                this.props.getTagMediaAction(this.props.id);
             }
             this.setState({
                 waiting: true,
@@ -79,6 +82,7 @@ class Profile extends Component {
             });
             this.props.getUserStatsAction(this.props.followerUsernameID);
             this.props.getUserMediaAction(this.props.followerUsernameID);
+            this.props.getTagMediaAction(this.props.followerUsernameID);
         }
 
         //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
@@ -164,6 +168,18 @@ class Profile extends Component {
         return savedMediaList;
     };
 
+    makeTaggedMedia = () => {
+        let taggedList = this.props.tagMediaList.map((item, index) => {
+            if(item !== '') {
+                return (
+                    <UserMediaList postFns={this.openPostModal} mediaImages={this.props.mediaImages} key={index}
+                                   media={item}/>
+                )
+            }
+        });
+        return taggedList;
+    };
+
     callAddMediaAction = (file, desc, tags) => {
         this.props.addMediaAction(file, desc, this.props.id, tags)
     };
@@ -186,11 +202,15 @@ class Profile extends Component {
     render() {
         let profileMediaList = '';
         let savedMediaList = '';
+        let taggedMediaList = '';
         if(this.props.media !== '' && this.state.postMedia) {
-            profileMediaList = this.makeMedia(this.state.postMedia);
+            profileMediaList = this.makeMedia();
         }
         if(this.props.savedMedia !== '') {
-            savedMediaList = this.makeSavedMedia(this.state.savedMedia);
+            savedMediaList = this.makeSavedMedia();
+        }
+        if(this.props.tagMediaList !== '') {
+            taggedMediaList = this.makeTaggedMedia();
         }
 
         return (
@@ -253,7 +273,7 @@ class Profile extends Component {
                         </div>
 
                         <div className={this.state.activeTab === 'saved' ? 'active tab-pane' :"tab-pane"} id="SAVED">{savedMediaList !== '' ? savedMediaList : <div className="center">You have no posted any media!</div>}</div>
-                        <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">TAGGED</div>
+                        <div className={this.state.activeTab === 'tagged' ? 'active tab-pane' :"tab-pane"} id="TAGGED">{taggedMediaList}</div>
                     </div>
                 </div>
             </div>
@@ -279,6 +299,7 @@ function mapStateToProps(state) {
         followerUsernameFollowsUser: state.usernameReducer.username.followsUser,
         savedMedia: state.getSavedMediaReducer.savedMedia,
         newMediaID: state.addMediaReducer.newMediaID,
+        tagMediaList: state.getTagMediaReducers.tagMediaList,
     }
 }
 
@@ -292,4 +313,5 @@ export default connect(mapStateToProps, {
     addMediaAction,
     removeProfilePicAction,
     changeProfilePicAction,
+    getTagMediaAction,
 })(withRouter(authHOC(Profile)));
