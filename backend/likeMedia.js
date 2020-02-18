@@ -27,7 +27,15 @@ module.exports = (app, db) => {
                         res.send(output);
                     });
                 } else {
-                    res.send('already liked');
+                    let sql3 = "DELETE FROM `likes` WHERE `accountID` = ? AND `mediaID` = ?";
+                    db.query(sql3, [id, mediaID], (err, delData) => {
+                        if (err) {
+                            console.log(err);
+                            res.sendStatus(500);
+                            return;
+                        }
+                        res.send('Removed Media');
+                    })
                 }
             })
         })

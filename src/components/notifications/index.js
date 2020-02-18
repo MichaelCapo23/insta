@@ -35,7 +35,7 @@ export default props => {
                         <div className="notification-text">{notificationType === 'follow' ? 'Started following you.' : notificationType === 'like' ? 'Liked your photo.' : notificationType === 'tag' ? 'Tagged you in a photo.' : notificationType === 'comment' ? 'Commented on your photo.' : ''} <span className="notification-time">{days > 0 ? days + 'd' : hours > 0 ? hours + 'h' : minutes + 'm'}</span></div>
                     </div>
                 </Link>
-                <button onClick={followUser} id={'follow-btn-'+notificationFromID} disabled={doesFollow ? 'disabled' : ''} type={"button"} className={ doesFollow ? 'notification-follow-btn disable-follow-btn' : "notification-follow-btn"}>Follow</button>
+                <button onClick={followUser} id={'follow-btn-'+notificationFromID} disabled={doesFollow ? 'disabled' : ''} type={"button"} className={ doesFollow ? 'notification-follow-btn disable-follow-btn' : "notification-follow-btn"}>{doesFollow ? 'Following' : 'Follow'}</button>
             </div>
         </div>
     )
