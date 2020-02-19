@@ -5,11 +5,11 @@ import Select from 'react-select';
 class UploadComponent extends Component {
 
     render() {
-        let options = [
-            { value: '1', label: 'mike' },
-            { value: '2', label: 'shawn' },
-            { value: '3', label: 'omer' },
-        ];
+        //let options = [
+        //             { value: '1', label: 'mike' },
+        //             { value: '2', label: 'shawn' },
+        //             { value: '3', label: 'omer' },
+        //         ];
         return(
             <div className="files">
                 <ReactFileReader base64={true} multipleFiles={true} multiple="multiple" handleFiles={this.props.handleFilesFns}>
@@ -23,7 +23,7 @@ class UploadComponent extends Component {
                         <textarea onChange={this.props.addMediaDescFns} id="post-desc" className="create-post-field-input"/>
                         <div className="select-container">
                             <label className="select-label" htmlFor="selectID">Tag Friends: </label>
-                            <Select id="selectID" isMulti value={this.props.state.selectedOption} onChange={this.props.addTagsFns} options={options}/>
+                            <Select id="selectID" isMulti value={this.props.state.selectedOption} onChange={this.props.addTagsFns} options={this.props.tagsOptions}/>
                         </div>
                     </div>
                 </div>

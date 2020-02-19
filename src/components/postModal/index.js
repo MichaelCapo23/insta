@@ -8,6 +8,7 @@ import AuthHOC from '../../HOC/authHOC';
 import {createNotificationAction} from '../../actions/createNotificationAction';
 import {saveMediaAction} from '../../actions/saveMediaAction';
 import {likeMediaAction} from '../../actions/likeMediaAction';
+
 import moment from "moment";
 
 class PostModal extends Component {
@@ -72,13 +73,15 @@ class PostModal extends Component {
     calLikeAction = () => {
         let userID = this.props.id;
         let mediaID = this.props.singlePostInfo.mediaID;
-        this.props.likeMediaAction({userID, mediaID});
         debugger;
-        if(this.likeBtn.current.attributes.src.value === this.props.generalImages['heartRed.png']) {
-            this.likeBtn.current.setAttribute('src',this.props.generalImages['heartClear.jpg']);
-        } else {
-            this.likeBtn.current.setAttribute('src',this.props.generalImages['heartRed.png']);
-            this.props.createNotificationAction(this.props.id, this.props.singlePostInfo.accountID, 'like', this.props.singlePostInfo.mediaID);
+        if(this.props.singlePostInfo.accountID !== this.props.id) {
+            this.props.likeMediaAction({userID, mediaID});
+            if (this.likeBtn.current.attributes.src.value === this.props.generalImages['heartRed.png']) {
+                this.likeBtn.current.setAttribute('src', this.props.generalImages['heartClear.jpg']);
+            } else {
+                this.likeBtn.current.setAttribute('src', this.props.generalImages['heartRed.png']);
+                this.props.createNotificationAction(this.props.id, this.props.singlePostInfo.accountID, 'like', this.props.singlePostInfo.mediaID);
+            }
         }
     };
 
@@ -159,7 +162,7 @@ class PostModal extends Component {
                                 </div>
                                 <div className="post-modal-add-comment">
                                     <input ref={this.myInput} onChange={this.enableBtnVal} placeholder="Add a comment..." className="add-comment-input" type="text" maxLength="140" name="comment"/>
-                                    <button onClick={this.createComment} disabled={this.state.enableBtn} className="post-media-add-comment-btn btn">Post</button>
+                                    <button onClick={this.createComment} disabled={this.props.enableBtn} className="post-media-add-comment-btn btn">Post</button>
                                 </div>
                             </div>
                         </div>

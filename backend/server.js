@@ -57,3 +57,4 @@ require('./addUserMedia')(app, db);
 require('./removeProfilePic')(app, db);
 require('./changeProfilePic')(app, db);
 require('./getTagMedia')(app, db);
+require('./getTagsOptions')(app, db);

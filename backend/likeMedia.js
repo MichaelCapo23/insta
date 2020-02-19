@@ -3,7 +3,7 @@ module.exports = (app, db) => {
         let {id} = req.headers;
         let {mediaID} = req.body;
         let output = {status: 'NO'};
-        let sql = "SELECT COUNT(*) AS `count` FROM `likes` WHERE `accountID` = ? AND  `mediaID` = ?";
+        let sql = "SELECT COUNT(*) AS `count` FROM `likes` WHERE `accountID` = ? AND `mediaID` = ?";
         db.connect(() => {
             db.query(sql, [id, mediaID], (err, countData) => {
                 if(err) {

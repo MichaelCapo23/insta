@@ -12,7 +12,7 @@ export const getTagsOptionsAction = (id) => async dispatch => {
         }).then(response => {
             dispatch({
                 type: types.GET_TAGS_OPTIONS,
-                tagsOptionsList: ''
+                tagsOptionsList: response.data
             })
         })
     } catch {
