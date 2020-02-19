@@ -2,7 +2,7 @@ module.exports = (app, db) => {
     app.post('/getNotifications', (req, res) => {
         let {id} = req.headers;
         db.connect(() => {
-            let sql = "SELECT `ID`, `notificationFromID`, `notificationType`, `created_at` FROM `notifications` WHERE `accountID` = ?";
+            let sql = "SELECT `ID`, `notificationFromID`, `notificationType`, `created_at` FROM `notifications` WHERE `accountID` = ? ORDER BY `created_at` DESC";
             db.query(sql, [id], (err, notificationsData) => {
                 if (err) {
                     console.log(err);

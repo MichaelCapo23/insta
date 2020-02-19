@@ -3,8 +3,9 @@ module.exports = (app, db) => {
     app.post('/addMedia', (req, res) => {
         let {desc, id} = req.headers;
         let {file, tags} = req.body;
-        let commentsID = '';
-        let tagsInsertIDs = '';
+        let commentsID = [];
+        let tagsInsertIDs = [];
+        let notificationsIDs = [];
         tags = JSON.parse(tags); //add in the tags to the tags table.
         db.connect(() => {
             let sql = "SELECT COUNT(*) AS `count` FROM `media` WHERE `accountID` = ?";
@@ -28,7 +29,6 @@ module.exports = (app, db) => {
                 });
 
                 writeStream.end();
-
 
                 let sql2 = "INSERT INTO `media` (`accountID`, `fileName`, `mediaType`) VALUES (?,?,'post')";
                 db.query(sql2, [id, fileName], (err, mediaData) => {
@@ -60,27 +60,38 @@ module.exports = (app, db) => {
                     }
 
                     if(tags.length > 0) {
-                      tags.forEach((tagObj, index)=> {
-                          let sql4 = "INSERT INTO `tags` SET `mediaID` = ?, `taggedID` = ?";
-                          db.query(sql4, [mediaID, tagObj.value], (err, tagsInsertData) => {
-                              if (err) {
-                                  console.log(err);
-                                  res.sendStatus(500);
-                                  return;
-                              }
+                        tags.forEach((tagObj, index)=> {
+                            let sql4 = "INSERT INTO `tags` SET `mediaID` = ?, `taggedID` = ?";
+                            db.query(sql4, [mediaID, tagObj.value], (err, tagsInsertData) => {
+                                if (err) {
+                                    console.log(err);
+                                    res.sendStatus(500);
+                                    return;
+                                }
+                                tagsInsertIDs = JSON.stringify(tagsInsertData.insertId);
 
-                              tagsInsertIDs = JSON.stringify(tagsInsertData.insertId);
+                                let sql5 = "INSERT INTO `notifications` SET `accountID` = ?, `notificationFromID` = ?, `notificationType` = 'tag', `mediaID` = ?";
+                                db.query(sql5, [tagObj.value, id, mediaID], (err, notificationsData) => {
+                                    if (err) {
+                                        console.log(err);
+                                        res.sendStatus(500);
+                                        return;
+                                    }
+                                    notificationsIDs = JSON.stringify(notificationsData.insertId);
 
-                              if(index == tags.length - 1) {
-                                  let output = {
-                                      'mediaID': mediaID,
-                                      'commentsID': commentsID,
-                                      'tagsInsertsIDs': tagsInsertIDs
-                                  };
-                                  res.send(output);
-                              }
-                          })
-                      })
+                                    if(index == tags.length - 1) {
+                                        let output = {
+                                            'mediaID': mediaID,
+                                            'commentsID': commentsID,
+                                            'tagsInsertsIDs': tagsInsertIDs,
+                                            'notificationsIDs': notificationsIDs,
+                                        };
+                                        res.send(output);
+                                    }
+
+                                })
+                            })
+                        })
                     } else {
                         let output = {
                             'mediaID': mediaID,
@@ -92,10 +103,3 @@ module.exports = (app, db) => {
         })
     })
 };
-
-//else {
-//                         let output = {
-//                             'mediaID': mediaID,
-//                         };
-//                         res.send(output);
-//                     }

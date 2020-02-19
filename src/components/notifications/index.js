@@ -19,6 +19,7 @@ export default props => {
     function followUser() {
         props.followFns(notificationFromID);
         let buttonSelector =  document.querySelector(`#follow-btn-${notificationFromID}.notification-follow-btn`);
+        buttonSelector.textContent = 'Following';
         buttonSelector.setAttribute('disabled', 'disabled');
         buttonSelector.classList.add('disable-follow-btn');
     }

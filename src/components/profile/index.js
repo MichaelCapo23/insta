@@ -18,7 +18,9 @@ import {removeProfilePicAction} from '../../actions/removeProfilePicAction';
 import ChangeProfileModal from './changeProfileModal';
 import {changeProfilePicAction} from '../../actions/changeProfilePicAction';
 import {getTagMediaAction} from '../../actions/getTagMediaAction';
-import getTagMediaReducers from "../../reducers/getTagMediaReducers";
+import {getTagsOptionsAction} from "../../actions/getTagsOptionsAction";
+import {createNotificationAction} from '../../actions/createNotificationAction';
+
 
 class Profile extends Component {
 
@@ -66,6 +68,7 @@ class Profile extends Component {
                 this.props.getUsernameAction();
                 this.props.getSavedMediaAction(this.props.id);
                 this.props.getTagMediaAction(this.props.id);
+                this.props.getTagsOptionsAction(this.props.id);
             }
             this.setState({
                 waiting: true,
@@ -181,7 +184,8 @@ class Profile extends Component {
     };
 
     callAddMediaAction = (file, desc, tags) => {
-        this.props.addMediaAction(file, desc, this.props.id, tags)
+        this.props.addMediaAction(file, desc, this.props.id, tags);
+        this.props.createNotificationAction( this.props.id, 'tag', ) //id, posterID, type, mediaID
     };
 
     openProfilePicModal = () => {
@@ -194,7 +198,6 @@ class Profile extends Component {
     };
 
     changeProflePic = (file) => { //make this action and service, change profile should work, maybe pass back the route to img and change it here when component updates
-        debugger;
         document.getElementById("changeProfileModal").classList.add("hide");
         this.props.changeProfilePicAction(file, this.props.id);
     };
@@ -212,11 +215,10 @@ class Profile extends Component {
         if(this.props.tagMediaList !== '') {
             taggedMediaList = this.makeTaggedMedia();
         }
-
         return (
             <div className="content-header">
                 <ProfileOptionsModal/>
-                <CreatePostModal createdMediaFns={this.callAddMediaAction}/>
+                <CreatePostModal tagsOptions={this.props.tagsOptionsList} createdMediaFns={this.callAddMediaAction}/>
                 <PostModal/>
                 <ProfilePicModal removeProfilePicFns={this.removeProfilePic} changeProfilePicFns={this.changeProflePic}/>
                 <ChangeProfileModal changeProfileFns={this.changeProflePic}/>
@@ -285,9 +287,6 @@ function mapStateToProps(state) {
     return {
         stats: state.getUserStatsReducer.stats,
         media: state.getUserMediaReducer.media,
-        // followerID: state.getFollowerUsernameReducer.followerUsername.id,
-        // followerUsername: state.getFollowerUsernameReducer.followerUsername.username,
-        // followerName: state.getFollowerUsernameReducer.followerUsername.name,
         username: state.usernameReducer.username.username,
         name: state.usernameReducer.username.name,
         id: state.usernameReducer.username.id,
@@ -300,6 +299,7 @@ function mapStateToProps(state) {
         savedMedia: state.getSavedMediaReducer.savedMedia,
         newMediaID: state.addMediaReducer.newMediaID,
         tagMediaList: state.getTagMediaReducers.tagMediaList,
+        tagsOptionsList: state.getTagMediaReducer.tagsOptionsList,
     }
 }
 
@@ -314,4 +314,6 @@ export default connect(mapStateToProps, {
     removeProfilePicAction,
     changeProfilePicAction,
     getTagMediaAction,
+    getTagsOptionsAction,
+    createNotificationAction,
 })(withRouter(authHOC(Profile)));
