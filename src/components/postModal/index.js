@@ -73,7 +73,6 @@ class PostModal extends Component {
     calLikeAction = () => {
         let userID = this.props.id;
         let mediaID = this.props.singlePostInfo.mediaID;
-        debugger;
         if(this.props.singlePostInfo.accountID !== this.props.id) {
             this.props.likeMediaAction({userID, mediaID});
             if (this.likeBtn.current.attributes.src.value === this.props.generalImages['heartRed.png']) {
@@ -96,7 +95,6 @@ class PostModal extends Component {
         let hours = '';
         let days = '';
         if(this.props.singlePostInfo != '') {
-            debugger
             if( this.props.singlePostInfo.mediaFileName === 'default') {
                 document.getElementsByClassName('post-modal-img-container')[0].style.backgroundImage = `url(${this.props.generalImages['default.png']})`;
             } else {

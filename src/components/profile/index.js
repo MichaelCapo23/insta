@@ -198,7 +198,6 @@ class Profile extends Component {
     };
 
     changeProflePic = (file) => { //make this action and service, change profile should work, maybe pass back the route to img and change it here when component updates
-        debugger;
         document.getElementById("changeProfileModal").classList.add("hide");
         this.props.changeProfilePicAction(file, this.props.id);
     };
@@ -216,7 +215,6 @@ class Profile extends Component {
         if(this.props.tagMediaList !== '') {
             taggedMediaList = this.makeTaggedMedia();
         }
-        debugger;
         return (
             <div className="content-header">
                 <ProfileOptionsModal/>
