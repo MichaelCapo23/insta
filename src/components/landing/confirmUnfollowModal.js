@@ -27,7 +27,7 @@ class UnfollowModal extends Component {
                 <div className="profile-modal-content center-align">
                     <div className="img-name-container">
                         <div className="unfollow-img-container">
-                            <img className='unfollow-user-img' src={this.props.userValues.filename ? this.props.images[this.props.userValues.filename] : ''} alt="unfollow-user-profile"/>
+                            <img className='unfollow-user-img' src={!this.props.userValues.filename || this.props.userValues.filename == 'default' ? this.props.generalImages['default.png'] : this.props.images[this.props.userValues.filename]} alt="unfollow-user-profile"/>
                         </div>
                     </div>
                     <div className="unfollow-username">Unfollow @{this.props.userValues.username ? this.props.userValues.username: ''}</div>

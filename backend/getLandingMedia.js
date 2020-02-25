@@ -58,7 +58,7 @@ module.exports = (app, db) => {
                                                         if(lastLiked.length > 0) {
                                                             lastLikedID = lastLiked[0].accountID;
                                                         }
-                                                        let sqlSaved = "SELECT COUNT(*) AS `saved` FROM `saved_media` WHERE `accountID` = ? AND `mediaID` = ?"
+                                                        let sqlSaved = "SELECT COUNT(*) AS `saved` FROM `saved_media` WHERE `accountID` = ? AND `mediaID` = ?";
                                                         db.query(sqlSaved, [id, currentMediaID], (err, savedData) => {
                                                             if(err) {
                                                                 console.log(err);
@@ -74,7 +74,7 @@ module.exports = (app, db) => {
                                                                         rowInfo.posterFileName = posterFileName[0].fileName;
                                                                     }
                                                                     let tagsArr = [];
-                                                                    let sql8 = "SELECT `taggedID` FROM `tags` WHERE `mediaID` = ?";
+                                                                    let sql8 = "SELECT `t`.`taggedID`, `a`.`username`  FROM `tags` AS t JOIN `accounts` AS a ON (`a`.`ID` = `t`.`taggedID`) WHERE `mediaID` = ?";
                                                                     db.query(sql8, [currentMediaID], (err, tagsData) => {
                                                                         if(err) {
                                                                             console.log(err);
@@ -83,7 +83,7 @@ module.exports = (app, db) => {
                                                                         }
 
                                                                         for(let tag in tagsData) {
-                                                                            tagsArr.push(tagsData[tag].taggedID);
+                                                                            tagsArr.push({taggedID: tagsData[tag].taggedID, taggedUsername: tagsData[tag].username});
                                                                         }
 
                                                                         let sql8 = "SELECT `fileName` FROM `media` WHERE `accountID` = ? AND `mediaType` = 'profile'";

@@ -12,6 +12,8 @@ import OptionsModal from './postOptionsModal';
 import UnfollowModal from './confirmUnfollowModal';
 import {createNotificationAction} from '../../actions/createNotificationAction';
 import {saveMediaAction} from '../../actions/saveMediaAction'
+import PostModal from '../postModal';
+import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 
 import 'material-icons';
 
@@ -88,8 +90,14 @@ class Landing extends Component {
             posterid: userValues.posterID.value,
             username: userValues.username.value,
             filename: userValues.filename.value,
+            mediaID: userValues.mediaID.value,
+        }, () => {
+            if(userValues.optionsVal.value === 'comments') {
+                this.openPostModal()
+            } else {
+                document.getElementById("optionsModal").classList.remove("hide");
+            }
         });
-        document.getElementById("optionsModal").classList.remove("hide");
     };
 
     openUnfollowModal = () => {
@@ -122,6 +130,11 @@ class Landing extends Component {
         this.props.saveMediaAction(this.props.id, mediaid);
     };
 
+    openPostModal = () => {
+        debugger;
+        this.props.singlePostInfoAction(this.state.mediaID, this.props.id);
+        document.getElementById("postModal").classList.remove("hide");
+    };
 
     render() {
         let landingPostList = '';
@@ -136,7 +149,8 @@ class Landing extends Component {
 
         return (
             <Fragment>
-                <OptionsModal openUnfollowModal={this.openUnfollowModal}/>
+                <OptionsModal openPostModalfns={this.openPostModal} openUnfollowModal={this.openUnfollowModal}/>
+                <PostModal/>
                 <UnfollowModal images={this.props.profileImages} userValues={{posterid: this.state.posterid, username: this.state.username, filename:this.state.filename}}/>
                 <div className={"content-header"}>
                     <div className="landing-gutter">
@@ -184,4 +198,5 @@ export default connect(mapStateToProps, {
     getStoriesAction: getStoriesProfileAction,
     createNotificationAction,
     saveMediaAction,
+    singlePostInfoAction,
 })(withRouter(AuthHOC(Landing)));
