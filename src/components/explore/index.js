@@ -8,6 +8,7 @@ import {singlePostInfoAction} from '../../actions/singlePostInfoAction'
 import PostModal from '../postModal/'
 import {connect} from 'react-redux';
 import {createFollowAction} from "../../actions/createFollowAction";
+import {createNotificationAction} from '../../actions/createNotificationAction';
 
 class Explore extends Component {
 
@@ -89,6 +90,7 @@ class Explore extends Component {
 
     followUser = (followid) => {
         this.props.createFollowAction(this.props.id, followid);
+        this.props.createNotificationAction(this.props.id, followid, 'follow', '-1');
     };
 
     render() {
@@ -112,7 +114,7 @@ class Explore extends Component {
                     </div>
                     <div id="container" className="suggested-container">
                         {suggestions}
-                        <div id="overlay" className="suggested-overlay">
+                        <div id="overlay" className={this.state.suggestedList.length < 5 ? 'hide suggested-overlay' : 'suggested-overlay'}>
                             <div onClick={this.moveLeft} className="explore-left"/>
                             <div onClick={this.moveRight} className="explore-right"/>
                         </div>
@@ -144,4 +146,5 @@ export default connect(mapStateToProps, {
     exploreMediaAction,
     singlePostInfoAction,
     createFollowAction,
+    createNotificationAction,
 })(AuthHOC(Explore));

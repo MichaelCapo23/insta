@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import changeProfileModal from './changeProfileModal'
 
 
 class profilePicModal extends Component {

@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {signInAction} from '../../actions/signInAction';
 import error from "../../assets/error.png";
 import AuthHOC from '../../HOC/authHOC';
-import appStore from '../../assets/appDownload.png'
 
 class Signin extends Component {
 

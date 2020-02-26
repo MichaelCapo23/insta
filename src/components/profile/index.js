@@ -20,6 +20,7 @@ import {changeProfilePicAction} from '../../actions/changeProfilePicAction';
 import {getTagMediaAction} from '../../actions/getTagMediaAction';
 import {getTagsOptionsAction} from "../../actions/getTagsOptionsAction";
 import {createNotificationAction} from '../../actions/createNotificationAction';
+import {createFollowAction} from '../../actions/createFollowAction';
 
 
 class Profile extends Component {
@@ -106,10 +107,6 @@ class Profile extends Component {
                 })
             }
         }
-
-        // if(this.props.newMediaID !== '' && this.props.newMediaID) {
-        //
-        // }
     }
 
     separatePropsInState = () => {
@@ -202,6 +199,12 @@ class Profile extends Component {
         this.props.changeProfilePicAction(file, this.props.id);
     };
 
+    followUser = () => {
+        debugger;
+        this.props.createFollowAction(this.props.id, this.props.followerUsernameID);
+        this.props.createNotificationAction(this.props.id, this.props.followerUsernameID, 'follow', '-1');
+    };
+
     render() {
         let profileMediaList = '';
         let savedMediaList = '';
@@ -236,7 +239,7 @@ class Profile extends Component {
                                     <div className="profile-username">{this.props.followerUsernameUsername ? this.props.followerUsernameUsername : this.props.username ? this.props.username : ''}</div>
                                     <div className="profile-edit">
                                         <button onClick={this.toSettings} className={this.state.profileTracker == 'profile' ? 'btn-edit' : 'hide'} type={'button'}>Edit Profile</button>
-                                        {this.state.profileTracker == 'profile' ? '' : this.props.followerUsernameFollowsUser == 0 ? <button className={this.state.profileTracker == 'profile' ? "hide" : 'follow-back-btn'}>Follow Back</button> : <button className={this.state.profileTracker == 'profile' ? "hide" : 'following-btn'}>Following</button>}
+                                        {this.state.profileTracker == 'profile' ? '' : this.props.followerUsernameFollowsUser == 0 ? <button onClick={this.followUser} className={this.state.profileTracker == 'profile' ? "hide" : 'follow-back-btn'}>Follow Back</button> : <button className={this.state.profileTracker == 'profile' ? "hide" : 'following-btn'}>Following</button>}
                                         <div onClick={this.openProfileOptionsModal} className='cog-icon'/>
                                     </div>
                                 </div>
@@ -316,4 +319,5 @@ export default connect(mapStateToProps, {
     getTagMediaAction,
     getTagsOptionsAction,
     createNotificationAction,
+    createFollowAction,
 })(withRouter(authHOC(Profile)));

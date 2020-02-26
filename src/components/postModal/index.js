@@ -96,9 +96,13 @@ class PostModal extends Component {
         let days = '';
         if(this.props.singlePostInfo != '') {
             if( this.props.singlePostInfo.mediaFileName === 'default') {
-                document.getElementsByClassName('post-modal-img-container')[0].style.backgroundImage = `url(${this.props.generalImages['default.png']})`;
+                if(document.getElementsByClassName('post-modal-img-container').length) {
+                    document.getElementsByClassName('post-modal-img-container')[0].style.backgroundImage = `url(${this.props.generalImages['default.png']})`;
+                }
             } else {
-                document.getElementsByClassName('post-modal-img-container')[0].style.backgroundImage = `url(${this.props.mediaImages[this.props.singlePostInfo.mediaFileName]})`;
+                if(document.getElementsByClassName('post-modal-img-container').length) {
+                    document.getElementsByClassName('post-modal-img-container')[0].style.backgroundImage = `url(${this.props.mediaImages[this.props.singlePostInfo.mediaFileName]})`;
+                }
             };
 
             commentsList = this.makeCommentsList();

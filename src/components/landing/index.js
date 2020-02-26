@@ -72,11 +72,10 @@ class Landing extends Component {
     };
 
     calLikeAction = (likeBtn, posterID) => {
+        debugger;
         let mediaID = likeBtn.attributes['data-media'].value;
         let userID = this.props.id;
         this.props.likeMediaAction({userID, mediaID});
-        debugger;
-
         if(likeBtn.attributes.src.value === this.props.generalImages['heartRed.png']) {
             likeBtn.setAttribute('src',this.props.generalImages['heartClear.jpg']);
         } else {
@@ -105,7 +104,7 @@ class Landing extends Component {
     };
 
     componentDidUpdate() {
-        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID, this.props.viewedIDs !== this.state.viewedIDs) { //add last watched stories to this when made
+        if(this.props.commentID !== this.state.commentID || this.props.likedID !== this.state.likedID || this.props.unfollowID !== this.state.lastUnfollowID || this.props.viewedIDs !== this.state.viewedIDs) { //add last watched stories to this when made
             this.props.getLandingAction(this.props.id);
             this.props.getStoriesAction(this.props.id, 'profile');
             this.setState({
@@ -131,7 +130,6 @@ class Landing extends Component {
     };
 
     openPostModal = () => {
-        debugger;
         this.props.singlePostInfoAction(this.state.mediaID, this.props.id);
         document.getElementById("postModal").classList.remove("hide");
     };

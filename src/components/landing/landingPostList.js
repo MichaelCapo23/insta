@@ -26,6 +26,7 @@ export default props => {
     };
 
     const likeMedia = (likeBtn) => {
+        debugger;
         props.likeFunction(likeBtn, posterID);
     };
 
@@ -48,11 +49,12 @@ export default props => {
         myInput.current.select();
     }
 
+    debugger;
     return (
         <div className="landing-media-container">
             <div className="landing-media-header">
                 <div className="poster-profile-pic">
-                    <img className='poster-profile-pic-img' src={!posterFileName || posterFileName == 'default' ? generalImages['default.png'] : profileImages[posterFileName]} alt="instagram poster profile picture"/>
+                    <img className='poster-profile-pic-img' src={!posterFileName || posterFileName == 'default' ? generalImages['default.png'] : profileImages[posterFileName]} alt="instagram poster profile"/>
                 </div>
                 <div className="poster-username-container">{posterUsername}</div>
                 <div className="ellipsis">
@@ -67,9 +69,9 @@ export default props => {
                 </div>
                 <div className={showTags ? 'tagContainer' : 'hide'}>
                     {tags.map((item, index) => (
-                        <div className={`tagDivPosition${index} tagDiv`}>
-                            <div  key={index} className="innerTagDiv">{item.taggedUsername}</div>
-                            <div key={index} className="tag-point"></div>
+                        <div key={index+'position'} className={`tagDivPosition${index} tagDiv`}>
+                            <div  key={index+'div'} className="innerTagDiv">{item.taggedUsername}</div>
+                            <div key={index+'point'} className="tag-point"/>
                         </div>
                     ))}
                 </div>
@@ -78,7 +80,7 @@ export default props => {
             <div className="landing-media-footer">
                 <div className="material-icons-container">
                     <div className="heart-container">
-                        <img onClick={(e) => likeMedia(likeBtn.current)} data-media={comments ? comments.mediaID : ''} ref={likeBtn} className="heart-img-landing" src={userLiked === 1 ? generalImages['heartRed.png'] : generalImages['heartClear.jpg']} alt=""/>{/*generalImages['heartRed.png']*/}
+                        <img onClick={(e) => likeMedia(likeBtn.current)} data-media={mediaID ? mediaID : ''} ref={likeBtn} className="heart-img-landing" src={userLiked === 1 ? generalImages['heartRed.png'] : generalImages['heartClear.jpg']} alt=""/>{/*generalImages['heartRed.png']*/}
                     </div>
                     <div className="comment-container">
                         <img onClick={callCommentIcon} className="comment-img-landing" src={generalImages['comment.png']} alt=""/>
@@ -87,7 +89,7 @@ export default props => {
                 </div>
                 <div className="liked-container">
                     <div className="last-liked-profile-container">
-                        <img className="last-liked-img" src={lastLikedFileName !== 'default.png'? profileImages[lastLikedFileName] : generalImages[lastLikedFileName]} alt='instagram last liked profile picture'/>
+                        <img className="last-liked-img" src={lastLikedFileName !== 'default.png'? profileImages[lastLikedFileName] : generalImages[lastLikedFileName]} alt='instagram last liked profile'/>
                     </div>
                     <div className="last-liked-username">{likes !== 0 ? 'Liked by ': ''}</div>
                     <div className="username">{ likes !== 0 ? lastLikedUsername: ''}</div>

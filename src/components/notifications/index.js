@@ -4,7 +4,7 @@ import moment from "moment";
 
 export default props => {
     let {notificationFromID, notificationType, username, profileFileName, created_at, doesFollow} = props.notifications;
-    let {profileImages, generalImages, mediaImages} = props.images;
+    let {profileImages, generalImages} = props.images;
 
     let now  = moment();
     let then = moment(created_at);
