@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 export default props => {
-    let {ID, username, name, fileName} = props.searchResult;
+    let {username, name, fileName} = props.searchResult;
     return (
         <Link to={`/profile/${username}`}>
             <div className="searchbar-item-container">

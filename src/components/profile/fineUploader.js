@@ -1,4 +1,4 @@
-import React, {Component, useRef} from 'react'
+import React, {Component} from 'react'
 import ReactFileReader from 'react-file-reader';
 import Select from 'react-select';
 
@@ -15,7 +15,7 @@ class UploadComponent extends Component {
                 <ReactFileReader base64={true} multipleFiles={true} multiple="multiple" handleFiles={this.props.handleFilesFns}>
                     <button className='btn'>Upload</button>
                 </ReactFileReader>
-                {this.props.state.file === '' ? <div className="no-img-selected-text">No Image Has Been Selected!</div> : <img className="preview-upload-img" src={this.props.state.file} frameBorder="0" height="400" width="50%" />}
+                {this.props.state.file === '' ? <div className="no-img-selected-text">No Image Has Been Selected!</div> : <img alt="uploading pic" className="preview-upload-img" src={this.props.state.file} frameBorder="0" height="400" width="50%" />}
                 <div className={this.props.state.file == '' ? 'error-text' : 'hide'}/>
                 <div className="info-container">
                     <div className="settings-profile-content email-input">

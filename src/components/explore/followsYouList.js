@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
 
 export default props => {
     let {username, fileName, type, ID} = props.person;

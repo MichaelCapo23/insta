@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import moment from "moment";
 
 export default props => {
-    let [disabledVal, enableBtn] = useState(true);
-    let {accountID, comment, username, profileFileName, created_at} = props.comments;
-    let {profileImages, generalImages, mediaImages} = props.images;
+    let {comment, username, profileFileName, created_at} = props.comments;
+    let {profileImages, generalImages} = props.images;
     let now  = moment();
     let then = moment(created_at);
     let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
@@ -19,7 +18,6 @@ export default props => {
                 <div className="comment-list-username">{username}     {comment}</div>
                 <div className="comment-list-info-container">
                     <div className="comment-list-created-at">{d.weeks() > 0 ? d.weeks()+'w' : d.days() > 0 ?  d.days()+'h' : d.hours() > 0 ? d.hours()+'h' : d.minutes()+'m'}</div>
-                    {/*<div className="comment-list-comment-likes">{}</div>*/}
                     <div className="comment-list-reply">Reply</div>
                 </div>
             </div>

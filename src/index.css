@@ -910,14 +910,14 @@ input:-webkit-autofill {
 
 .stories-title {
     color: #999;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 18px;
     font-weight: 500!important;
 }
 
 .stories-watch-all {
     color: #262626;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 14px;
     font-weight: 600;
     text-align: right;
@@ -1419,8 +1419,8 @@ input:-webkit-autofill {
 }
 
 .list-stories-container {
-    padding: 10px;
-    height: 60px;
+    padding: 5px 10px 0 10px;
+    height: 50px;
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
@@ -1437,6 +1437,7 @@ input:-webkit-autofill {
     margin-right: 15px;
     padding:2px;
     border-radius: 100px;
+    vertical-align: top;
 }
 
 .list-stories-img {
@@ -1450,7 +1451,7 @@ input:-webkit-autofill {
 
 .list-stories-username-time-container {
     height: 100%;
-    width: calc(100% - 55px);
+    width: 30%
 }
 
 .list-stories-username, .list-stories-time-posted {
@@ -1470,7 +1471,7 @@ input:-webkit-autofill {
     font-size: 10px;
     line-height: 12px;
     color: #999;
-    height: 14px;
+    height: 70%;
     position: relative;
     top: -7px;
 }
@@ -1762,7 +1763,7 @@ transform: scaleX(-1);
 }
 
 .post-modal-overall-container {
-    z-index: 2;
+    z-index: 6;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.65);
@@ -2835,24 +2836,38 @@ transform: scaleX(-1);
 }
 
 .tagContainer {
+    /*position: absolute;*/
+    /*height: 80%;*/
+    /*width: 20%;*/
+    /*right: 25px;*/
+    /*margin: auto;*/
+    /*top: 10%;*/
     position: absolute;
-    height: 80%;
-    width: 20%;
-    right: 25px;
+    height: 25%;
+    width: 80%;
     margin: auto;
-    top: 10%;
+    right: 10%;
+    top: 70%;
 }
 
 .tagDiv {
+    /*background-color: black;*/
+    /*color: white;*/
+    /*border-radius: 6px;*/
+    /*height: auto;*/
+    /*width: auto;*/
+    /*position: absolute;*/
+    /*text-overflow: ellipsis;*/
+    /*max-width: 100%;*/
+    /*right: 0;*/
     background-color: black;
     color: white;
     border-radius: 6px;
-    height: auto;
-    width: auto;
     position: absolute;
     text-overflow: ellipsis;
-    max-width: 100%;
+    max-width: 20%;
     right: 0;
+    text-align: center;
 }
 
 .innerTagDiv {
@@ -2876,35 +2891,27 @@ transform: scaleX(-1);
     top: -10px;
     right: 28%;
     width: 0;
-    z-index: 100000;
+    z-index: 5;
     position: absolute;
+}
+.tagDivPosition0 {
+    left: 0%;
 }
 
 .tagDivPosition1 {
-    top: 10%;
+    left: 21%;
 }
 
 .tagDivPosition2 {
-    top: 20%;
+    left: 42%;
 }
 .tagDivPosition3 {
-    top: 30%;
+    left: 63%;
 }
 .tagDivPosition4 {
-    top: 40%;
+    left: 84%;
 }
-.tagDivPosition5 {
-    top: 50%;
-}
-.tagDivPosition6 {
-    top: 60%;
-}
-.tagDivPosition7 {
-    top: 70%;
-}
-.tagDivPosition8 {
-    top: 80%;
-}
+
 
 
 
