@@ -110,7 +110,7 @@ class Explore extends Component {
                 <div className="explore-gutter">
                     <div className="explore-discover-container">
                         <div className="discover-people">Discover People</div>
-                        <div className="see-all">See All</div>
+                        {/*<div className="see-all">See All</div>*/}
                     </div>
                     <div id="container" className="suggested-container">
                         {suggestions}

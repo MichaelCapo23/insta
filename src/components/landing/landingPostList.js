@@ -26,7 +26,6 @@ export default props => {
     };
 
     const likeMedia = (likeBtn) => {
-        debugger;
         props.likeFunction(likeBtn, posterID);
     };
 
@@ -49,7 +48,6 @@ export default props => {
         myInput.current.select();
     }
 
-    debugger;
     return (
         <div className="landing-media-container">
             <div className="landing-media-header">

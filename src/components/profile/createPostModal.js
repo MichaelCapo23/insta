@@ -56,7 +56,6 @@ class CreatePostModal extends Component {
     };
 
     render() {
-        debugger;
         return (
             <div onClick={this.hideModal} id={"createPostModal"} className={this.state.isOpen ? 'createPostModal col l12 m12 s12' : 'createPostModal hide col l12 m12 s12'}>
                 <div className="create-modal-card-container">

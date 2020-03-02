@@ -52,59 +52,68 @@ class Profile extends Component {
         })
     }
 
-    componentDidUpdate() {
-        if(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== this.state.profileTracker) {
-            this.setState({
-                waiting: false,
-            })
-        }
-
-        //get the profile media once component updates with this.props.id
-        if(this.props.id && !this.state.waiting) {
-            if(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
-                this.props.getUsernameAction(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
-            } else {
-                this.props.getUserStatsAction(this.props.id);
-                this.props.getUserMediaAction(this.props.id);
-                this.props.getUsernameAction();
-                this.props.getSavedMediaAction(this.props.id);
-                this.props.getTagMediaAction(this.props.id);
-                this.props.getTagsOptionsAction(this.props.id);
-            }
-            this.setState({
-                waiting: true,
-                waiting2: false,
-                profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
-            })
-        }
-
-        if((this.props.followerUsernameID && this.props.followerUsernameID !== '') && this.props.followerUsernameID != this.state.followerUsernameID && (!this.state.waiting2 || window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== this.state.profileTracker)) {
-            this.setState({
-                profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
-                waiting2: true,
-                followerUsernameID: this.props.followerUsernameID,
-            });
-            this.props.getUserStatsAction(this.props.followerUsernameID);
-            this.props.getUserMediaAction(this.props.followerUsernameID);
-            this.props.getTagMediaAction(this.props.followerUsernameID);
-        }
-
-        //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
-        if(this.props.media !== '' && this.props.media !== this.state.media && this.props.id) {
-            this.setState({
-                media: this.props.media,
-            }, () => {this.separatePropsInState()})
-        }
-
-        if(this.props.stats) {
-            let {posts, followers, following} = this.props.stats;
-            let {numberPosts, numberFollower, numberFollowing} = this.state;
-            if(numberPosts !== posts || numberFollower !== followers || numberFollowing !== following) {
+    componentDidUpdate(prevProps) {
+        if(this.props !== prevProps) {
+            if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== this.state.profileTracker) {
                 this.setState({
-                    numberPosts : posts,
-                    numberFollower: followers,
-                    numberFollowing: following,
+                    waiting: false,
                 })
+            }
+
+            //get the profile media once component updates with this.props.id
+            if (this.props.id && !this.state.waiting) {
+                if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'profile') {
+                    this.props.getUsernameAction(window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
+                } else {
+                    this.props.getUserStatsAction(this.props.id);
+                    this.props.getUserMediaAction(this.props.id);
+                    this.props.getUsernameAction();
+                    this.props.getSavedMediaAction(this.props.id);
+                    this.props.getTagMediaAction(this.props.id);
+                    this.props.getTagsOptionsAction(this.props.id);
+                }
+                this.setState({
+                    waiting: true,
+                    waiting2: false,
+                    profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
+                })
+            }
+
+            if ((this.props.followerUsernameID && this.props.followerUsernameID !== '') && this.props.followerUsernameID != this.state.followerUsernameID && (!this.state.waiting2 || window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== this.state.profileTracker)) {
+                this.setState({
+                    profileTracker: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
+                    waiting2: true,
+                    followerUsernameID: this.props.followerUsernameID,
+                });
+                this.props.getUserStatsAction(this.props.followerUsernameID);
+                this.props.getUserMediaAction(this.props.followerUsernameID);
+                this.props.getTagMediaAction(this.props.followerUsernameID);
+            }
+
+            //if this.props.media is set and it is different from the current state then set the new state and call this.separatePropsInState
+            if (this.props.media !== '' && this.props.media !== this.state.media && this.props.id) {
+                this.setState({
+                    media: this.props.media,
+                }, () => {
+                    this.separatePropsInState()
+                })
+            }
+
+            if (this.props.stats) {
+                let {posts, followers, following} = this.props.stats;
+                let {numberPosts, numberFollower, numberFollowing} = this.state;
+                if (numberPosts !== posts || numberFollower !== followers || numberFollowing !== following) {
+                    this.setState({
+                        numberPosts: posts,
+                        numberFollower: followers,
+                        numberFollowing: following,
+                    })
+                }
+            }
+            if((this.props.newMediaID && this.props.newMediaID) && this.props.newMediaID != this.state.newMediaID) {
+                this.setState({
+                    newMediaID: this.props.newMediaID
+                }, () => {this.props.getUserMediaAction(this.props.id);});
             }
         }
     }
@@ -182,7 +191,6 @@ class Profile extends Component {
 
     callAddMediaAction = (file, desc, tags) => {
         this.props.addMediaAction(file, desc, this.props.id, tags);
-        this.props.createNotificationAction( this.props.id, 'tag', ) //id, posterID, type, mediaID
     };
 
     openProfilePicModal = () => {
@@ -200,7 +208,6 @@ class Profile extends Component {
     };
 
     followUser = () => {
-        debugger;
         this.props.createFollowAction(this.props.id, this.props.followerUsernameID);
         this.props.createNotificationAction(this.props.id, this.props.followerUsernameID, 'follow', '-1');
     };

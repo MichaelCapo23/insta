@@ -45,6 +45,7 @@ export default (WrappedComponent, to ='./signIn', redirect = false) => {
 
                 //check if username props is set, if not get it, username needed on all auth files.
                 if(!this.props.username || this.props.username === '' || !this.state.getUsernameCalled) {
+                    debugger;
                     this.props.getUsernameAction();
                     this.setState({
                         getUsernameCalled: true,

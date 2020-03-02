@@ -29,7 +29,7 @@ module.exports = (app, db) => {
                     }
 
                     let followerIDString = [followerIDArr];
-                    let sql3 = "SELECT `m`.`ID`,`m`.`fileName`,`m`.`accountID`, `a`.`username`  FROM `media` AS m JOIN `accounts` AS a ON(`m`.`accountID` = `a`.`ID`) WHERE `m`.`accountID` in (?) and `m`.`mediaType` = 'post'";
+                    let sql3 = "SELECT `m`.`ID`,`m`.`fileName`,`m`.`accountID`, `a`.`username`  FROM `media` AS m JOIN `accounts` AS a ON(`m`.`accountID` = `a`.`ID`) WHERE `m`.`accountID` in (?) and `m`.`mediaType` = 'post' ORDER BY `m`.`created_at` DESC";
                     db.query(sql3, followerIDString, (err, mediaData) => {
                         if(!err) {
                             for(let index in mediaData) {

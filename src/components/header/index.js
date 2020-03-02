@@ -159,7 +159,7 @@ class Header extends Component {
                     <div className="notifications-gutter">
                         <div className="notification-point"></div>
                         <div className="notifications-content">
-                            {notificationsList}
+                            {notificationsList === '' ? <div className="no-notifications-container"><div className="no-notifications-text">No Notifications!</div></div> : notificationsList}
                         </div>
                     </div>
                 </div>
