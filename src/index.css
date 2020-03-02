@@ -593,7 +593,8 @@ input:not(:placeholder-shown) ~ label {
 
 .media-post-profile {
     height: 100%;
-    width: 100%;
+    /*width: 100%;*/
+    max-width: 100%;
 }
 
 .overall-container {
@@ -1739,6 +1740,7 @@ transform: scaleX(-1);
     width: 32%;
     margin: .5%;
     position: relative;
+    text-align: center;
 }
 
 .explore-media-list-overall:nth-child(3n) {
@@ -2912,8 +2914,18 @@ transform: scaleX(-1);
     left: 84%;
 }
 
+.no-notifications-container {
+    height: 100%;
+    width: 100%;
+}
 
-
+.no-notifications-text {
+    text-align: center;
+    font-size: 23px;
+    top: 50%;
+    position: relative;
+    transform: translate(0, -50%);
+}
 
 @media only screen and (max-width: 1000px) {
     .profile-info-container {
